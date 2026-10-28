@@ -5,9 +5,9 @@ Decisions about how this AI setup works, newest first. Each entry records what w
 ## Open items
 
 - [x] **Live-test the hooks** (done 2026-10-28): WebSearch from the main thread was denied, and an Agent spawn without brief sections was denied. SessionStart injection was confirmed earlier the same day.
-- [ ] **CodeGraph trial on Cannaville (UE5).** Ask the same 2–3 architecture questions with and without CodeGraph, and compare token use in `ccusage session`. Decide Adopt or Hold.
+- [ ] **CodeGraph trial on Cannaville (UE5)**, on hold: Cannaville is not on this PC (only on GitHub) and not in active work. Run it when work on Cannaville or another large C++ project resumes. Ask the same 2–3 architecture questions with and without CodeGraph, and compare token use in `ccusage session`. Decide Adopt or Hold.
 - [x] **Build research playbooks:** `purchase-research`, `tech-howto`, `fact-check` (written 2026-10-28).
-- [ ] **Review the three new research skills on first real use.** `purchase-research`, `tech-howto`, and `fact-check` are not properly tested yet: no eval cases, and triggering from a Turkish request has not been checked. The 2026-10-28 `fact-check` run tested only a hand-written brief, not the skill itself. On each skill's first real use, check: did it trigger, did it ask the right questions first, did it stay at one researcher, and did the output follow the template? Write the result here and fix the skill. Add eval cases after that, as the README's "Measured, not assumed" principle requires. Trigger cases exist since 2026-10-29 (17, all pass); process, structure and quality cases are still missing.
+- [ ] **Review the three new research skills on first real use.** Triggering is covered: 17 trigger cases for `purchase-research`, `tech-howto`, and `fact-check`, all passing since 2026-10-29. What they do after triggering is not tested yet. On each skill's first real use, check: did it ask the right questions first, did it stay at one researcher, and did the output follow the template? Write the result here, fix the skill through the improve loop, and add process and quality cases from what was seen.
 - [ ] **Build `health-evidence`**, together with a `health-coach` plugin.
 - [ ] **Usage review around 2026-11-28:** run `ccusage daily` and `ccusage monthly`, then tune model and effort assignments.
 - [x] **Design `agent-architect`** (approved 2026-10-29): [docs/design/agent-architect.md](design/agent-architect.md).
@@ -21,10 +21,19 @@ Decisions about how this AI setup works, newest first. Each entry records what w
 - [ ] **Trigger stability.** The 2026-10-29 results are one run per case. The first weekly run should use `--runs 3` on the research suite to see whether `tr-brain-ten-percent` and `en-misattributed-quote` fire reliably.
 - [ ] Later, optional: add a LICENSE file. `claude plugin validate` passes, but the official plugin directory would refuse a submission without one. Not needed for local use.
 - [x] **Test a cloud eval run once** (done 2026-10-29): the cloud can run evals, but cannot read the reset time. See the entry "Weekly evals run in the cloud".
-- [ ] **Remote work from the phone:** decide between Remote Control into this machine and cloud sessions on the GitHub repo.
+- [x] **Remote work from the phone** (decided 2026-10-29): both, see the entry "Phone access".
+- [ ] **Run the drift-check task on Haiku.** It runs on Opus 5.5 (medium), the app default, for a job of three tool calls and one date calculation. Switch its model to Haiku in the Scheduled tab, then check that the next run still reads the reset time and the routine.
+- [ ] **Self-improvement round for `agent-architect` and `web-researcher`.** Write process and quality eval cases for them first, then run the improve loop on each, with a quota estimate before starting.
 - [ ] Later: `game-research`, `stack-selection`, `market-research`. Then the pre-production pipeline, kept separate from a per-feature spec/ADR development loop. `project-loop-architect` (per-project agent loops) is a separate tool, designed on its own.
 
 ---
+
+## 2026-10-29: Phone access: Remote Control when the PC is on, cloud otherwise
+**Decision.** Use both.
+- **PC on and the desktop app open:** Remote Control. From the phone you drive a session on this PC, so it has local files, the installed plugins, the CLI, and the Obsidian vault.
+- **PC off:** a cloud session on the GitHub repo. It works on a clone in Anthropic's cloud. Changes come back only through git (a branch or PR), and it cannot see local-only things such as the vault or the scheduled tasks.
+
+**Why.** They cover different situations, and neither replaces the other. Cloud work lands on a branch, so pull it before working locally again.
 
 ## 2026-10-29: Weekly evals run in the cloud, timed from the desktop
 **Decision.** The weekly eval run is a cloud routine, not the local 8-hour-window task from design section 6.
