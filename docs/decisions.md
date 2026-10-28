@@ -23,6 +23,7 @@ Decisions about how this AI setup works, newest first. Each entry records what w
 | `research:web-researcher` subagent | `sonnet` (set in the agent file) | medium |
 | Bulk lookups and file sweeps (ad hoc subagents) | `haiku` | low |
 
+**Note.** The desktop app's model picker rejects `opusplan` ("unsupported model"). It only works in the CLI (`claude --model opusplan`). In the desktop app, do the same thing by hand: use Opus 5.5 while brainstorming and planning, and switch to Sonnet 5.5 in the picker once the plan is approved.
 **Why.** Opus reasons best and is the Pro default, but it uses quota fastest. `opusplan` puts Opus where judgment matters (planning) and Sonnet where volume is (execution). Health conversations are rare, and careful reasoning matters more there than cost.
 **Revisit.** At the usage review, using ccusage data.
 
