@@ -72,6 +72,8 @@ conclusion and evidence, not a narrative of the search.
 
 Required: `objective`, `context`, `done_when`, `output_format`. Optional: `constraints`, plus any material tags (`<document>`, `<prior_findings>`).
 
+**Spend quota deliberately.** The user is on a Pro plan. Each subagent rebuilds its own context, so a 4-agent fan-out costs roughly 4× a single agent. Default to one agent. Fan out only when the slices are truly independent and the answer would otherwise be noticeably worse. Pick the cheapest model that can do the work: `haiku` for lookups and file sweeps, `sonnet` for research and routine coding, and the session model for hard reasoning. Always set a length budget in `<output_format>`.
+
 When briefing several agents in parallel, give each one a distinct slice. Overlapping briefs produce duplicate work and redundant output.
 
 Before sending, check the brief against these questions:

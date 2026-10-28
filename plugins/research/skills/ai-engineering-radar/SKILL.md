@@ -18,7 +18,11 @@ This field changes monthly and is full of hype, so the job is to separate what p
 
 1. **Scope.** Restate the question as 1–5 concrete candidates (tools, techniques, or patterns) and the decision it informs. If the user's goal is unclear, ask one clarifying question first.
 2. **Check prior radar entries.** Look in `research/radar/` of the ai-playbook repo for entries on the same topic. If an entry is less than 3 months old, update it instead of starting over.
-3. **Dispatch researchers in parallel.** Spawn 2–4 `research:web-researcher` agents, one per source class below, each covering all candidates. Use the brief template at the end of this file.
+3. **Dispatch researchers.** The user is on a Pro plan, so pick the lightest depth that answers the question:
+   - **Quick (default):** one `research:web-researcher` covering all four source classes, with at most 2 findings per class per candidate.
+   - **Deep (only when the user asks, or when the decision is expensive to reverse):** 2–4 researchers in parallel, one per source class. Tell the user that this uses several times the quota before you start.
+
+   Use the brief template at the end of this file. The source classes are:
    - **Vendor:** official docs, changelogs, and engineering blogs from Anthropic, OpenAI, Google, GitHub, and the tool's maintainers.
    - **Practitioners:** engineering blogs and talks from companies that describe their own production use, and well-known individual practitioners who show their work.
    - **Adoption signals:** GitHub activity (stars trend, commit recency, issue health, maintainers), package downloads, and community discussion volume and sentiment.
@@ -70,7 +74,9 @@ User setup: Windows 11, Claude Code, solo developer, UE5 C++ / Flutter / Rust / 
 </context>
 
 <constraints>
-Read-only: do not edit files. Stay within the <source class> slice; other agents cover the rest.
+Read-only: do not edit files. Deep mode: stay within the <source class> slice, because other
+agents cover the rest. Quick mode: cover all four source classes, keep it to the strongest
+2 findings per class per candidate, and stop searching once each candidate has them.
 </constraints>
 
 <done_when>
