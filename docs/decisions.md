@@ -11,8 +11,16 @@ Decisions about how this AI setup works, newest first. Each entry records what w
 - [ ] **Build `health-evidence`**, together with a `health-coach` plugin.
 - [ ] **Usage review around 2026-11-28:** run `ccusage daily` and `ccusage monthly`, then tune model and effort assignments.
 - [x] **Design `agent-architect`** (approved 2026-10-29): [docs/design/agent-architect.md](design/agent-architect.md).
-- [ ] **Log in to the Claude Code CLI** once: `claude auth login` (the user does this). It is needed for `claude plugin eval` and the weekly eval run.
+- [x] **Log in to the Claude Code CLI** (done 2026-10-29, Pro subscription). A one-case smoke test of `claude plugin eval` worked: 11 s, $0.06 API-equivalent.
+  - **First finding.** The Turkish prompt "İnsanların beyninin sadece %10'unu kullandığı doğru mu?" did **not** trigger `fact-check`; the model answered from memory in one turn. Turn this into the first regression case and fix it through the improve loop.
+  - **Smoke test setup.** `--eval-dir`, `--runs 1`, `--ablation none`, `--no-publish`, and a `tool_used` grader with `tool: Skill`, `input_match: fact-check`, `min: 1`.
 - [ ] **Implement `agent-architect`** from the approved design. This includes the `weekly-evals` scheduled task and the first eval cases for the research skills.
+- [ ] **Test a cloud eval run once.** Check three things:
+  - Does the cloud environment have the `claude` CLI and `plugin eval`, logged in on the subscription?
+  - Does `claude plugin eval plugins/research` run from the repo path?
+  - Can it read the plan's reset time?
+
+  If the cloud can run evals, the plan is a cloud routine 1 hour before the reset. Drift is handled on the desktop: any time the app opens during the week, it compares the reset time with the routine's cron and updates the cron if the reset moved.
 - [ ] **Remote work from the phone:** decide between Remote Control into this machine and cloud sessions on the GitHub repo.
 - [ ] Later: `game-research`, `stack-selection`, `market-research`. Then the pre-production pipeline, kept separate from a per-feature spec/ADR development loop. `project-loop-architect` (per-project agent loops) is a separate tool, designed on its own.
 
