@@ -11,7 +11,7 @@ Claims spread detached from their origin: a statistic loses its context, a quote
 
 - **Stop.** Don't judge from the first impression. Before researching, note what the user already believes about the claim, and what would change the answer.
 - **Investigate the source.** Who made the claim, what is their expertise and interest, and what is their track record? Look at what others say about the source, not what the source says about itself.
-- **Find better coverage.** Look for what reliable, independent sources say about the same claim: fact-checkers (Teyit.org, Doğruluk Payı, Snopes, AFP, Reuters), reference sources, and primary experts. The question is what the best-informed consensus is.
+- **Find better coverage.** Look for what reliable, independent sources say about the same claim: reference sources, primary experts, and fact-checking articles. A fact-checker's verdict is a lead, not evidence. Use its article to find the primary sources it cites, check those yourself, and base the verdict on them. Every fact-checker has its own framing and blind spots, and checking the primary evidence is what protects the verdict from them.
 - **Trace to the original.** Follow the claim back to where it first appeared: the study, the document, the full video, the original statement, the dataset. Check that the claim matches what the original says, including date, context, and numbers.
 
 ## Process
@@ -32,7 +32,7 @@ Do not give a verdict that is stronger than the evidence. When the original sour
 
 ## What the researcher must check
 
-For every part of the claim: the earliest appearance found and its date; the original source and whether it says what the claim says; the source's credibility; what independent reliable sources and fact-checkers say; whether any image, video, or quote is used out of context (reverse-image search, full video, full quote). For health and science claims, prefer the primary study or a systematic review over news coverage, and note the sample size, whether it was in humans, and whether it has been replicated.
+For every part of the claim: the earliest appearance found and its date; the original source and whether it says what the claim says; the source's credibility; what independent reliable sources say, and which primary sources any fact-checking articles cite; whether any image, video, or quote is used out of context (reverse-image search, full video, full quote). For health and science claims, prefer the primary study or a systematic review over news coverage, and note the sample size, whether it was in humans, and whether it has been replicated.
 
 ## Output template
 
@@ -72,13 +72,13 @@ Parts to check separately: <numbered parts>. Today's date: <date>.
 For each part: find the earliest appearance and its date; find the original source (study,
 document, full video, original statement, dataset) and check whether it says what the claim says,
 including numbers, date, and context; assess the source's expertise and interest; find what
-independent reliable sources and fact-checkers (Teyit.org, Doğruluk Payı, Snopes, AFP, Reuters)
-say; check images, video, and quotes for out-of-context use.
+independent reliable sources say; check images, video, and quotes for out-of-context use.
 </context>
 
 <constraints>
 Read-only: do not edit files. Do not give a stronger verdict than the evidence allows; if the
-original cannot be found, say so. Social media posts and aggregator pages are leads, not evidence.
+original cannot be found, say so. Social media posts, aggregator pages, and fact-checkers'
+verdicts are leads, not evidence: follow them to the primary sources and judge from those.
 </constraints>
 
 <done_when>

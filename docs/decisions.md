@@ -7,12 +7,17 @@ Decisions about how this AI setup works, newest first. Each entry records what w
 - [x] **Live-test the hooks** (done 2026-10-28): WebSearch from the main thread was denied, and an Agent spawn without brief sections was denied. SessionStart injection was confirmed earlier the same day.
 - [ ] **CodeGraph trial on Cannaville (UE5).** Ask the same 2–3 architecture questions with and without CodeGraph, and compare token use in `ccusage session`. Decide Adopt or Hold.
 - [x] **Build research playbooks:** `purchase-research`, `tech-howto`, `fact-check` (written 2026-10-28).
-- [ ] **Test `purchase-research` and `tech-howto`** with one realistic example each (one researcher per test). `fact-check` is already tested.
+- [ ] **Review the three new research skills on first real use.** `purchase-research`, `tech-howto`, and `fact-check` are not properly tested yet: no eval cases, and triggering from a Turkish request has not been checked. The 2026-10-28 `fact-check` run tested only a hand-written brief, not the skill itself. On each skill's first real use, check: did it trigger, did it ask the right questions first, did it stay at one researcher, and did the output follow the template? Write the result here and fix the skill. Add eval cases after that, as the README's "Measured, not assumed" principle requires.
 - [ ] **Build `health-evidence`**, together with a `health-coach` plugin.
 - [ ] **Usage review around 2026-11-28:** run `ccusage daily` and `ccusage monthly`, then tune model and effort assignments.
 - [ ] Later: `game-research`, `stack-selection`, `market-research`, and an `agent-architect` skill. Then the pre-production pipeline, kept separate from a per-feature spec/ADR development loop.
 
 ---
+
+## 2026-10-28: Fact-checkers are leads, and teyit.org is excluded
+**Decision.** In every research task, a fact-checking organization's verdict is a lead and not evidence. The researcher follows it to the primary sources and judges from those. `fact-check` no longer names specific fact-checkers. teyit.org is on an excluded-sources list in `web-researcher.md`, by the user's choice. That list is the one place to add or remove excluded sites.
+**Why.** The user does not trust teyit.org. More generally, any fact-checker can frame a topic in its own way, and a verdict that rests on primary evidence holds up no matter who did the fact-check.
+**Revisit.** If the exclusion causes "Not verified" results on Turkish claims where teyit.org was the only place the primary sources were collected.
 
 ## 2026-10-28: Research playbooks as skills in the research plugin
 **Decision.** `purchase-research`, `tech-howto`, and `fact-check` are skills in the `research` plugin. Each defaults to one `web-researcher`, and deep mode runs only when the user asks, after a quota warning. Descriptions include Turkish trigger phrases so they fire on Turkish requests. Each skill ships its own delegation brief and a Turkish output template.
@@ -20,9 +25,9 @@ Decisions about how this AI setup works, newest first. Each entry records what w
 - `tech-howto`: pins the exact version first, prefers official docs, vets community scripts, and gives a backup and rollback per step. It never runs state-changing commands unasked.
 - `fact-check`: SIFT method, claim split into parts, traced to the original. Verdicts: doğru / yanıltıcı / yanlış / doğrulanamadı.
 
-**Test result (`fact-check`, claim "humans use 10% of the brain").** One researcher returned a report that fit the brief: per-part verdicts, original-source trail, and an honest "Not verified" list. Weak spots: it leaned on Wikipedia for the origin trail, did not read the primary texts, and found no Teyit or Doğruluk Payı check. If this repeats, add an explicit step to search teyit.org directly and to read the primary source before settling an origin claim.
+**Brief smoke test (`fact-check` brief, claim "humans use 10% of the brain").** A hand-written brief from the skill's template went to one researcher (about 20k subagent tokens). The Skill tool was not used, so this does not test triggering or the Turkish output step. The report fit the brief: per-part verdicts, an original-source trail, and an honest "Not verified" list. Weak spot: it leaned on Wikipedia for the origin trail and did not read the primary texts (James 1907, the 1929 almanac, the 1936 Carnegie foreword). If this repeats in real use, require reading the primary source before settling an origin claim.
 **Why.** These are the recurring research jobs in the open-items list, and a playbook per job keeps source standards consistent while the quota stays low.
-**Revisit.** After testing `purchase-research` and `tech-howto`.
+**Revisit.** After each skill's first real use (see the open item).
 
 ## 2026-10-28: Model and effort per kind of work
 **Decision.** Fable is not used: on the Pro plan it bills usage credits.

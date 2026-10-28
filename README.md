@@ -25,7 +25,7 @@ Predecessor: [RaijuMounun/skills](https://github.com/RaijuMounun/skills) (archiv
 | Plugin | What it gives you |
 | :- | :- |
 | `prompt-craft` | `prompt-craft` skill (delegation briefs, agent definitions, skills, I/O contracts). Hooks: every subagent spawn must carry a structured brief; the policy is re-injected at session start and after compaction. |
-| `research` | `web-researcher` subagent with source-weighing standards; `ai-engineering-radar` skill (Adopt/Trial/Assess/Hold). Hook: web search runs only in subagents. Requires `prompt-craft`. |
+| `research` | `web-researcher` subagent with source-weighing standards; skills `ai-engineering-radar` (Adopt/Trial/Assess/Hold), `purchase-research`, `tech-howto`, and `fact-check` (SIFT). Hook: web search runs only in subagents. Requires `prompt-craft`. |
 
 Radar reports land in [`research/radar/`](research/radar/).
 
