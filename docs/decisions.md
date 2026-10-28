@@ -4,13 +4,25 @@ Decisions about how this AI setup works, newest first. Each entry records what w
 
 ## Open items
 
-- [ ] **Live-test the hooks** in a fresh session: WebSearch from the main thread must be denied, and an Agent spawn without brief sections must be denied. (SessionStart injection already confirmed working on 2026-10-28.)
+- [x] **Live-test the hooks** (done 2026-10-28): WebSearch from the main thread was denied, and an Agent spawn without brief sections was denied. SessionStart injection was confirmed earlier the same day.
 - [ ] **CodeGraph trial on Cannaville (UE5).** Ask the same 2–3 architecture questions with and without CodeGraph, and compare token use in `ccusage session`. Decide Adopt or Hold.
-- [ ] **Build research playbooks:** `purchase-research`, `tech-howto`, `fact-check`. Then `health-evidence`, together with a `health-coach` plugin.
+- [x] **Build research playbooks:** `purchase-research`, `tech-howto`, `fact-check` (written 2026-10-28).
+- [ ] **Test `purchase-research` and `tech-howto`** with one realistic example each (one researcher per test). `fact-check` is already tested.
+- [ ] **Build `health-evidence`**, together with a `health-coach` plugin.
 - [ ] **Usage review around 2026-11-28:** run `ccusage daily` and `ccusage monthly`, then tune model and effort assignments.
 - [ ] Later: `game-research`, `stack-selection`, `market-research`, and an `agent-architect` skill. Then the pre-production pipeline, kept separate from a per-feature spec/ADR development loop.
 
 ---
+
+## 2026-10-28: Research playbooks as skills in the research plugin
+**Decision.** `purchase-research`, `tech-howto`, and `fact-check` are skills in the `research` plugin. Each defaults to one `web-researcher`, and deep mode runs only when the user asks, after a quota warning. Descriptions include Turkish trigger phrases so they fire on Turkish requests. Each skill ships its own delegation brief and a Turkish output template.
+- `purchase-research`: asks need and budget first. Checks measured reviews and long-term owner complaints separately, plus failure points, same-price alternatives, Turkey price (Akakçe/Cimri), and Turkey warranty. Outputs a decision matrix and who should or should not buy.
+- `tech-howto`: pins the exact version first, prefers official docs, vets community scripts, and gives a backup and rollback per step. It never runs state-changing commands unasked.
+- `fact-check`: SIFT method, claim split into parts, traced to the original. Verdicts: doğru / yanıltıcı / yanlış / doğrulanamadı.
+
+**Test result (`fact-check`, claim "humans use 10% of the brain").** One researcher returned a report that fit the brief: per-part verdicts, original-source trail, and an honest "Not verified" list. Weak spots: it leaned on Wikipedia for the origin trail, did not read the primary texts, and found no Teyit or Doğruluk Payı check. If this repeats, add an explicit step to search teyit.org directly and to read the primary source before settling an origin claim.
+**Why.** These are the recurring research jobs in the open-items list, and a playbook per job keeps source standards consistent while the quota stays low.
+**Revisit.** After testing `purchase-research` and `tech-howto`.
 
 ## 2026-10-28: Model and effort per kind of work
 **Decision.** Fable is not used: on the Pro plan it bills usage credits.
