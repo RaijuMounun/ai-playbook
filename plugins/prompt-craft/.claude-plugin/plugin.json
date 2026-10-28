@@ -1,0 +1,6 @@
+{
+  "name": "prompt-craft",
+  "description": "Claude-specific prompt engineering: a skill for writing delegation briefs, agent definitions and skills, plus hooks that enforce structured subagent briefs.",
+  "version": "0.1.0",
+  "author": { "name": "Eren Keskinoğlu", "url": "https://github.com/RaijuMounun" }
+}

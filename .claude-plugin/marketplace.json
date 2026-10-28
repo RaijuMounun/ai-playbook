@@ -7,5 +7,16 @@
   "metadata": {
     "description": "Agents, skills, rules and workflows for running projects with Claude Code like a professional studio."
   },
-  "plugins": []
+  "plugins": [
+    {
+      "name": "prompt-craft",
+      "source": "./plugins/prompt-craft",
+      "description": "Claude-specific prompt engineering skill plus hooks that enforce structured subagent briefs."
+    },
+    {
+      "name": "research",
+      "source": "./plugins/research",
+      "description": "Web research team: web-researcher subagent, research playbook skills, and a policy that keeps web search out of the main thread."
+    }
+  ]
 }

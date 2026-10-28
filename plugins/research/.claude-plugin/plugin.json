@@ -1,0 +1,7 @@
+{
+  "name": "research",
+  "description": "Web research team: a web-researcher subagent with source-weighing standards, research playbook skills, and a policy hook that keeps web search out of the main thread.",
+  "version": "0.1.0",
+  "author": { "name": "Eren Keskinoğlu", "url": "https://github.com/RaijuMounun" },
+  "dependencies": ["prompt-craft"]
+}
