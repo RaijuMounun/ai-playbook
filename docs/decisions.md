@@ -10,10 +10,26 @@ Decisions about how this AI setup works, newest first. Each entry records what w
 - [ ] **Review the three new research skills on first real use.** `purchase-research`, `tech-howto`, and `fact-check` are not properly tested yet: no eval cases, and triggering from a Turkish request has not been checked. The 2026-10-28 `fact-check` run tested only a hand-written brief, not the skill itself. On each skill's first real use, check: did it trigger, did it ask the right questions first, did it stay at one researcher, and did the output follow the template? Write the result here and fix the skill. Add eval cases after that, as the README's "Measured, not assumed" principle requires.
 - [ ] **Build `health-evidence`**, together with a `health-coach` plugin.
 - [ ] **Usage review around 2026-11-28:** run `ccusage daily` and `ccusage monthly`, then tune model and effort assignments.
-- [ ] **Design `agent-architect`** (see the 2026-10-29 entry). Start with a pre-production session: the user's goals, the old Antigravity version as reference, and a radar on how leading teams build agents and skills.
-- [ ] Later: `game-research`, `stack-selection`, `market-research`. Then the pre-production pipeline, kept separate from a per-feature spec/ADR development loop.
+- [x] **Design `agent-architect`** (approved 2026-10-29): [docs/design/agent-architect.md](design/agent-architect.md).
+- [ ] **Log in to the Claude Code CLI** once: `claude auth login` (the user does this). It is needed for `claude plugin eval` and the weekly eval run.
+- [ ] **Implement `agent-architect`** from the approved design. This includes the `weekly-evals` scheduled task and the first eval cases for the research skills.
+- [ ] **Remote work from the phone:** decide between Remote Control into this machine and cloud sessions on the GitHub repo.
+- [ ] Later: `game-research`, `stack-selection`, `market-research`. Then the pre-production pipeline, kept separate from a per-feature spec/ADR development loop. `project-loop-architect` (per-project agent loops) is a separate tool, designed on its own.
 
 ---
+
+## 2026-10-29: agent-architect design approved: bundles, skill-creator, eval-gated improvement
+**Decision.** The design is in [docs/design/agent-architect.md](design/agent-architect.md). The main points:
+- **Bundle model.** Each domain is a plugin made of an agent with a defined job, its domain skills preloaded through `skills:`, and a thin entry skill in the main thread that talks to the user. When an agent needs a decision, it returns `needs_input` with questions; the entry skill asks the user and continues the same agent with `SendMessage`.
+- **Scope.** agent-architect is general purpose (health, research, games, dev). It takes no part in pre-production and makes no stack decisions. Per-project agent loops go to a separate future `project-loop-architect`.
+- **Writing and evals.** The main thread writes the files with `prompt-craft` loaded. agent-architect builds on Anthropic's `skill-creator` for writing cases and iterating, and uses `claude plugin eval` (same case format) for regression runs. It prefers free graders, and uses an `llm` rubric only for quality.
+- **Improve loop.** Each fix goes through these steps: reproduce the failure as a case, take a baseline, make one edit, then gate it. The edit is accepted only if the new case passes and nothing that passed before fails. Stop after 3 attempts. The user approves every change.
+- **Weekly evals.** A local scheduled task runs the full suites in the 8 hours before the weekly quota resets. It reads the real reset time and re-times itself if the time moves. It keeps a 10% reserve, and it only reports; it never edits prompts.
+- **DSPy/GEPA: Hold.** They need API billing and labeled datasets, and they don't fit agentic skills.
+
+The Claude Code CLI (v2.1.312) was installed through npm the same day, and `claude plugin eval` is available.
+**Why.** The Antigravity version simulated optimization and never measured anything. The [radar](../research/radar/2026-10-29-agent-skill-design-and-evals.md) found that eval-gated, one-edit-at-a-time loops are what avoids overfitting. Building on skill-creator reuses official machinery instead of rewriting it. Running the evals before the reset spends quota that would otherwise be lost.
+**Revisit.** After the first weekly eval run: calibrate the budget, and check whether the task re-timed itself correctly.
 
 ## 2026-10-29: agent-architect is the self-improvement loop
 **Decision.** `agent-architect` will be the way new agents and skills get made, and the way existing ones get improved. It replaces the Antigravity `agent_architect`, which did not work well there. The intended flow, as the user described it:
