@@ -1,0 +1,4 @@
+# Personal data lives in separate profile directories, never in this repo
+.env
+*.local.*
+.claude/settings.local.json

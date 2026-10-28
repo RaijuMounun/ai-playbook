@@ -1,0 +1,11 @@
+{
+  "name": "ai-playbook",
+  "owner": {
+    "name": "Eren Keskinoğlu",
+    "url": "https://github.com/RaijuMounun"
+  },
+  "metadata": {
+    "description": "Agents, skills, rules and workflows for running projects with Claude Code like a professional studio."
+  },
+  "plugins": []
+}
