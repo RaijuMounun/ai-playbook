@@ -2,3 +2,7 @@
 .env
 *.local.*
 .claude/settings.local.json
+
+# Eval run output
+evals/results/
+plugins/*/skills/results/

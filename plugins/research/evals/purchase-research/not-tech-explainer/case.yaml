@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: not-tech-explainer
+expected_outcome: |
+  purchase-research is not invoked for a plain technical explanation with no purchase decision.

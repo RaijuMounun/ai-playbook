@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: tr-news-headline
+expected_outcome: |
+  fact-check is invoked when the user asks whether a news headline is true.

@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: not-prompt-question
+expected_outcome: |
+  agent-architect is not invoked for a general question about prompting.

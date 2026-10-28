@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: tr-improve-skill
+expected_outcome: |
+  agent-architect is invoked when the user wants an existing skill improved.

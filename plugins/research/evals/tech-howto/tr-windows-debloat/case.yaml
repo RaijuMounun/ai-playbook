@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: tr-windows-debloat
+expected_outcome: |
+  tech-howto is invoked for a Turkish Windows debloat request.

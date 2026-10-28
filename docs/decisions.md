@@ -7,14 +7,15 @@ Decisions about how this AI setup works, newest first. Each entry records what w
 - [x] **Live-test the hooks** (done 2026-10-28): WebSearch from the main thread was denied, and an Agent spawn without brief sections was denied. SessionStart injection was confirmed earlier the same day.
 - [ ] **CodeGraph trial on Cannaville (UE5).** Ask the same 2–3 architecture questions with and without CodeGraph, and compare token use in `ccusage session`. Decide Adopt or Hold.
 - [x] **Build research playbooks:** `purchase-research`, `tech-howto`, `fact-check` (written 2026-10-28).
-- [ ] **Review the three new research skills on first real use.** `purchase-research`, `tech-howto`, and `fact-check` are not properly tested yet: no eval cases, and triggering from a Turkish request has not been checked. The 2026-10-28 `fact-check` run tested only a hand-written brief, not the skill itself. On each skill's first real use, check: did it trigger, did it ask the right questions first, did it stay at one researcher, and did the output follow the template? Write the result here and fix the skill. Add eval cases after that, as the README's "Measured, not assumed" principle requires.
+- [ ] **Review the three new research skills on first real use.** `purchase-research`, `tech-howto`, and `fact-check` are not properly tested yet: no eval cases, and triggering from a Turkish request has not been checked. The 2026-10-28 `fact-check` run tested only a hand-written brief, not the skill itself. On each skill's first real use, check: did it trigger, did it ask the right questions first, did it stay at one researcher, and did the output follow the template? Write the result here and fix the skill. Add eval cases after that, as the README's "Measured, not assumed" principle requires. Trigger cases exist since 2026-10-29 (17, all pass); process, structure and quality cases are still missing.
 - [ ] **Build `health-evidence`**, together with a `health-coach` plugin.
 - [ ] **Usage review around 2026-11-28:** run `ccusage daily` and `ccusage monthly`, then tune model and effort assignments.
 - [x] **Design `agent-architect`** (approved 2026-10-29): [docs/design/agent-architect.md](design/agent-architect.md).
 - [x] **Log in to the Claude Code CLI** (done 2026-10-29, Pro subscription). A one-case smoke test of `claude plugin eval` worked: 11 s, $0.06 API-equivalent.
-  - **First finding.** The Turkish prompt "İnsanların beyninin sadece %10'unu kullandığı doğru mu?" did **not** trigger `fact-check`; the model answered from memory in one turn. Turn this into the first regression case and fix it through the improve loop.
+  - **First finding.** The Turkish prompt "İnsanların beyninin sadece %10'unu kullandığı doğru mu?" did **not** trigger `fact-check`; the model answered from memory in one turn. Fixed 2026-10-29 through the improve loop (see "agent-architect implemented").
   - **Smoke test setup.** `--eval-dir`, `--runs 1`, `--ablation none`, `--no-publish`, and a `tool_used` grader with `tool: Skill`, `input_match: fact-check`, `min: 1`.
-- [ ] **Implement `agent-architect`** from the approved design. This includes the `weekly-evals` scheduled task and the first eval cases for the research skills.
+- [x] **Implement `agent-architect`** (done 2026-10-29): plugin v0.1.0, its smoke cases pass 5/5, and the research skills have 17 trigger cases. See the entry "agent-architect implemented".
+- [ ] **Weekly eval schedule.** Waits on the cloud test below. Fallback: the local `weekly-evals` task from design section 6.
 - [ ] **Test a cloud eval run once.** Check three things:
   - Does the cloud environment have the `claude` CLI and `plugin eval`, logged in on the subscription?
   - Does `claude plugin eval plugins/research` run from the repo path?
@@ -25,6 +26,20 @@ Decisions about how this AI setup works, newest first. Each entry records what w
 - [ ] Later: `game-research`, `stack-selection`, `market-research`. Then the pre-production pipeline, kept separate from a per-feature spec/ADR development loop. `project-loop-architect` (per-project agent loops) is a separate tool, designed on its own.
 
 ---
+
+## 2026-10-29: agent-architect implemented; first improve-loop fix on fact-check
+**Decision.** `plugins/agent-architect/` v0.1.0 exists: the entry skill `agent-architect` with references `bundle-conventions.md`, `eval-authoring.md` and `improve-loop.md`. It is registered in the marketplace and the README. Two changes to the design came out of the first runs (CLI 2.1.312):
+- **Eval cases live in `plugins/<plugin>/evals/<skill>/<case>/`,** not in `skills/<skill>/evals/` (design section 2 and 5). The CLI refuses an eval dir inside `skills/` ("a loaded component directory"), and plugin-level `evals/` grouped by skill works with no flags.
+- **No `dependencies` in plugin manifests.** An eval run installs nothing else, so a plugin with `dependencies` fails to load (`dependency-unsatisfied`) and its skills are missing. A case-level `plugins:` list cannot add sibling plugins (outside the containment root). `research` and `agent-architect` now state their requirements in the README only. This was also a hidden cause in the first smoke run: the research plugin likely never loaded.
+
+**First improve-loop run (fact-check trigger).** 17 trigger cases for the three research skills (3–4 should-trigger in Turkish and English, 2 near-miss should-not-trigger per skill), all with free `tool_used` graders. Setup: `--runs 1 --ablation none --model sonnet`.
+- Baseline 15/17. Failing: `tr-brain-ten-percent` and `en-misattributed-quote`. Both are well-known myths the model answers from memory; news and rumor cases already fired.
+- One edit: the `fact-check` description now says to use it for well-known myths, famous quotes and popular science "facts" that seem answerable from memory, and lists more Turkish question forms.
+- Gate 17/17, no regressions, including the near misses (`"Herkez" mi doğru yazılır`, `Bu Python kodu doğru mu?`). Recorded in `evals/<skill>/HISTORY.md`.
+- Cost: about $0.94 + $1.13 API-equivalent for the two suite runs, about $0.4 for agent-architect smoke runs.
+
+**Why.** The design's eval plan, measured on the real CLI. With `--runs 1` a single pass is a weak signal; the weekly run with more runs will show whether the trigger is stable.
+**Revisit.** After the first weekly run. If `tr-brain-ten-percent` flips back, consider skill-creator's description optimization.
 
 ## 2026-10-29: agent-architect design approved: bundles, skill-creator, eval-gated improvement
 **Decision.** The design is in [docs/design/agent-architect.md](design/agent-architect.md). The main points:

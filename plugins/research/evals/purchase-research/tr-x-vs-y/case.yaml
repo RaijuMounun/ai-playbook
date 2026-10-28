@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: tr-x-vs-y
+expected_outcome: |
+  purchase-research is invoked for a Turkish X-or-Y purchase question.

@@ -17,6 +17,11 @@
       "name": "research",
       "source": "./plugins/research",
       "description": "Web research team: web-researcher subagent, research playbook skills, and a policy that keeps web search out of the main thread."
+    },
+    {
+      "name": "agent-architect",
+      "source": "./plugins/agent-architect",
+      "description": "Designs new agent and skill bundles and improves existing ones through an eval-gated loop, built on skill-creator and claude plugin eval."
     }
   ]
 }

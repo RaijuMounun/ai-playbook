@@ -1,0 +1,6 @@
+{
+  "name": "agent-architect",
+  "description": "Designs new domain bundles (an agent plus its skills) and improves existing ones through an eval-gated loop, built on Anthropic's skill-creator and claude plugin eval.",
+  "version": "0.1.0",
+  "author": { "name": "Eren Keskinoğlu", "url": "https://github.com/RaijuMounun" }
+}

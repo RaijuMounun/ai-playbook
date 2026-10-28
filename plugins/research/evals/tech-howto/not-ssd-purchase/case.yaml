@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: not-ssd-purchase
+expected_outcome: |
+  tech-howto is not invoked for a hardware purchase question.

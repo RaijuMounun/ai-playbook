@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: not-python-howto
+expected_outcome: |
+  tech-howto is not invoked for a programming question that is not an OS or device task.

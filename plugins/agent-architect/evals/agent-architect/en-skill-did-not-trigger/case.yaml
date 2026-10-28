@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: en-skill-did-not-trigger
+expected_outcome: |
+  agent-architect is invoked when the user reports that a skill did not trigger and wants it fixed.

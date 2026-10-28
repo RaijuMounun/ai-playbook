@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: en-buy-or-wait
+expected_outcome: |
+  purchase-research is invoked for an English buy-or-wait question.

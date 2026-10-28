@@ -1,6 +1,6 @@
 ---
 name: fact-check
-description: Fact-checks a claim with the SIFT method (Stop, Investigate the source, Find better coverage, Trace to the original) and returns a verdict: true, misleading, false, or unverifiable. Use when the user asks whether something is true or wants a rumor, news item, viral post, statistic, quote, or health or science claim checked, in English or Turkish ("doğru mu", "gerçek mi", "yalan mı", "teyit et", "kaynağı ne", "bu haber doğru mu", "yanıltıcı mı").
+description: Fact-checks a claim with the SIFT method (Stop, Investigate the source, Find better coverage, Trace to the original) and returns a sourced verdict: true, misleading, false, or unverifiable. Use whenever the user asks whether a claim is true, including well-known myths, famous quotes, and popular science "facts" that seem answerable from memory, because the user wants the claim traced to its original source rather than a recalled answer. Also use for rumors, news items, viral posts, statistics, and health or science claims, in English or Turkish ("... doğru mu?", "gerçek mi", "yalan mı", "gerçekten ... dedi mi?", "teyit et", "kaynağı ne", "bu haber doğru mu", "yanıltıcı mı").
 ---
 
 # Fact-Check
