@@ -1,6 +1,6 @@
 # agent-architect: design
 
-Status: **approved v3** (2026-10-29). Nothing here is implemented yet.
+Status: **approved v3** (2026-10-29), **implemented as v0.1.0** the same day. Amended after the first eval runs: the case location (sections 2 and 5) and plugin dependencies (section 3) changed to fit what the CLI accepts. See `docs/decisions.md`, entry "agent-architect implemented".
 Evidence: [radar 2026-10-29](../../research/radar/2026-10-29-agent-skill-design-and-evals.md). Decision context: `docs/decisions.md`, entry "agent-architect is the self-improvement loop".
 
 ## 1. Purpose and boundaries
@@ -29,7 +29,7 @@ A bundle is one plugin under `plugins/<domain>/`:
 | `skills/<domain>/SKILL.md` | The **entry skill**. It runs in the main thread and talks to the user: it asks the questions, applies the domain's rules, writes the brief, dispatches the agent, relays the agent's questions (below), and presents the result in Turkish. |
 | `skills/<topic>/SKILL.md` | Domain skills: methods, source standards, templates. The agent preloads them. The entry skill may also use them directly for small jobs that need no subagent. |
 | `skills/*/references/` | Detail loaded only when needed, including the distilled research behind the bundle. |
-| `skills/*/evals/` | Test cases (section 5). |
+| `evals/<skill>/` | Test cases per skill (section 5), plus `HISTORY.md`. Plugin-level, because the CLI refuses an eval dir inside `skills/`. |
 | `hooks/`, `scripts/` | Only for behavior that must always happen. |
 
 Example: `health-coach` = agent `health-coach` (preloads `health-evidence`) + entry skill `health-coach`, which reads the profile from the Obsidian vault at runtime.
@@ -58,7 +58,7 @@ agent-architect is itself a bundle, `plugins/agent-architect/`:
   - `bundle-conventions.md`: section 2 as a checklist.
   - `eval-authoring.md`: section 5, the house rules on top of skill-creator.
   - `improve-loop.md`: section 4.2.
-- **Requires** the `prompt-craft` and `research` plugins, and the `skill-creator` skill (from Anthropic's skills; already available in the desktop app).
+- **Requires** the `prompt-craft` and `research` plugins, and the `skill-creator` skill (from Anthropic's skills; already available in the desktop app). The requirement is stated in the README, not in the manifest's `dependencies`: an eval run installs no other plugins, so a plugin with `dependencies` fails to load there.
 
 ## 4. Flows
 
@@ -71,7 +71,7 @@ agent-architect is itself a bundle, `plugins/agent-architect/`:
 5. **Test cases first.** Write the cases from the approved design, before the prompts (section 5).
 6. **Write the files** with `prompt-craft` loaded. Register the plugin in `marketplace.json` and in the README table.
 7. **First eval run** with skill-creator's procedure: one run per case, with-skill only. Run a no-skill baseline only for bundles that will be used often. Read the failures, then fix and rerun until the cases pass or the user accepts a known gap.
-8. **Record.** Add a decisions.md entry, append the first line to `evals/HISTORY.md`, and commit. Ask before pushing.
+8. **Record.** Add a decisions.md entry, append the first line to `evals/<skill>/HISTORY.md`, and commit. Ask before pushing.
 
 ### 4.2 Improve (includes improving itself)
 
@@ -81,7 +81,7 @@ The evidence comes from one of three places: the user says something went wrong,
 2. **Snapshot and baseline.** Snapshot the current version, as skill-creator does for `old_skill`. Run all of the bundle's cases on it and note which pass.
 3. **One change.** Make a single targeted edit to the prompt, description, reference or hook, with `prompt-craft` loaded. Each edit must have one cause, so the results can be read.
 4. **Gate.** Rerun all cases. Accept the edit only if the new case passes and no case that passed before now fails. If the gate fails, revert and try a different edit. Stop after 3 attempts and report to the user. This gate is what keeps the loop from overfitting one failing example, the main risk named in the research.
-5. **Show and record.** Show the user the diff and the before/after benchmark. After the user approves, append a line to `evals/HISTORY.md` and commit.
+5. **Show and record.** Show the user the diff and the before/after benchmark. After the user approves, append a line to `evals/<skill>/HISTORY.md` and commit.
 
 The same loop improves `agent-architect` itself, `web-researcher`, and the research skills. Their missing test cases (an open item in decisions.md) are the first input.
 
@@ -89,7 +89,7 @@ The same loop improves `agent-architect` itself, `web-researcher`, and the resea
 
 ## 5. Test cases (house rules on top of skill-creator)
 
-The format is skill-creator's, which is also the `claude plugin eval` layout: `evals/<case>/prompt.md`, `case.yaml`, `graders/NN-*.md`.
+The format is skill-creator's, which is also the `claude plugin eval` layout: `prompt.md`, `case.yaml`, `graders/NN-*.md` per case. Cases live at `plugins/<plugin>/evals/<skill>/<case>/`; skill-creator's own default (`skills/<skill>/evals/`) does not work with the CLI, so point skill-creator at the plugin-level folder.
 
 The two tools have different jobs:
 - **skill-creator, in the session.** Use it for writing cases and iterating while building. That includes comparing against the old version and the browser viewer.
@@ -124,7 +124,7 @@ The weekly limit resets at a time the usage API reports (Monday 16:00 Turkey tim
   1. **Check the timing.** Read the plan usage. If the reset is more than 8 hours away (the task fired early) or has already passed (the app was closed through the window), only report, then stop.
   2. **Fix drift.** If the reset time differs from the one the cron assumes, update the task's own schedule to 8 hours before the new reset, and say so in the report. This is how the reset time moving is handled with no work from the user.
   3. **Set a budget.** Keep a reserve of 10% of the weekly window, so the user can still work after the run starts. Stop early if the 5-hour window is nearly used.
-  4. **Run.** Run the full suites with `claude plugin eval <plugin> --ablation none --max-cost-usd <budget> --json evals/reports/<date>.json`, invoked through Bash. Running with-skill only means no baselines. Order: bundles changed since the last run first, then the rest, and stop when the budget runs out.
+  4. **Run.** Run the full suites with `claude plugin eval <plugin> --ablation none --max-cost-usd <budget> --trust-plugin --json evals/reports/<date>.json`, invoked in a shell that sees the real CLI install and its login (Claude's own Bash tool is sandboxed and does not). Running with-skill only means no baselines. Order: bundles changed since the last run first, then the rest, and stop when the budget runs out.
   5. **Report.** Write `evals/reports/YYYY-MM-DD.md` with a pass rate per bundle, the cases that newly fail, and a suggested improve item for each. Then notify the user.
 - It does not edit any prompt. Fixes go through the improve loop with the user (human in the loop).
 - **Cloud alternative.** Anthropic's cloud scheduled agents ("routines") run without the app and work on the GitHub repo. Two things are uncertain: whether a cloud run can read the plan usage (needed for steps 1–3), and whether `skill-creator` and this repo's plugins are available there. So the local task is the default, and the cloud option is an open question to test once.
@@ -146,7 +146,7 @@ The domain agent's own briefs are written per bundle in its design doc, not here
 ## 8. Prerequisites and checks at implementation
 
 - **skill-creator.** It is available in the desktop app now, so nothing needs installing.
-- **Claude Code CLI.** Installed 2026-10-29 through npm (v2.1.312), and `claude plugin eval` is available. The user still has to log in once with `claude auth login`. The first install landed only inside Claude's tool sandbox. It was redone in the user's own terminal with `--allow-scripts=@anthropic-ai/claude-code`.
+- **Claude Code CLI.** Installed 2026-10-29 through npm (v2.1.312), and `claude plugin eval` is available. The user logged in on the Pro subscription the same day. The first install landed only inside Claude's tool sandbox. It was redone in the user's own terminal with `--allow-scripts=@anthropic-ai/claude-code`.
 - **Things to verify while building:**
   - The scheduled task can read plan usage and can update its own schedule.
   - `SendMessage` continuation works from inside a skill-driven flow.

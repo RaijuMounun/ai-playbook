@@ -15,11 +15,17 @@ Decisions about how this AI setup works, newest first. Each entry records what w
   - **First finding.** The Turkish prompt "İnsanların beyninin sadece %10'unu kullandığı doğru mu?" did **not** trigger `fact-check`; the model answered from memory in one turn. Fixed 2026-10-29 through the improve loop (see "agent-architect implemented").
   - **Smoke test setup.** `--eval-dir`, `--runs 1`, `--ablation none`, `--no-publish`, and a `tool_used` grader with `tool: Skill`, `input_match: fact-check`, `min: 1`.
 - [x] **Implement `agent-architect`** (done 2026-10-29): plugin v0.1.0, its smoke cases pass 5/5, and the research skills have 17 trigger cases. See the entry "agent-architect implemented".
-- [ ] **Weekly eval schedule.** Waits on the cloud test below. Fallback: the local `weekly-evals` task from design section 6.
+- [ ] **Turn on `agent-architect` locally.** Add `"agent-architect@ai-playbook": true` to `enabledPlugins` in `~/.claude/settings.json`, then start a new session. Until then the skill exists in the repo but does not load.
+- [ ] **Weekly eval schedule.** Waits on the cloud test below. Fallback: the local `weekly-evals` task from design section 6. The reset is Monday 16:00 Turkey time (13:00 UTC), read from the usage API on 2026-10-29. Whatever runs the evals must call the real `claude` CLI: Claude's own Bash tool is sandboxed and cannot, and unattended runs need `--trust-plugin`.
+- [ ] **Checks left from design section 8:** can a scheduled task read plan usage and update its own schedule; does its shell see the real `claude` install; does `SendMessage` continuation work from inside a skill-driven flow (first test when a bundle with an agent is built).
+- [ ] **Trigger stability.** The 2026-10-29 results are one run per case. The first weekly run should use `--runs 3` on the research suite to see whether `tr-brain-ten-percent` and `en-misattributed-quote` fire reliably.
+- [ ] Later, optional: add a LICENSE file. `claude plugin validate` passes, but the official plugin directory would refuse a submission without one. Not needed for local use.
 - [ ] **Test a cloud eval run once.** Check three things:
   - Does the cloud environment have the `claude` CLI and `plugin eval`, logged in on the subscription?
   - Does `claude plugin eval plugins/research` run from the repo path?
   - Can it read the plan's reset time?
+
+  The `main` branch with the eval cases was pushed on 2026-10-29 for this test. The account has two routine environments: `Default` (Anthropic cloud) and a `bridge` environment on this PC (`DESKTOP-LU9E14T`), which may run with the real local CLI; test the cloud one first.
 
   If the cloud can run evals, the plan is a cloud routine 1 hour before the reset. Drift is handled on the desktop: any time the app opens during the week, it compares the reset time with the routine's cron and updates the cron if the reset moved.
 - [ ] **Remote work from the phone:** decide between Remote Control into this machine and cloud sessions on the GitHub repo.
