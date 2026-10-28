@@ -10,9 +10,22 @@ Decisions about how this AI setup works, newest first. Each entry records what w
 - [ ] **Review the three new research skills on first real use.** `purchase-research`, `tech-howto`, and `fact-check` are not properly tested yet: no eval cases, and triggering from a Turkish request has not been checked. The 2026-10-28 `fact-check` run tested only a hand-written brief, not the skill itself. On each skill's first real use, check: did it trigger, did it ask the right questions first, did it stay at one researcher, and did the output follow the template? Write the result here and fix the skill. Add eval cases after that, as the README's "Measured, not assumed" principle requires.
 - [ ] **Build `health-evidence`**, together with a `health-coach` plugin.
 - [ ] **Usage review around 2026-11-28:** run `ccusage daily` and `ccusage monthly`, then tune model and effort assignments.
-- [ ] Later: `game-research`, `stack-selection`, `market-research`, and an `agent-architect` skill. Then the pre-production pipeline, kept separate from a per-feature spec/ADR development loop.
+- [ ] **Design `agent-architect`** (see the 2026-10-29 entry). Start with a pre-production session: the user's goals, the old Antigravity version as reference, and a radar on how leading teams build agents and skills.
+- [ ] Later: `game-research`, `stack-selection`, `market-research`. Then the pre-production pipeline, kept separate from a per-feature spec/ADR development loop.
 
 ---
+
+## 2026-10-29: agent-architect is the self-improvement loop
+**Decision.** `agent-architect` will be the way new agents and skills get made, and the way existing ones get improved. It replaces the Antigravity `agent_architect`, which did not work well there. The intended flow, as the user described it:
+1. The user starts the `agent-architect` skill. It brainstorms with the user and produces a design for the new agent or skill. The user approves the design.
+2. It dispatches `web-researcher` (or uses `ai-engineering-radar`) to find out how leading companies and practitioners build that kind of agent or skill, and what current best practice is.
+3. It writes a proper brief and hands the build to an agent that uses `prompt-craft` to write the files.
+4. The same loop applies to the setup itself. In Antigravity, the user improved agent_architect and the researcher by having them research and rewrite themselves.
+
+Later scope: setting up project-specific agent loops, meaning per-project agents, rules, and tech-stack decisions. This overlaps with the planned pre-production pipeline and `stack-selection`, so the boundary between them gets decided in the design session.
+**Reference.** The old version is in `C:\Users\Eren\.gemini\config\agents\agent_architect.json` and `C:\Users\Eren\.gemini\config\plugins\agent-architect`. Use it to recover intent, not as text to port (see "New repo, Antigravity setup retired").
+**Why it is recorded now.** The 2026-10-28 conversation that set up this repo was deleted, and it had covered this plan. Only two auto-memory notes from it survive, in `~/.claude/projects/C--Users-Eren-AppData-Roaming-Claude-scratch-workspaces-…/memory/`. The plan above was rebuilt from those notes and from the user's description. It is also why decisions go into this file: a deleted conversation should not take a plan with it.
+**Self-improvement needs measurement.** "Improved" should mean better on eval cases, not only "rewritten by a newer prompt". So `agent-architect` should write eval cases together with each skill it builds (see the README's "Measured, not assumed").
 
 ## 2026-10-28: Fact-checkers are leads, and teyit.org is excluded
 **Decision.** In every research task, a fact-checking organization's verdict is a lead and not evidence. The researcher follows it to the primary sources and judges from those. `fact-check` no longer names specific fact-checkers. teyit.org is on an excluded-sources list in `web-researcher.md`, by the user's choice. That list is the one place to add or remove excluded sites.
