@@ -15,23 +15,26 @@ Decisions about how this AI setup works, newest first. Each entry records what w
   - **First finding.** The Turkish prompt "İnsanların beyninin sadece %10'unu kullandığı doğru mu?" did **not** trigger `fact-check`; the model answered from memory in one turn. Fixed 2026-10-29 through the improve loop (see "agent-architect implemented").
   - **Smoke test setup.** `--eval-dir`, `--runs 1`, `--ablation none`, `--no-publish`, and a `tool_used` grader with `tool: Skill`, `input_match: fact-check`, `min: 1`.
 - [x] **Implement `agent-architect`** (done 2026-10-29): plugin v0.1.0, its smoke cases pass 5/5, and the research skills have 17 trigger cases. See the entry "agent-architect implemented".
-- [ ] **Turn on `agent-architect` locally.** Add `"agent-architect@ai-playbook": true` to `enabledPlugins` in `~/.claude/settings.json`, then start a new session. Until then the skill exists in the repo but does not load.
-- [ ] **Weekly eval schedule.** Waits on the cloud test below. Fallback: the local `weekly-evals` task from design section 6. The reset is Monday 16:00 Turkey time (13:00 UTC), read from the usage API on 2026-10-29. Whatever runs the evals must call the real `claude` CLI: Claude's own Bash tool is sandboxed and cannot, and unattended runs need `--trust-plugin`.
-- [ ] **Checks left from design section 8:** can a scheduled task read plan usage and update its own schedule; does its shell see the real `claude` install; does `SendMessage` continuation work from inside a skill-driven flow (first test when a bundle with an agent is built).
+- [x] **Turn on `agent-architect` locally** (done 2026-10-29, `enabledPlugins` in `~/.claude/settings.json`). Takes effect in new sessions.
+- [x] **Weekly eval schedule** (done 2026-10-29): cloud routine `weekly-evals` plus the desktop task `weekly-evals-drift-check`. See the entry "Weekly evals run in the cloud". First run Monday 2026-11-02 around 15:00 Turkey time; check its report and calibrate the budget.
+- [ ] **Checks left from design section 8:** does `SendMessage` continuation work from inside a skill-driven flow (first test when a bundle with an agent is built); does the drift-check task get `get_usage` and `RemoteTrigger` without pausing for permission (click "Run now" on it once in the Scheduled tab to approve its tools).
 - [ ] **Trigger stability.** The 2026-10-29 results are one run per case. The first weekly run should use `--runs 3` on the research suite to see whether `tr-brain-ten-percent` and `en-misattributed-quote` fire reliably.
 - [ ] Later, optional: add a LICENSE file. `claude plugin validate` passes, but the official plugin directory would refuse a submission without one. Not needed for local use.
-- [ ] **Test a cloud eval run once.** Check three things:
-  - Does the cloud environment have the `claude` CLI and `plugin eval`, logged in on the subscription?
-  - Does `claude plugin eval plugins/research` run from the repo path?
-  - Can it read the plan's reset time?
-
-  The `main` branch with the eval cases was pushed on 2026-10-29 for this test. The account has two routine environments: `Default` (Anthropic cloud) and a `bridge` environment on this PC (`DESKTOP-LU9E14T`), which may run with the real local CLI; test the cloud one first.
-
-  If the cloud can run evals, the plan is a cloud routine 1 hour before the reset. Drift is handled on the desktop: any time the app opens during the week, it compares the reset time with the routine's cron and updates the cron if the reset moved.
+- [x] **Test a cloud eval run once** (done 2026-10-29): the cloud can run evals, but cannot read the reset time. See the entry "Weekly evals run in the cloud".
 - [ ] **Remote work from the phone:** decide between Remote Control into this machine and cloud sessions on the GitHub repo.
 - [ ] Later: `game-research`, `stack-selection`, `market-research`. Then the pre-production pipeline, kept separate from a per-feature spec/ADR development loop. `project-loop-architect` (per-project agent loops) is a separate tool, designed on its own.
 
 ---
+
+## 2026-10-29: Weekly evals run in the cloud, timed from the desktop
+**Decision.** The weekly eval run is a cloud routine, not the local 8-hour-window task from design section 6.
+- **Cloud test (one-off routine, Default environment).** `claude` 2.1.312 is preinstalled and logged in with the subscription's OAuth token (no API key). `claude plugin eval plugins/research --case tr-brain-ten-percent --trust-plugin` passed, $0.12 API-equivalent, 87 s for the whole session. The cloud **cannot** read the plan's usage or reset time (`/usage` is interactive only; no env var or trace field has it). `bwrap`/`socat` are missing, so cloud cases must not grant Bash either.
+- **`weekly-evals` routine** ([claude.ai/code/routines/trig_01FAnGMtPqG8m6wD8Ygh5um2](https://claude.ai/code/routines/trig_01FAnGMtPqG8m6wD8Ygh5um2)): cron `0 12 * * 1` UTC, Monday 15:00 Turkey time, 1 hour before the reset (Monday 13:00 UTC). It runs every plugin that has `evals/` with `--runs 3 --ablation none --model sonnet --max-cost-usd 4` per plugin, writes `evals/reports/YYYY-MM-DD.md` plus the JSON on the **`eval-reports` branch** (never main, so the local checkout never has to merge cloud commits), and sends a push notification. It only reports.
+- **`weekly-evals-drift-check` desktop task** (daily 10:00): reads the weekly `resetsAt` with `get_usage`, sets the routine's cron to 1 hour before it if the reset moved, and relays the latest run's summary in Turkish.
+- The first cloud run showed that eval results land in `plugins/<plugin>/evals/results/`; `.gitignore` now covers that path.
+
+**Why.** The cloud runs without the app being open and the PC being on, which the local task needed. The 10% reserve from the design is dropped: an hour before the reset there is no week left to protect, and the cost ceiling bounds the run. The 5-hour window is the remaining risk if the user is working heavily at that hour.
+**Revisit.** After the first run (2026-11-02): check the report and real cost, then tune `--runs` and `--max-cost-usd`.
 
 ## 2026-10-29: agent-architect implemented; first improve-loop fix on fact-check
 **Decision.** `plugins/agent-architect/` v0.1.0 exists: the entry skill `agent-architect` with references `bundle-conventions.md`, `eval-authoring.md` and `improve-loop.md`. It is registered in the marketplace and the README. Two changes to the design came out of the first runs (CLI 2.1.312):

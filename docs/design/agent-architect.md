@@ -117,6 +117,8 @@ House rules:
 
 ## 6. Weekly eval run before the quota resets
 
+> **Superseded in part (2026-10-29).** The run is now a cloud routine 1 hour before the reset, with a daily desktop task that re-times it; reports go to the `eval-reports` branch. See `docs/decisions.md`, entry "Weekly evals run in the cloud". The local task below is the fallback if the cloud stops working.
+
 The weekly limit resets at a time the usage API reports (Monday 16:00 Turkey time as of 2026-10-29). Quota left unused at reset is lost, so the full suites run in the 8 hours before the reset. agent-architect creates this task during implementation. The user does nothing in the Scheduled tab except keep the app open at some point in that window.
 
 - A desktop-app scheduled task, `weekly-evals`, set to fire 8 hours before the reset (cron `0 8 * * 1` for now). If the app is closed at that moment, it fires on next launch.

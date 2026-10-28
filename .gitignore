@@ -5,4 +5,4 @@
 
 # Eval run output
 evals/results/
-plugins/*/skills/results/
+plugins/*/evals/results/
