@@ -146,10 +146,11 @@ The domain agent's own briefs are written per bundle in its design doc, not here
 ## 8. Prerequisites and checks at implementation
 
 - **skill-creator.** It is available in the desktop app now, so nothing needs installing.
-- **Claude Code CLI.** Installed 2026-10-29 through npm (v2.1.312), and `claude plugin eval` is available. The user still has to log in once with `claude auth login`. The npm install skipped its postinstall script. The CLI runs, but if something misbehaves, reinstall with `--allow-scripts=@anthropic-ai/claude-code`.
+- **Claude Code CLI.** Installed 2026-10-29 through npm (v2.1.312), and `claude plugin eval` is available. The user still has to log in once with `claude auth login`. The first install landed only inside Claude's tool sandbox. It was redone in the user's own terminal with `--allow-scripts=@anthropic-ai/claude-code`.
 - **Things to verify while building:**
   - The scheduled task can read plan usage and can update its own schedule.
   - `SendMessage` continuation works from inside a skill-driven flow.
+  - The scheduled task's shell sees the real `claude` install. Claude's own tool shell is sandboxed and saw a different filesystem on 2026-10-29.
 
 ## 9. Open questions
 
