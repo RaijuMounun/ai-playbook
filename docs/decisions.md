@@ -2,31 +2,73 @@
 
 Decisions about how this AI setup works, newest first. Each entry records what was decided, why, and when to revisit. Detailed evidence lives in `research/radar/`. Add an entry whenever a choice is made, and don't rewrite old entries: supersede them with a new one.
 
+## Where things stand (updated 2026-10-29)
+
+Read this first in a new conversation. It is the short version of everything below.
+
+- **What exists.** Three plugins, all enabled locally from this checkout:
+  - `prompt-craft`: the brief template, plus hooks that reject subagent briefs without `<objective>`, `<context>`, `<done_when>`, `<output_format>`.
+  - `research`: the `web-researcher` agent and four skills (`ai-engineering-radar`, `purchase-research`, `tech-howto`, `fact-check`). A hook blocks WebSearch in the main thread.
+  - `agent-architect`: builds new agent/skill bundles and improves existing ones through an eval-gated loop. Design in [design/agent-architect.md](design/agent-architect.md).
+- **What is measured.** Trigger evals only: 17 cases for the research skills and 5 for agent-architect, all passing (one run per case). Nothing yet checks whether a skill or agent does its job well once it fires. Closing that gap is the next piece of work.
+- **What runs on its own.** The cloud routine `weekly-evals` runs every eval suite on Mondays, 1 hour before the weekly quota reset, and writes a report to the `eval-reports` branch. The desktop task `weekly-evals-drift-check` runs daily on Haiku, moves the routine if the reset time moves, and relays new reports.
+- **How to work.** One hub conversation per phase, with sub-sessions for separate jobs. Start a hub with the prompt in [handoff.md](handoff.md). Every decision and open item goes into this file before a conversation ends, because conversations can be lost (the 2026-10-28 setup conversation was deleted).
+
 ## Open items
 
-- [x] **Live-test the hooks** (done 2026-10-28): WebSearch from the main thread was denied, and an Agent spawn without brief sections was denied. SessionStart injection was confirmed earlier the same day.
-- [ ] **CodeGraph trial on Cannaville (UE5)**, on hold: Cannaville is not on this PC (only on GitHub) and not in active work. Run it when work on Cannaville or another large C++ project resumes. Ask the same 2–3 architecture questions with and without CodeGraph, and compare token use in `ccusage session`. Decide Adopt or Hold.
-- [x] **Build research playbooks:** `purchase-research`, `tech-howto`, `fact-check` (written 2026-10-28).
-- [ ] **Review the three new research skills on first real use.** Triggering is covered: 17 trigger cases for `purchase-research`, `tech-howto`, and `fact-check`, all passing since 2026-10-29. What they do after triggering is not tested yet. On each skill's first real use, check: did it ask the right questions first, did it stay at one researcher, and did the output follow the template? Write the result here, fix the skill through the improve loop, and add process and quality cases from what was seen.
-- [ ] **Build `health-evidence`**, together with a `health-coach` plugin.
-- [ ] **Usage review around 2026-11-28:** run `ccusage daily` and `ccusage monthly`, then tune model and effort assignments.
-- [x] **Design `agent-architect`** (approved 2026-10-29): [docs/design/agent-architect.md](design/agent-architect.md).
-- [x] **Log in to the Claude Code CLI** (done 2026-10-29, Pro subscription). A one-case smoke test of `claude plugin eval` worked: 11 s, $0.06 API-equivalent.
-  - **First finding.** The Turkish prompt "İnsanların beyninin sadece %10'unu kullandığı doğru mu?" did **not** trigger `fact-check`; the model answered from memory in one turn. Fixed 2026-10-29 through the improve loop (see "agent-architect implemented").
-  - **Smoke test setup.** `--eval-dir`, `--runs 1`, `--ablation none`, `--no-publish`, and a `tool_used` grader with `tool: Skill`, `input_match: fact-check`, `min: 1`.
-- [x] **Implement `agent-architect`** (done 2026-10-29): plugin v0.1.0, its smoke cases pass 5/5, and the research skills have 17 trigger cases. See the entry "agent-architect implemented".
-- [x] **Turn on `agent-architect` locally** (done 2026-10-29, `enabledPlugins` in `~/.claude/settings.json`). Takes effect in new sessions.
-- [x] **Weekly eval schedule** (done 2026-10-29): cloud routine `weekly-evals` plus the desktop task `weekly-evals-drift-check`. See the entry "Weekly evals run in the cloud". First run Monday 2026-11-02 around 15:00 Turkey time; check its report and calibrate the budget.
-- [ ] **Checks left from design section 8:** does `SendMessage` continuation work from inside a skill-driven flow (first test when a bundle with an agent is built); does the drift-check task get `get_usage` and `RemoteTrigger` without pausing for permission (click "Run now" on it once in the Scheduled tab to approve its tools).
-- [ ] **Trigger stability.** The 2026-10-29 results are one run per case. The first weekly run should use `--runs 3` on the research suite to see whether `tr-brain-ten-percent` and `en-misattributed-quote` fire reliably.
-- [ ] Later, optional: add a LICENSE file. `claude plugin validate` passes, but the official plugin directory would refuse a submission without one. Not needed for local use.
-- [x] **Test a cloud eval run once** (done 2026-10-29): the cloud can run evals, but cannot read the reset time. See the entry "Weekly evals run in the cloud".
-- [x] **Remote work from the phone** (decided 2026-10-29): both, see the entry "Phone access".
-- [ ] **Run the drift-check task on Haiku.** It runs on Opus 5.5 (medium), the app default, for a job of three tool calls and one date calculation. Switch its model to Haiku in the Scheduled tab, then check that the next run still reads the reset time and the routine.
-- [ ] **Self-improvement round for `agent-architect` and `web-researcher`.** Write process and quality eval cases for them first, then run the improve loop on each, with a quota estimate before starting.
-- [ ] Later: `game-research`, `stack-selection`, `market-research`. Then the pre-production pipeline, kept separate from a per-feature spec/ADR development loop. `project-loop-architect` (per-project agent loops) is a separate tool, designed on its own.
+### Next, in this order
+
+1. **Self-improvement round for `agent-architect` and `web-researcher`.** The goal: both get better at their jobs before they build anything new.
+   - **Why eval cases first.** "Read your own prompt and improve it" without measurement is what failed in Antigravity: a rewrite looks better but nobody knows if it is. So the round starts by writing job-quality cases (does the agent do its job well, not only does it trigger), takes a baseline, and only then runs the improve loop: one edit at a time, accepted only if nothing that passed before fails.
+   - **`agent-architect`.** Cases from its own job: does it ask the intake questions, produce a design for approval before writing files, research current practice (through `ai-engineering-radar`), write eval cases with what it builds, and follow the improve loop. Its research on current prompting and agent-design practice happens inside this round.
+   - **`web-researcher`.** Measured from real tasks instead of extra test searches (see the entry "web-researcher is measured from real tasks"). Its first real reports get graded against its own standards, and failures become fixed cases.
+   - **Quota.** Give the user an estimate before each run. Default to one agent; stop after 3 attempts per fix.
+2. **Job-quality evals for the research skills** (`purchase-research`, `tech-howto`, `fact-check`). Triggering is covered (17 cases). Still missing: does the skill ask the right questions first, stay at one researcher, and follow its output template. Write these as cases in `plugins/research/evals/<skill>/`, preferring free graders (tool use, structure) and using an `llm` rubric only for quality. The first real use of each skill also counts: check those same points, record the result here, and turn failures into cases.
+
+### Waiting on a date or an event
+
+- **First weekly eval run, Monday 2026-11-02, about 15:00 Turkey time.** Read the report on the `eval-reports` branch (`evals/reports/2026-11-02.md`) and the real cost. Then tune `--runs` and `--max-cost-usd` in the routine. The same run shows **trigger stability**: the 2026-10-29 results were one run per case, and `tr-brain-ten-percent` and `en-misattributed-quote` were the two that failed before the fix. If either flips back, consider skill-creator's description optimization.
+- **Drift-check on Haiku.** The user switched its model to Haiku 4.5 on 2026-10-29 (it was Opus 5.5 by default). Check that the next run (2026-10-30, 10:00) still reads `resetsAt` and the routine. Haiku 5.5 is newer; use it if the Scheduled tab offers it.
+- **Drift-check's reschedule step is untested.** Its one manual run (2026-10-28) succeeded without permission prompts, and the task is in auto mode. But changing the routine's cron has never happened yet, and auto mode can be stricter on actions that change things outside the PC. The first time the reset time moves, check that the update went through.
+- **`SendMessage` continuation from inside a skill-driven flow** (design section 8). First test when a bundle with an agent is built, for example `health-evidence`.
+- **Usage review around 2026-11-28.** Run `ccusage daily` and `ccusage monthly`, then tune the model and effort assignments.
+
+### On hold
+
+- **CodeGraph trial on Cannaville (UE5).** Cannaville is not on this PC (only on GitHub) and not in active work. Run it when work on Cannaville or another large C++ project resumes: ask the same 2–3 architecture questions with and without CodeGraph, compare token use in `ccusage session`, decide Adopt or Hold.
+
+### Later
+
+- **`health-evidence` with a `health-coach` plugin.** A good first real build for `agent-architect` after its self-improvement round. Personal health data stays in the Obsidian vault.
+- `game-research`, `stack-selection`, `market-research`. Then the pre-production pipeline, kept separate from a per-feature spec/ADR development loop. `project-loop-architect` (per-project agent loops) is a separate tool, designed on its own.
+- Optional: a LICENSE file. `claude plugin validate` passes, but the official plugin directory would refuse a submission without one. Not needed for local use.
+
+### Done
+
+- 2026-10-28: hooks live-tested (main-thread WebSearch denied; a brief without sections denied; SessionStart injection works).
+- 2026-10-28: research playbooks `purchase-research`, `tech-howto`, `fact-check` written.
+- 2026-10-29: `agent-architect` designed, approved, implemented (v0.1.0), and enabled locally.
+- 2026-10-29: Claude Code CLI logged in (Pro subscription); `claude plugin eval` works locally and in the cloud.
+- 2026-10-29: first improve-loop fix: the `fact-check` trigger went from 15/17 to 17/17.
+- 2026-10-29: weekly eval routine and drift-check task set up.
+- 2026-10-29: phone access decided (Remote Control when the PC is on, cloud otherwise).
 
 ---
+
+## 2026-10-29: web-researcher is measured from real tasks
+**Decision.** `web-researcher` is evaluated on the reports it writes in real use, not on extra searches run only for testing. After a real research task, its report gets graded against its own standards: a primary source where one exists, two independent sources for key claims, dates on sources, no invented sources, an honest "Not verified" list, and the brief's word budget. A report that fails a check becomes a fixed eval case: the brief, plus a grader for the failed check. The improve loop then replays that case.
+**Why.** Test searches cost quota and return nothing useful, while real tasks are already paid for and show real failure modes. A fixed case is still needed after that, because the improve loop has to compare before and after on the same input.
+**Limit.** Web results change over time, so a replayed case grades the report's structure and source behavior, not exact content.
+
+## 2026-10-29: Model for scheduled runs
+**Decision.**
+- `weekly-evals-drift-check` (desktop task): Haiku. Changed from Opus 5.5 by the user. The job is three tool calls and one date calculation.
+- `weekly-evals` (cloud routine): stays on Sonnet 5.5. It reads the eval JSON, compares it with last week's report, and writes a likely cause for each failing case. That analysis is worth Sonnet, and the routine runs once a week.
+- The model under test is set separately by `--model sonnet` in the eval command. Keep that on Sonnet, because Sonnet is what runs the skills in normal sessions. Testing on a different model would measure the wrong thing.
+
+## 2026-10-29: Hub conversations with sub-sessions, and a handoff prompt
+**Decision.** Work goes through one hub conversation per phase. The hub plans the work, starts a sub-session for each separate job, reviews the results, and records everything in this file. When a hub conversation gets long, it writes the state here and starts a new hub from the prompt in [handoff.md](handoff.md).
+**Why.** The 2026-10-28 conversation was deleted, and its plan survived only in two auto-memory notes. Long conversations also lose detail when they get compacted. Sub-sessions keep each job's context separate, and this file keeps the state.
 
 ## 2026-10-29: Phone access: Remote Control when the PC is on, cloud otherwise
 **Decision.** Use both.
