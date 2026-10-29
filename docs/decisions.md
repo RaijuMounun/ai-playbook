@@ -12,7 +12,7 @@ Read this first in a new conversation. It is the short version of everything bel
   - `agent-architect`: builds new agent/skill bundles and improves existing ones through an eval-gated loop. Design in [design/agent-architect.md](design/agent-architect.md).
 - **What is measured.** Trigger evals only: 17 cases for the research skills and 5 for agent-architect, all passing (one run per case). Nothing yet checks whether a skill or agent does its job well once it fires. Closing that gap is the work in progress: agent-architect now has 6 job-quality cases, went from a 5/10 baseline to 9/10 after one improve round (see Next, item 1). web-researcher and the research skills come next.
 - **What runs on its own.** The cloud routine `weekly-evals` runs every eval suite on Mondays, 1 hour before the weekly quota reset, and writes a report to the `eval-reports` branch. The desktop task `weekly-evals-drift-check` runs daily on Haiku, moves the routine if the reset time moves, and relays new reports.
-- **Where it is going.** agent-architect becomes trusted, then the existing agents and skills go through it, then it builds the pre-production pipeline, first used on a TÜBİTAK 2209 GNN+XAI fraud-detection proposal (entry "Roadmap to the pre-production pipeline").
+- **Where it is going.** agent-architect becomes trusted, then the existing agents and skills go through it, then it builds the pre-production pipeline, first used on a TÜBİTAK 2209-A research proposal (entry "Roadmap to the pre-production pipeline").
 - **How to work.** One hub conversation per phase, with sub-sessions for separate jobs. Start a hub with the prompt in [handoff.md](handoff.md). Every decision and open item goes into this file before a conversation ends, because conversations can be lost (the 2026-10-28 setup conversation was deleted).
 
 ## Open items
@@ -57,6 +57,11 @@ Read this first in a new conversation. It is the short version of everything bel
 
 ---
 
+## 2026-10-29: This repo records the AI setup only
+**Decision (user, on the hub's recommendation).** ai-playbook stays public. `docs/decisions.md` and `docs/design/` cover the AI setup only: plugins, models, evals and workflow. Each project's decisions, topic and research go in that project's own **private** repo, and personal data stays in the Obsidian vault. Until the 2209 project repo exists, its notes live in `~/.claude/research-log/2026-10/`.
+**Why not gitignore `docs/`.** Already-pushed content stays in the git history. An ignored file has no backup, and that is the loss this log exists to prevent. Cloud sessions and the weekly routine also work from the repo, so they would not see it.
+**Note.** Earlier commits still show the project topic in the history. That is accepted as low risk; removing it would need a history rewrite and a force-push.
+
 ## 2026-10-29: Roadmap to the pre-production pipeline, with a TÜBİTAK 2209 project as the first real use
 **Decision (user).** agent-architect is the blocker for everything after it, because every future project's setup goes through it. The order:
 1. agent-architect is trusted: confirmed at `--runs 3`, and its open trigger gap is fixed.
@@ -64,7 +69,7 @@ Read this first in a new conversation. It is the short version of everything bel
 3. agent-architect builds the pre-production workflow (agents, rules, flows).
 4. The first project goes through that workflow.
 
-The first project is a TÜBİTAK 2209 research proposal: GNN (GraphSAGE/GAT) plus XAI (SHAP/GNNExplainer) for fraud and AML detection on directed multigraphs of transactions, compared against XGBoost/LightGBM baselines on PR-AUC and false-positive rate.
+The first project is a TÜBİTAK 2209-A research proposal (an ML project). Its topic and decisions are project material, so they live in the project's own private repo (entry "This repo records the AI setup only").
 
 **Steering (hub's recommendation).**
 - **Step 2 is evidence-driven, not "rewrite everything".** First web-researcher (collection script plus cases) and the research skills' job-quality evals. A research proposal leans on literature research more than anything else. prompt-craft only if a real failure shows up.
