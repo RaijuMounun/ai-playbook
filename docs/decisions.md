@@ -74,6 +74,7 @@ The first project is a TÜBİTAK 2209 research proposal: GNN (GraphSAGE/GAT) plu
 **Verified 2026-10-29** by web-researcher from the official 2026 call: the deadline is 2026-11-11 17:30 (TYBS), with the advisor's approval in the same window. A summary is in `~/.claude/research-log/2026-10/2026-10-29-tubitak-2209a-call.md`. It moves to the project repo once that exists, since it is project material, not setup.
 - Constraints that shape the tooling: TÜBİTAK's generative-AI responsible-use guide applies, and the advisor checks AI-produced content. So the AI assists (research, critique, structure), and the student writes and owns the text.
 - **First real web-researcher grade.** Sections, dates and tiers are present; primary sources are used; the "Not verified" list is honest and it said plainly that it found no second source. It ran over its 900-word budget. That is a failed check, so it is a candidate for its first fixed case.
+- **Second real report** (the novelty check, same day). Same result: strong primary-source work and an honest "Not verified" list, but it ran over the word budget again, even though the brief asked it to count. This is a reproducible failure; the first web-researcher case targets it.
 
 The user wants development under way, with something to show the advisor, by then. Given that, the hub proposed (pending the user's answer):
 - Don't build a generic pre-production pipeline before this deadline.
