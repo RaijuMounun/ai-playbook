@@ -1,0 +1,5 @@
+schema_version: "1.1"
+name: build-cases-first
+description: The run has no repo and the CLI cannot stage fixture files (scaffold needs bash, which is not available on native Windows), so the approved design is pasted into the prompt.
+expected_outcome: |
+  agent-architect writes the eval cases from the approved design before it writes SKILL.md. Cases go under evals/<skill>/, and no plugin manifest declares dependencies.

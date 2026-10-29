@@ -1,0 +1,5 @@
+schema_version: "1.1"
+name: tr-design-before-files
+description: Intake is answered in the prompt and research is waived, so the case isolates the design step. The run has no repo, so the repo context is in the prompt.
+expected_outcome: |
+  agent-architect writes a design doc under docs/design/ and stops to ask for approval. No SKILL.md and no agents/ file is written.

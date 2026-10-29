@@ -10,7 +10,7 @@ Read this first in a new conversation. It is the short version of everything bel
   - `prompt-craft`: the brief template, plus hooks that reject subagent briefs without `<objective>`, `<context>`, `<done_when>`, `<output_format>`.
   - `research`: the `web-researcher` agent and four skills (`ai-engineering-radar`, `purchase-research`, `tech-howto`, `fact-check`). A hook blocks WebSearch in the main thread.
   - `agent-architect`: builds new agent/skill bundles and improves existing ones through an eval-gated loop. Design in [design/agent-architect.md](design/agent-architect.md).
-- **What is measured.** Trigger evals only: 17 cases for the research skills and 5 for agent-architect, all passing (one run per case). Nothing yet checks whether a skill or agent does its job well once it fires. Closing that gap is the next piece of work.
+- **What is measured.** Trigger evals only: 17 cases for the research skills and 5 for agent-architect, all passing (one run per case). Nothing yet checks whether a skill or agent does its job well once it fires. Closing that gap is the work in progress: agent-architect now has 6 job-quality cases, baseline 5/10 (see Next, item 1).
 - **What runs on its own.** The cloud routine `weekly-evals` runs every eval suite on Mondays, 1 hour before the weekly quota reset, and writes a report to the `eval-reports` branch. The desktop task `weekly-evals-drift-check` runs daily on Haiku, moves the routine if the reset time moves, and relays new reports.
 - **How to work.** One hub conversation per phase, with sub-sessions for separate jobs. Start a hub with the prompt in [handoff.md](handoff.md). Every decision and open item goes into this file before a conversation ends, because conversations can be lost (the 2026-10-28 setup conversation was deleted).
 
@@ -23,6 +23,7 @@ Read this first in a new conversation. It is the short version of everything bel
    - **`agent-architect`.** Cases from its own job: does it ask the intake questions, produce a design for approval before writing files, research current practice (through `ai-engineering-radar`), write eval cases with what it builds, and follow the improve loop. Its research on current prompting and agent-design practice happens inside this round.
    - **`web-researcher`.** Measured from real tasks instead of extra test searches (see the entry "web-researcher is measured from real tasks"). Its first real reports get graded against its own standards, and failures become fixed cases.
    - **Quota.** Give the user an estimate before each run. Default to one agent; stop after 3 attempts per fix.
+   - **Status (2026-10-29).** Case plan approved (entry "Job-quality eval plan for agent-architect and web-researcher"). Step a, done: the agent-architect cases are written and the baseline is 5/10 (entry "agent-architect job-quality baseline"). Not committed yet. Step b: the improve loop on agent-architect's failures. Step c: the web-researcher collection script and its first two cases (no run without approval).
 2. **Job-quality evals for the research skills** (`purchase-research`, `tech-howto`, `fact-check`). Triggering is covered (17 cases). Still missing: does the skill ask the right questions first, stay at one researcher, and follow its output template. Write these as cases in `plugins/research/evals/<skill>/`, preferring free graders (tool use, structure) and using an `llm` rubric only for quality. The first real use of each skill also counts: check those same points, record the result here, and turn failures into cases.
 
 ### Waiting on a date or an event
@@ -54,6 +55,39 @@ Read this first in a new conversation. It is the short version of everything bel
 - 2026-10-29: phone access decided (Remote Control when the PC is on, cloud otherwise).
 
 ---
+
+## 2026-10-29: agent-architect job-quality baseline: 5/10, and what the eval CLI allows
+**Result.** Six job-quality cases written (the plan is in the next entry). The baseline (Sonnet, `--runs 1`, `--ablation none`, `--allow-tools Write Edit`) passed 5/10, for about $0.94 API-equivalent in total, including the smoke runs. The estimate was $2–4. Failures:
+- `tr-new-agent`: the fourth intake question had no options.
+- `research-before-design`: it recommended skipping research.
+- `build-cases-first`: `SKILL.md` was written before the cases.
+- `improve-reproduce-first`: `SKILL.md` was edited before the case was written.
+- `tr-no-unmeasured-rewrite`: it rewrote its own `SKILL.md` and said it hadn't measured the result, which is the Antigravity failure. In one smoke run the skill did not fire at all, so expect noise at `--runs 1`.
+
+**Learned about `claude plugin eval` (CLI 2.1.312, native Windows):**
+- **Per-case fixtures** exist only as `context.scaffold_script`. That needs `--scaffold` and bash, and bash is not on the CLI's PATH here (exit 127). So the cases carry repo context in the prompt.
+- **Write access.** A case that writes files needs `Write`/`Edit` in its `allowed_tools`, and the run needs `--allow-tools Write Edit`.
+- **`llm` graders** see only `last_message` by default. `focus: trace` gives them the tool calls.
+- **Grader bounds.** `max: 0` also needs `min: 0`, because `min` defaults to 1. The existing should-not-trigger graders already set both.
+- **`--case`** keeps only the last value given.
+- **Hard-coded repo path.** The skill reads its absolute repo path, and that read is denied in an eval run. Every case starts with that denial, which can confound the results (for example, research-before-design).
+
+**Next.** The improve loop on these failures, one edit at a time, starting with whatever the failures share. Gate cost is about $0.7–0.8 per full-suite run. Add the eval-CLI learnings to `references/eval-authoring.md` (that is a reference edit, so it goes through review).
+
+## 2026-10-29: Job-quality eval plan for agent-architect and web-researcher
+**Decision.** Approved by the user. agent-architect goes first and gets one baseline run. web-researcher follows from real tasks.
+- **agent-architect cases**, in `plugins/agent-architect/evals/agent-architect/`. They use a small fixture repo (a decisions.md, a marketplace.json, one sample plugin), because an eval run has no repo and no other plugins. If the CLI has no case fixtures, the same context goes into the prompt.
+  - `tr-new-agent`, tightened: no `Write`, plus an `llm` rubric: 2–4 intake questions with options.
+  - `tr-design-before-files`: intake answered in the prompt. It writes `docs/design/*.md`, no `SKILL.md` or `agents/`, and asks for approval.
+  - `research-before-design`: it proposes research with a quota note before the design (`llm`). It cannot test a real dispatch, because `research` is not loaded in the run.
+  - `build-cases-first`: approved design in the fixture. Case files are written before `SKILL.md` (`tool_order`), under `evals/<skill>/`, and with no `dependencies`.
+  - `improve-reproduce-first`: the case comes before any `SKILL.md` edit, and baseline, gate and approval are named.
+  - `tr-no-unmeasured-rewrite`: "read your own prompt and improve it". No edit; it asks for evidence or proposes cases first. This is the Antigravity failure, and the most important case.
+- **web-researcher standard**, applied to every report. Free checks: sections in order, front matter, URL + date + tier on each finding, `WebFetch` used. `llm` rubric: primary or two independent sources for key claims, an honest "Not verified" list, every cited URL present in the run's tool results, and the word budget. First cases come from the two real briefs still on disk (`fact-check-brain-ten-percent`, with an extra grader for tracing the origin to primary texts; `radar-agent-skill-design`, trimmed).
+- **Collecting real web-researcher reports.** Claude Code keeps subagent transcripts in `~/.claude/projects/<project>/<session>/subagents/agent-*.jsonl`, with `meta.json` naming `agentType: research:web-researcher`. They are deleted after 30 days by default. A Node script (`plugins/research/scripts/collect-research-reports.js`) will copy new ones (brief and final report) to `~/.claude/research-log/`, outside the repo because briefs may hold personal topics. It also runs the free checks, including an HTTP check of each cited URL. The daily drift-check task runs it. The `llm` rubric runs only on demand, in batches, and each failure becomes a scrubbed fixed case. A script was chosen over a SubagentStop hook because it is easier to test and touches no session.
+
+**Why.** Trigger evals only show that a skill fires, not that it does its job. The cases check the steps that define the job (ask, design, approval, cases first, measure before editing) with free graders where possible.
+**Quota.** Estimate: agent-architect smoke about $0.5, baseline about $2–4, and each fix attempt about $2–4 (API-equivalent, Sonnet). The web-researcher baseline is about $2–3, run only after the user approves.
 
 ## 2026-10-29: web-researcher is measured from real tasks
 **Decision.** `web-researcher` is evaluated on the reports it writes in real use, not on extra searches run only for testing. After a real research task, its report gets graded against its own standards: a primary source where one exists, two independent sources for key claims, dates on sources, no invented sources, an honest "Not verified" list, and the brief's word budget. A report that fails a check becomes a fixed eval case: the brief, plus a grader for the failed check. The improve loop then replays that case.

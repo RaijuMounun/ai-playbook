@@ -1,0 +1,5 @@
+schema_version: "1.1"
+name: improve-reproduce-first
+description: The run has no repo and the CLI cannot stage fixture files (scaffold needs bash, which is not available on native Windows), so the skill text and its existing case are described in the prompt. A single-turn run cannot run evals, so the correct behavior is to write or propose the case and stop for approval, with SKILL.md untouched.
+expected_outcome: |
+  agent-architect turns the failure into an eval case before it edits the skill, and names the baseline run, the no-regression gate and the user's approval.
