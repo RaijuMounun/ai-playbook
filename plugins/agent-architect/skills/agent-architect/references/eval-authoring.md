@@ -104,6 +104,16 @@ claude plugin eval plugins/<plugin> --runs 1 --ablation none --model sonnet --no
 
 Eval runs load only the plugin under test: no user settings, CLAUDE.md, memory, or other plugins. A case cannot rely on anything outside the plugin.
 
+## CLI limits (CLI 2.1.312, native Windows)
+
+- **Fixtures.** The only per-case fixture mechanism is `context: scaffold_script` in `case.yaml`, which needs `--scaffold` and bash. Bash is not on the CLI's PATH on native Windows (exit 127), so put the repo context a case needs into `prompt.md` and say so in `case.yaml`'s `description`. Files stored under a case folder that look like cases (`prompt.md`, `case.yaml`) would be run as cases.
+- **Writing files.** A case whose skill writes files needs `Write` (and `Edit`) in `allowed_tools`, and the run needs `--allow-tools Write Edit`. Without both, a grader that expects a `Write` call can never pass. The run's working directory is empty and temporary, so the writes land there.
+- **`llm` graders.** The frontmatter is `type: llm` and `focus:`; the body is the rubric. `focus` defaults to `last_message`, so the judge sees only the final message. Use `focus: trace` when the rubric is about order or tool calls. Write rubrics as `PASS only if ...` / `FAIL if ...`.
+- **`tool_used` bounds.** `min` defaults to 1, so a "never called" check needs `min: 0` and `max: 0`.
+- **`input_match` and `tool_order`.** `input_match` is a regex over the tool call's input as JSON, so a path in it has doubled backslashes; match separators with `[\\/]+`. `tool_order` takes `before:` and `after:`, each with `tool` and an optional `input_match`, and fails when the `before` call never happens.
+- **`--case`** keeps only the last value given. Run several cases by repeating the command, or use one glob.
+- **Process cases** are graded on a single turn: the skill cannot run evals inside a run, so the correct behavior is to write or propose, then stop and ask. Write the graders for that.
+
 ## House rules
 
 - No personal data in cases. Health cases use made-up profiles.

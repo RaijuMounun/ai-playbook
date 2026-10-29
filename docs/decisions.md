@@ -10,7 +10,7 @@ Read this first in a new conversation. It is the short version of everything bel
   - `prompt-craft`: the brief template, plus hooks that reject subagent briefs without `<objective>`, `<context>`, `<done_when>`, `<output_format>`.
   - `research`: the `web-researcher` agent and four skills (`ai-engineering-radar`, `purchase-research`, `tech-howto`, `fact-check`). A hook blocks WebSearch in the main thread.
   - `agent-architect`: builds new agent/skill bundles and improves existing ones through an eval-gated loop. Design in [design/agent-architect.md](design/agent-architect.md).
-- **What is measured.** Trigger evals only: 17 cases for the research skills and 5 for agent-architect, all passing (one run per case). Nothing yet checks whether a skill or agent does its job well once it fires. Closing that gap is the work in progress: agent-architect now has 6 job-quality cases, baseline 5/10 (see Next, item 1).
+- **What is measured.** Trigger evals only: 17 cases for the research skills and 5 for agent-architect, all passing (one run per case). Nothing yet checks whether a skill or agent does its job well once it fires. Closing that gap is the work in progress: agent-architect now has 6 job-quality cases, went from a 5/10 baseline to 9/10 after one improve round (see Next, item 1). web-researcher and the research skills come next.
 - **What runs on its own.** The cloud routine `weekly-evals` runs every eval suite on Mondays, 1 hour before the weekly quota reset, and writes a report to the `eval-reports` branch. The desktop task `weekly-evals-drift-check` runs daily on Haiku, moves the routine if the reset time moves, and relays new reports.
 - **How to work.** One hub conversation per phase, with sub-sessions for separate jobs. Start a hub with the prompt in [handoff.md](handoff.md). Every decision and open item goes into this file before a conversation ends, because conversations can be lost (the 2026-10-28 setup conversation was deleted).
 
@@ -23,7 +23,7 @@ Read this first in a new conversation. It is the short version of everything bel
    - **`agent-architect`.** Cases from its own job: does it ask the intake questions, produce a design for approval before writing files, research current practice (through `ai-engineering-radar`), write eval cases with what it builds, and follow the improve loop. Its research on current prompting and agent-design practice happens inside this round.
    - **`web-researcher`.** Measured from real tasks instead of extra test searches (see the entry "web-researcher is measured from real tasks"). Its first real reports get graded against its own standards, and failures become fixed cases.
    - **Quota.** Give the user an estimate before each run. Default to one agent; stop after 3 attempts per fix.
-   - **Status (2026-10-29).** Case plan approved (entry "Job-quality eval plan for agent-architect and web-researcher"). Step a, done: the agent-architect cases are written and the baseline is 5/10 (entry "agent-architect job-quality baseline"). Not committed yet. Step b: the improve loop on agent-architect's failures. Step c: the web-researcher collection script and its first two cases (no run without approval).
+   - **Status (2026-10-29).** Case plan approved (entry "Job-quality eval plan for agent-architect and web-researcher"). Step a, done: the agent-architect cases are written and the baseline is 5/10 (entry "agent-architect job-quality baseline"). Step b, done: the improve loop took the suite to 9/10, waiting for the user's approval to commit (entry "agent-architect improve round 1"). Next: confirm at `--runs 3` in the 2026-11-02 weekly run, then fix the trigger for "improve your own prompt". Step c: the web-researcher collection script and its first two cases (no run without approval).
 2. **Job-quality evals for the research skills** (`purchase-research`, `tech-howto`, `fact-check`). Triggering is covered (17 cases). Still missing: does the skill ask the right questions first, stay at one researcher, and follow its output template. Write these as cases in `plugins/research/evals/<skill>/`, preferring free graders (tool use, structure) and using an `llm` rubric only for quality. The first real use of each skill also counts: check those same points, record the result here, and turn failures into cases.
 
 ### Waiting on a date or an event
@@ -55,6 +55,23 @@ Read this first in a new conversation. It is the short version of everything bel
 - 2026-10-29: phone access decided (Remote Control when the PC is on, cloud otherwise).
 
 ---
+
+## 2026-10-29: agent-architect improve round 1: 5/10 to 9/10
+**Result.** All five fixes passed the gate (Sonnet, `--runs 1`), about $5.30 API-equivalent. Each line is in `evals/agent-architect/HISTORY.md`.
+1. **Unreadable repo files.** The skill says so in one line and continues.
+2. **No prompt file is written or edited before the measurement exists.** That means a failing case and a baseline in Improve, and the cases in Create. Create step 5 names a case file as the first file written. Improve, when it can't run the evals, stops after writing the case and names the baseline, the gate and the approval. This took 2 attempts; the first edit fixed only `tr-no-unmeasured-rewrite`.
+3. **Intake.** Every question has options with a recommendation, at most four questions per message.
+4. **Research** is proposed with its quota cost, and only the user can skip it.
+5. **CLI limits section** in `references/eval-authoring.md`.
+
+**Known noise.**
+- `tr-no-unmeasured-rewrite` doesn't fire the skill in about 3 of 8 runs. That is a trigger problem, not a process one.
+- `research-before-design` passed 4 of its last 8 runs. Its `llm` judge is noisy at `--runs 1`.
+
+**Decision.** Accept on `--runs 1`, and treat the 2026-11-02 weekly run (`--runs 3`, on quota that would otherwise be lost) as the confirmation. If a case is below 2/3 there, it goes back into the loop.
+**Open.**
+- The trigger for "improve your own prompt" requests: a second trigger case, then a description edit through the loop.
+- The hard-coded absolute repo path in `SKILL.md`. It only fails gracefully now; consider the working directory or a relative path.
 
 ## 2026-10-29: agent-architect job-quality baseline: 5/10, and what the eval CLI allows
 **Result.** Six job-quality cases written (the plan is in the next entry). The baseline (Sonnet, `--runs 1`, `--ablation none`, `--allow-tools Write Edit`) passed 5/10, for about $0.94 API-equivalent in total, including the smoke runs. The estimate was $2–4. Failures:

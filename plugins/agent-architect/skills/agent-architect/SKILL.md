@@ -9,11 +9,13 @@ This skill builds and improves the agents and skills in the ai-playbook marketpl
 
 "Improved" means better on the bundle's eval cases. A rewrite that was never measured is not an improvement.
 
+So no `SKILL.md`, agent, or prompt file is written or edited until the measurement exists: in Improve, a failing eval case and a baseline run; in Create, the eval cases (the prompts come after them). This holds even when the user asks directly for a rewrite or an "improvement". Without evidence of what is wrong, ask for an example, a transcript, or a failing run, or propose the eval cases to write first, and leave the file as it is.
+
 Talk to the user in Turkish. Write every file in English.
 
 ## Before anything else
 
-1. Read `CLAUDE.md` and `docs/decisions.md` in the repo, and `docs/design/agent-architect.md` if this is the first use in the session. The decisions log has the open items and constraints that apply.
+1. Read `CLAUDE.md` and `docs/decisions.md` in the repo, and `docs/design/agent-architect.md` if this is the first use in the session. The decisions log has the open items and constraints that apply. If a file can't be read (it is missing or access is denied), say so in one line and continue from what the user gave you; don't stop or ask for access.
 2. Load the `prompt-craft` skill. Every skill, agent, and brief this flow writes follows it.
 3. Decide which flow the request needs: **Create** (a new bundle or skill) or **Improve** (something exists and should work better). If it is unclear, ask.
 
@@ -21,11 +23,11 @@ Out of scope: pre-production (vision, scope, stack choice), per-project agent lo
 
 ## Create
 
-1. **Intake.** Ask about the job, who starts it, inputs and outputs, what a good result looks like, any personal data (it must come from the vault at runtime, never from the repo), and how often it will run, since that sets the model and the quota budget. Ask 2–4 questions at a time with options and your recommendation first.
+1. **Intake.** Ask about the job, who starts it, inputs and outputs, what a good result looks like, any personal data (it must come from the vault at runtime, never from the repo), and how often it will run, since that sets the model and the quota budget. Ask 2–4 questions at a time. Every question has 2–4 answer options with your recommendation first, including questions that look open (for "do you already have a note layout?", offer "no, start from a simple one (recommended)", "yes, I'll give the path"). Number the questions and put all of them in one message. Four is the most per message: pick the ones whose answers change the design most, and keep the rest for the next round.
 2. **Inventory.** Read `.claude-plugin/marketplace.json` and the existing plugins. Prefer extending an existing bundle over adding a new one, and name any overlap.
-3. **Research.** Tell the user before spending quota. By default run one `research:web-researcher` with the research brief below. For questions about AI tooling itself, use `ai-engineering-radar` in quick mode. Distill the findings into the bundle's `references/`; don't paste raw reports into prompts.
+3. **Research.** Before the design doc, propose this step to the user with its quota cost (one researcher is about one subagent run) and wait for the answer. Only the user can skip it; don't recommend skipping it or write the design doc first because the job looks small. By default run one `research:web-researcher` with the research brief below. For questions about AI tooling itself, use `ai-engineering-radar` in quick mode. Distill the findings into the bundle's `references/`; don't paste raw reports into prompts.
 4. **Design doc.** Write `docs/design/<bundle>.md`: the shape (propose the smallest one that does the job, and say why), the agent's job and tools, each skill's purpose and trigger phrases in English and Turkish, the flows, the briefs, the eval plan, and open questions. Stop here until the user approves it.
-5. **Cases first.** Write the eval cases from the approved design, before the prompts. See [references/eval-authoring.md](references/eval-authoring.md).
+5. **Cases first.** Write the eval cases from the approved design, before the prompts. The first file written after the approved design is a case file under `evals/<skill>/`; the `SKILL.md`, the agent, and the manifest come only after every case in the design's eval plan exists. See [references/eval-authoring.md](references/eval-authoring.md).
 6. **Write the files** with `prompt-craft` loaded, following [references/bundle-conventions.md](references/bundle-conventions.md). Register the plugin in `.claude-plugin/marketplace.json` and the README table.
 7. **First eval run.** One run per case, with-skill only (commands in eval-authoring.md). Read the failures, fix, and rerun until the cases pass or the user accepts a known gap.
 8. **Record.** Add a `docs/decisions.md` entry, append the first line to `evals/<skill>/HISTORY.md`, and commit. Ask before pushing.
@@ -33,6 +35,8 @@ Out of scope: pre-production (vision, scope, stack choice), per-project agent lo
 ## Improve
 
 Follow [references/improve-loop.md](references/improve-loop.md). In short: reproduce the failure as a case, take a baseline on all of the bundle's cases, make one edit, and accept it only if the new case passes and nothing that passed before fails. Stop after 3 failed attempts and report. The user approves every change before it is committed.
+
+When you can't run the evals yourself (the CLI runs in the user's terminal), write the new case, leave the skill untouched, and stop. Your message says which three things come next: the baseline run of all the bundle's cases, the gate (the new case must pass and no case that passed before may fail), and the user's approval before any commit. Ask for that go-ahead.
 
 Evidence can come from the user's description, a session transcript (find it with session search and read it), or a failing case in a weekly report under `evals/reports/`.
 
