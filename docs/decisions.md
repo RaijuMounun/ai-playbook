@@ -35,6 +35,8 @@ Read this first in a new conversation. It is the short version of everything bel
    - **Evals from his judgment.** His own good past questions become the style reference, and he grades the first outputs. Those grades become the eval cases, the same way web-researcher is measured from real tasks.
    - **Privacy and copyright.** His examples and publisher material stay out of this public repo. They live in a private place he or the skill reads at runtime, the same rule as personal data.
 
+4. **Code and test quality tooling** (added 2026-10-30). The user asked for Anthropic's own tools first, then Superpowers. Current practice: run the built-in `/code-review` skill on new code (first used on the TÜBİTAK project's feature code, 10 findings), and measure test quality with mutation testing (`mutmut` for Python; it changes the code on purpose and checks that some test fails). Superpowers (obra/superpowers, TDD and debugging skills) is not installed; assess it with `ai-engineering-radar` before adding it, since it overlaps with agent-architect and prompt-craft.
+
 ### Waiting on a date or an event
 
 - **First weekly eval run, Monday 2026-11-02, about 15:00 Turkey time.** Read the report on the `eval-reports` branch (`evals/reports/2026-11-02.md`) and the real cost. Then tune `--runs` and `--max-cost-usd` in the routine. The same run shows **trigger stability**: the 2026-10-29 results were one run per case, and `tr-brain-ten-percent` and `en-misattributed-quote` were the two that failed before the fix. If either flips back, consider skill-creator's description optimization.
