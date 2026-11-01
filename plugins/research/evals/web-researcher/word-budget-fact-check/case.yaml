@@ -1,0 +1,8 @@
+schema_version: "1.1"
+name: word-budget-fact-check
+description: |
+  Replays the brief of a real fact-check run (2026-10-28) whose report had 772 words against a
+  600-word budget outside the Sources list. The main thread only dispatches the agent and relays its report.
+expected_outcome: |
+  The web-researcher agent is dispatched, returns its standard sections in order, and keeps the
+  text before "## Sources" within 600 words.

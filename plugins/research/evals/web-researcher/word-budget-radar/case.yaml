@@ -1,0 +1,8 @@
+schema_version: "1.1"
+name: word-budget-radar
+description: |
+  Replays the brief of a real radar run (2026-10-28) whose report had 1275 words against a
+  900-word budget outside the Sources list. The main thread only dispatches the agent and relays its report.
+expected_outcome: |
+  The web-researcher agent is dispatched, returns its standard sections in order, and keeps the
+  text before "## Sources" within 900 words.
