@@ -1,0 +1,5 @@
+schema_version: "1.1"
+name: radar-vague-question
+description: The request names no candidates and no decision. The skill asks one clarifying question before it spends quota.
+expected_outcome: |
+  ai-engineering-radar is invoked, asks one clarifying question to narrow the scope to concrete candidates or a decision, and does not dispatch a researcher yet.

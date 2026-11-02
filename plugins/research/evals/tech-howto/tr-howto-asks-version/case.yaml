@@ -1,0 +1,5 @@
+schema_version: "1.1"
+name: tr-howto-asks-version
+description: The request names no phone model or Android version. The skill pins down the exact system before it researches anything. The first draft used Windows, but the run's own environment shows the local Windows build, so the skill rightly skipped the question; a phone cannot be read from the environment.
+expected_outcome: |
+  tech-howto is invoked, asks for the phone model and Android version (and the goal), and does not dispatch a researcher or give removal commands yet.

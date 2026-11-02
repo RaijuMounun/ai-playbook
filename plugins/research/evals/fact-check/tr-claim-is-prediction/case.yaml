@@ -1,0 +1,5 @@
+schema_version: "1.1"
+name: tr-claim-is-prediction
+description: A prediction cannot be checked as a fact. The fact-check skill says so instead of spending quota on a researcher.
+expected_outcome: |
+  The fact-check skill is invoked, says the claim is a prediction (not a checkable fact), and does not dispatch a researcher.

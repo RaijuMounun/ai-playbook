@@ -1,0 +1,5 @@
+schema_version: "1.1"
+name: radar-quick-entry
+description: Full flow in quick mode. Web results change over time, so the case grades quota discipline (one researcher), that the entry is saved in the radar folder with its required parts, and that the findings carry a ring, not the ratings themselves. The run's working directory is empty, so the entry is written there.
+expected_outcome: |
+  ai-engineering-radar dispatches exactly one researcher, then writes research/radar/YYYY-MM-DD-<topic>.md with front matter (review_by), a summary table of rings (Adopt, Trial, Assess, Hold), a recommendation and sources.

@@ -1,0 +1,5 @@
+schema_version: "1.1"
+name: tr-howto-rollback-per-step
+description: Full flow with the system already given. Web results change over time, so the case grades the brief's coverage, the report's structure, and whether every step carries its own undo, not exact commands.
+expected_outcome: |
+  tech-howto dispatches one researcher whose brief asks for official documentation, version fit and a rollback per step, then reports in Turkish with backups before the steps and a Geri alma line for every step.

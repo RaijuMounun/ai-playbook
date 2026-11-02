@@ -1,0 +1,5 @@
+schema_version: "1.1"
+name: tr-purchase-full-report
+description: Full flow with every question already answered. Web results and prices change over time, so the case grades the brief's coverage, the report's structure and whether Turkey price and warranty are handled, not exact prices.
+expected_outcome: |
+  purchase-research dispatches one researcher whose brief covers Turkey price (Akakce, Cimri) and Turkey warranty, then reports in Turkish with the decision template, a dated Turkey price and a warranty status per product.

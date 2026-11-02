@@ -1,0 +1,5 @@
+schema_version: "1.1"
+name: tr-brain-myth-verdict
+description: Full flow on a claim with a settled answer. Web results change over time, so the case grades the report's structure, the verdict on this one settled myth, and whether the evidence is primary, not exact wording.
+expected_outcome: |
+  fact-check dispatches one researcher whose brief asks for the claim's first appearance and original source, then reports in Turkish with the template and the verdict Yanlış, backed by primary evidence.

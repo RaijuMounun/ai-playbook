@@ -1,0 +1,5 @@
+schema_version: "1.1"
+name: tr-purchase-asks-first
+description: The request gives no budget, use, or must-haves. The skill asks for them before it spends quota on research.
+expected_outcome: |
+  purchase-research is invoked, asks for the missing items (budget and use at least) in one message, and does not dispatch a researcher yet.
