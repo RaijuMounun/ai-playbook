@@ -7,6 +7,14 @@
         ]
       }
     ],
+    "SubagentStop": [
+      {
+        "matcher": "^research:web-researcher$",
+        "hooks": [
+          { "type": "command", "command": "node", "args": ["${CLAUDE_PLUGIN_ROOT}/scripts/word-budget-check.js"] }
+        ]
+      }
+    ],
     "PreToolUse": [
       {
         "matcher": "WebSearch",

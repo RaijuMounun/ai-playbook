@@ -1,6 +1,6 @@
 {
   "name": "research",
-  "description": "Web research team: a web-researcher subagent with source-weighing standards, research playbook skills, and a policy hook that keeps web search out of the main thread.",
-  "version": "0.2.0",
+  "description": "Web research team: a web-researcher subagent with source-weighing standards, research playbook skills, a policy hook that keeps web search out of the main thread, and a hook that holds web-researcher reports to the brief's word budget.",
+  "version": "0.3.0",
   "author": { "name": "Eren Keskinoğlu", "url": "https://github.com/RaijuMounun" }
 }
