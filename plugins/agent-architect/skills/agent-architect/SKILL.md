@@ -1,6 +1,6 @@
 ---
 name: agent-architect
-description: Designs new Claude Code domain bundles (an agent with its preloaded skills and an entry skill) and improves existing agents and skills through an eval-gated loop, including the research skills and itself. Use when the user wants to build a new agent, skill, or plugin, or says an existing one misbehaved, did not trigger, or should get better, in English or Turkish ("yeni agent yap", "skill oluştur", "bir agent tasarlayalım", "bu skill tetiklenmedi", "skill'i iyileştir", "agent'ı geliştir", "eval yaz").
+description: Designs new Claude Code domain bundles (an agent with its preloaded skills and an entry skill) and improves existing agents and skills through an eval-gated loop, including the research skills and itself. Use when the user wants to build a new agent, skill, or plugin, or says an existing one misbehaved, did not trigger, or should get better, or asks to rewrite or improve a skill's or agent's prompt or SKILL.md, in English or Turkish ("yeni agent yap", "skill oluştur", "bir agent tasarlayalım", "bu skill tetiklenmedi", "skill'i iyileştir", "agent'ı geliştir", "prompt'unu daha iyi hale getir", "SKILL.md'yi yeniden yaz", "eval yaz").
 ---
 
 # Agent Architect
