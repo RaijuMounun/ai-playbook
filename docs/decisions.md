@@ -68,6 +68,18 @@ Read this first in a new conversation. It is the short version of everything bel
 
 ---
 
+## 2026-11-03: intqual is the first project; the per-project development loop is the next build
+**Decision (user).** The first real project for roadmap step 4 is `RaijuMounun/intqual`: an existing, almost finished Rust tool. It is cloned at `C:\Users\Eren\Desktop\-\Projeler\intqual`. `homebrew-intqual` is only its Homebrew formula. Because the project already exists, it gets no full pre-production. It gets a read-only assessment instead: a current-state document and a project `CLAUDE.md`, done in its own session from a brief written here. Then comes the user's wish list.
+The user also wants an automated development loop per project:
+1. A feature request starts a brainstorm with the user.
+2. The approved idea becomes a spec.
+3. A test writer writes the tests, and a test reviewer loops with it until the tests are good.
+4. A coder writes the code, and several reviewers loop with it until they approve.
+5. Project-specific rules come from the project.
+This is roadmap step 3, built with agent-architect's Create flow, including the research step.
+**Why.** An assessment comes before the loop, because the loop needs the project's build and test commands and rules, and intqual has no tests yet. Open points for the design: how many reviewers the Pro quota allows per change, a cap on loop rounds, and where the user approves (spec and final merge at least).
+**Next.** (1) intqual assessment session. (2) agent-architect Create for the loop bundle, research first. (3) The first intqual feature goes through the loop.
+
 ## 2026-11-03: Improve loop on the research baseline: 6/8 (two fixes accepted, two not)
 **Decision.** Two edits are kept; two failures were not fixed and their edits were reverted after three attempts each (the loop's limit).
 - **Accepted:** `fact-check` step 1 now says a prediction about the future cannot be settled by evidence: name it, dispatch no researcher, give no verdict, offer to check the factual parts (`tr-claim-is-prediction` flips, first attempt, $0.07). `ai-engineering-radar` step 1 now says that a question naming no tool, technique or decision gets one clarifying question with 2-3 directions and no researcher (`radar-vague-question` flips, first attempt, $0.04). Gate: `radar-quick-entry` still passes ($0.30). The other skills were not touched, so their passing cases were not rerun.
