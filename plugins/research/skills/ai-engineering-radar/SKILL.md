@@ -16,7 +16,7 @@ This field changes monthly and is full of hype, so the job is to separate what p
 
 ## Process
 
-1. **Scope.** Restate the question as 1–5 concrete candidates (tools, techniques, or patterns) and the decision it informs. If the user's goal is unclear, ask one clarifying question first.
+1. **Scope.** Restate the question as 1–5 concrete candidates (tools, techniques, or patterns) and the decision it informs. If the question names no concrete tool, technique, or decision (for example "what's new in AI coding"), you cannot pick candidates yet: ask one clarifying question, offer 2–3 concrete directions to choose from, dispatch no researcher, and wait for the answer.
 2. **Check prior radar entries.** Look in `research/radar/` of the ai-playbook repo for entries on the same topic. If an entry is less than 3 months old, update it instead of starting over.
 3. **Dispatch researchers.** The user is on a Pro plan, so pick the lightest depth that answers the question:
    - **Quick (default):** one `research:web-researcher` covering all four source classes, with at most 2 findings per class per candidate.

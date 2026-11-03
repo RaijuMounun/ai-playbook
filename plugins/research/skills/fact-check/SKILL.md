@@ -16,7 +16,7 @@ Claims spread detached from their origin: a statistic loses its context, a quote
 
 ## Process
 
-1. **Break the claim into parts.** Split it into separate checkable statements (who, what, when, how many, what caused what). One viral post often mixes true and false parts, and each part gets its own result. If the claim is vague, ask one clarifying question in Turkish. If it is an opinion or prediction rather than a checkable fact, say so.
+1. **Break the claim into parts.** Split it into separate checkable statements (who, what, when, how many, what caused what). One viral post often mixes true and false parts, and each part gets its own result. If the claim is vague, ask one clarifying question in Turkish. If it is an opinion or a prediction about the future, no evidence can settle it today. Say so in Turkish, dispatch no researcher, and give no verdict. Offer to check the factual parts around it instead (current figures, what the cited experts actually said), then stop and wait for the user's choice.
 2. **Dispatch one researcher (default).** One `research:web-researcher` runs SIFT on all the parts. Deep mode (2–3 researchers in parallel, split by claim part) runs only if the user asks. Tell the user it uses several times the quota before you start.
 3. **Decide the verdict** for each part and for the claim as a whole, using the scale below.
 4. **Report in Turkish** with the template below.
