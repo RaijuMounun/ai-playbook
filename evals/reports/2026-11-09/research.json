@@ -1,0 +1,2366 @@
+{
+  "schemaVersion": 1,
+  "claudeVersion": "2.1.319",
+  "startedAt": "2026-11-09T12:13:43.021Z",
+  "durationSeconds": 1624,
+  "costUsd": 4.09908,
+  "partial": true,
+  "partialReason": "cost_ceiling",
+  "suite": {
+    "root": "/home/user/ai-playbook/plugins/research",
+    "ablation": "none",
+    "modelOverride": "sonnet",
+    "threshold": 1,
+    "concurrency": 1,
+    "plugins": [
+      {
+        "name": "research",
+        "version": "0.3.0",
+        "path": "/home/user/ai-playbook/plugins/research"
+      }
+    ]
+  },
+  "cases": [
+    {
+      "name": "radar-quick-entry",
+      "dir": "evals/ai-engineering-radar/radar-quick-entry",
+      "source": "mixed",
+      "promptMarkdown": "Use the AI engineering radar on this: is MCP (Model Context Protocol) still best practice for connecting Claude Code to external tools, or should I prefer plain CLI tools and skills? The decision: which one to set up first for my projects. No clarifying questions needed; quick mode is fine. Save the entry as usual.",
+      "runsPerCase": 3,
+      "timeoutSeconds": 900,
+      "maxTurns": 14,
+      "graders": [
+        {
+          "name": "01-skill-fired",
+          "type": "tool_used",
+          "weight": 1,
+          "config": {
+            "tool": "Skill",
+            "input_match": "\"skill\"\\s*:\\s*\"(?:[\\w-]+:)?ai-engineering-radar\""
+          }
+        },
+        {
+          "name": "02-exactly-one-researcher",
+          "type": "tool_used",
+          "weight": 1,
+          "config": {
+            "tool": "Agent",
+            "input_match": "\"subagent_type\"\\s*:\\s*\"(?:research:)?web-researcher\"",
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "name": "03-entry-saved-in-radar-folder",
+          "type": "tool_used",
+          "weight": 1,
+          "config": {
+            "tool": "Write",
+            "input_match": "\"file_path\"\\s*:\\s*\"[^\"]*research[\\\\/]+radar[\\\\/]+\\d{4}-\\d{2}-\\d{2}-[^\"\\\\/]+\\.md\"",
+            "min": 1
+          }
+        },
+        {
+          "name": "04-entry-has-required-parts",
+          "type": "tool_used",
+          "weight": 1,
+          "config": {
+            "tool": "Write",
+            "input_match": "(?=[\\s\\S]*review_by:)(?=[\\s\\S]*\\| (Adopt|Trial|Assess|Hold) \\|)(?=[\\s\\S]*## Recommendation for this setup)(?=[\\s\\S]*## Sources)",
+            "min": 1
+          }
+        }
+      ],
+      "arms": {
+        "with": [
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 6,
+            "costUsd": 0.19243929999999998,
+            "judgeCostUsd": 0,
+            "durationSeconds": 76,
+            "startedAt": "2026-11-09T12:13:43.156Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-mjunYi/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "02-exactly-one-researcher",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Agent called 1x (expected 1..1)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "03-entry-saved-in-radar-folder",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Write called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "04-entry-has-required-parts",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Write called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              }
+            ]
+          },
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 6,
+            "costUsd": 0.21371089999999998,
+            "judgeCostUsd": 0,
+            "durationSeconds": 109,
+            "startedAt": "2026-11-09T12:14:59.516Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-IXvSfS/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "02-exactly-one-researcher",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Agent called 1x (expected 1..1)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "03-entry-saved-in-radar-folder",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Write called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "04-entry-has-required-parts",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Write called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              }
+            ]
+          },
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 6,
+            "costUsd": 0.1977615,
+            "judgeCostUsd": 0,
+            "durationSeconds": 108,
+            "startedAt": "2026-11-09T12:16:48.908Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-LL1sJd/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "02-exactly-one-researcher",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Agent called 1x (expected 1..1)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "03-entry-saved-in-radar-folder",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Write called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "04-entry-has-required-parts",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Write called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              }
+            ]
+          }
+        ]
+      },
+      "aggregates": {
+        "score": 1,
+        "passRate": 1
+      }
+    },
+    {
+      "name": "radar-vague-question",
+      "dir": "evals/ai-engineering-radar/radar-vague-question",
+      "source": "mixed",
+      "promptMarkdown": "I want an AI engineering radar on whatever is new in AI coding these days. What should I know?",
+      "runsPerCase": 3,
+      "timeoutSeconds": 300,
+      "maxTurns": 6,
+      "graders": [
+        {
+          "name": "01-skill-fired",
+          "type": "tool_used",
+          "weight": 1,
+          "config": {
+            "tool": "Skill",
+            "input_match": "\"skill\"\\s*:\\s*\"(?:[\\w-]+:)?ai-engineering-radar\""
+          }
+        },
+        {
+          "name": "02-no-researcher-dispatched",
+          "type": "tool_used",
+          "weight": 1,
+          "config": {
+            "tool": "Agent",
+            "min": 0,
+            "max": 0
+          }
+        },
+        {
+          "name": "03-one-clarifying-question",
+          "type": "llm",
+          "weight": 1,
+          "graderMarkdown": "PASS only if the final message asks the user to narrow the scope (to specific tools or techniques, or to the decision the radar should inform) with a clear question, and it does not present radar ratings (Adopt, Trial, Assess, Hold) yet. One question, or a short group of closely related ones, is fine.\nFAIL if it rates candidates already, if it starts researching without asking, or if it asks nothing.",
+          "config": {
+            "criteria": "PASS only if the final message asks the user to narrow the scope (to specific tools or techniques, or to the decision the radar should inform) with a clear question, and it does not present radar ratings (Adopt, Trial, Assess, Hold) yet. One question, or a short group of closely related ones, is fine.\nFAIL if it rates candidates already, if it starts researching without asking, or if it asks nothing.",
+            "focus": "last_message"
+          }
+        }
+      ],
+      "arms": {
+        "with": [
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 3,
+            "costUsd": 0.0417603,
+            "judgeCostUsd": 0.00019740000000000003,
+            "durationSeconds": 10,
+            "startedAt": "2026-11-09T12:18:36.608Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-3rgBL8/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "02-no-researcher-dispatched",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Agent called 0x (expected 0..0)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "03-one-clarifying-question",
+                "passed": true,
+                "weight": 1,
+                "explanation": "judge votes: PASS PASS PASS",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  true,
+                  true,
+                  true
+                ],
+                "evidence": "\"What's new in AI coding\" is too broad to rate. The radar works on specific tools or techniques, and each one gets an Adopt, Trial, Assess or Hold rating. Which of these directions do you want?\n\n1. **Agent workflows in Claude Code.** Subagents, skills, hooks, MCP servers, and memory or context-management patterns. This fits your ai-playbook plugin work best.\n2. **Coding agents and IDE tools.** How Claude Code compares with the other coding agents and assistants now in use, and which are worth a trial for UE5 C++, Flutter, Rust and Python.\n3. **Engineering practice around AI.** Spec-driven development, test-first loops with agents, code review of AI-written code, and prompt and context techniques that practitioners say hold up.\n\nYou can also name your own tools or techniques, up to five.\n\nResearch runs in quick mode by default, with one researcher agent. That is the lightest option for a Pro plan. A deep run uses several agents in parallel and several times the quota. I'd only suggest it if the decision is expensive to reverse.\n\nOnce you pick, I'll save the radar entry to `research/radar/` and summarize it in Turkish."
+              }
+            ]
+          },
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 3,
+            "costUsd": 0.0420682,
+            "judgeCostUsd": 0.0002007,
+            "durationSeconds": 10,
+            "startedAt": "2026-11-09T12:18:46.367Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-Tn5vQ7/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "02-no-researcher-dispatched",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Agent called 0x (expected 0..0)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "03-one-clarifying-question",
+                "passed": true,
+                "weight": 1,
+                "explanation": "judge votes: PASS PASS PASS",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  true,
+                  true,
+                  true
+                ],
+                "evidence": "\"What's new in AI coding\" is too broad for a radar. I need a few concrete candidates first, so I haven't started any research. Which of these directions do you want?\n\n1. **Agent workflow in Claude Code.** Subagents, skills, hooks, MCP servers, parallel agents and worktrees, and memory or context-management patterns. This fits your current setup and the ai-playbook repo best.\n2. **Code-intelligence tooling.** Code graphs, LSP and semantic-search MCP servers, and repo-indexing approaches. I'd look at how well they hold up on large C++ (UE5) and Rust codebases.\n3. **Competing tools and models.** How Claude Code compares with Codex CLI, Gemini CLI, Cursor, Copilot's agent mode, and similar tools. This helps if you're deciding whether to add or switch tools.\n\nYou can also name specific tools or techniques you've heard about, and I'll use those.\n\nI'll run a **quick** pass by default: one researcher, which uses the least Pro-plan quota. A **deep** pass uses several times more quota, so I'd only do it if you ask. Once you pick, I'll save the radar entry to `research/radar/` and summarize it for you."
+              }
+            ]
+          },
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 3,
+            "costUsd": 0.0411838,
+            "judgeCostUsd": 0.00018089999999999995,
+            "durationSeconds": 10,
+            "startedAt": "2026-11-09T12:18:56.631Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-bnI2AH/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "02-no-researcher-dispatched",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Agent called 0x (expected 0..0)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "03-one-clarifying-question",
+                "passed": true,
+                "weight": 1,
+                "explanation": "judge votes: PASS PASS PASS",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  true,
+                  true,
+                  true
+                ],
+                "evidence": "\"What's new in AI coding\" is too broad to rate, because the radar works on specific tools or techniques. Which of these do you want?\n\n1. **Agent workflows in Claude Code:** subagents, skills, hooks, MCP servers, and memory or context-management patterns. This helps most if you're about to design or change something in your ai-playbook plugin repo.\n2. **AI coding tools compared:** Claude Code against Cursor, Codex CLI, Copilot agent, Gemini CLI, and similar. This fits a \"should I add or switch tools?\" decision.\n3. **Fit for your stack:** what works well for UE5 C++, Flutter, Rust, and Python, such as code graphs, LSP and indexing tools, and test-driven agent loops.\n\nYou can also name a specific tool or technique.\n\nI'll start with a quick pass, which is one researcher and the lightest on your Pro quota. If the decision is expensive to reverse, I can do a deep pass with several researchers in parallel, but that uses several times the quota."
+              }
+            ]
+          }
+        ]
+      },
+      "aggregates": {
+        "score": 1,
+        "passRate": 1
+      }
+    },
+    {
+      "name": "en-misattributed-quote",
+      "dir": "evals/fact-check/en-misattributed-quote",
+      "source": "mixed",
+      "promptMarkdown": "Did Einstein really say that insanity is doing the same thing over and over and expecting different results?",
+      "runsPerCase": 3,
+      "timeoutSeconds": 180,
+      "maxTurns": 5,
+      "graders": [
+        {
+          "name": "01-skill-fired",
+          "type": "tool_used",
+          "weight": 1,
+          "config": {
+            "tool": "Skill",
+            "input_match": "\"skill\"\\s*:\\s*\"(?:[\\w-]+:)?fact-check\""
+          }
+        }
+      ],
+      "arms": {
+        "with": [
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 4,
+            "costUsd": 0.09174950000000001,
+            "judgeCostUsd": 0,
+            "durationSeconds": 39,
+            "startedAt": "2026-11-09T12:19:06.651Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-jf23f1/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              }
+            ]
+          },
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 1,
+            "costUsd": 0.10064350000000002,
+            "judgeCostUsd": 0,
+            "durationSeconds": 44,
+            "startedAt": "2026-11-09T12:19:45.400Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-Py6OP4/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              }
+            ]
+          },
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 1,
+            "costUsd": 0.09676820000000001,
+            "judgeCostUsd": 0,
+            "durationSeconds": 42,
+            "startedAt": "2026-11-09T12:20:29.037Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-31YV8H/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              }
+            ]
+          }
+        ]
+      },
+      "aggregates": {
+        "score": 1,
+        "passRate": 1
+      }
+    },
+    {
+      "name": "not-code-review",
+      "dir": "evals/fact-check/not-code-review",
+      "source": "mixed",
+      "promptMarkdown": "Bu Python kodu doğru mu? for i in range(10) print(i)",
+      "runsPerCase": 3,
+      "timeoutSeconds": 180,
+      "maxTurns": 5,
+      "graders": [
+        {
+          "name": "01-skill-not-fired",
+          "type": "tool_used",
+          "weight": 1,
+          "config": {
+            "tool": "Skill",
+            "input_match": "\"skill\"\\s*:\\s*\"(?:[\\w-]+:)?fact-check\"",
+            "min": 0,
+            "max": 0,
+            "arm": "both"
+          }
+        }
+      ],
+      "arms": {
+        "with": [
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 1,
+            "costUsd": 0.0289204,
+            "judgeCostUsd": 0,
+            "durationSeconds": 6,
+            "startedAt": "2026-11-09T12:21:10.642Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-BpViV1/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-not-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 0x (expected 0..0)",
+                "withOnly": false,
+                "scored": true
+              }
+            ]
+          },
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 1,
+            "costUsd": 0.0302124,
+            "judgeCostUsd": 0,
+            "durationSeconds": 9,
+            "startedAt": "2026-11-09T12:21:17.028Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-aiL8gO/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-not-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 0x (expected 0..0)",
+                "withOnly": false,
+                "scored": true
+              }
+            ]
+          },
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 1,
+            "costUsd": 0.0293724,
+            "judgeCostUsd": 0,
+            "durationSeconds": 4,
+            "startedAt": "2026-11-09T12:21:26.096Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-9aDDQz/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-not-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 0x (expected 0..0)",
+                "withOnly": false,
+                "scored": true
+              }
+            ]
+          }
+        ]
+      },
+      "aggregates": {
+        "score": 1,
+        "passRate": 1
+      }
+    },
+    {
+      "name": "not-spelling-question",
+      "dir": "evals/fact-check/not-spelling-question",
+      "source": "mixed",
+      "promptMarkdown": "\"Herkez\" mi doğru yazılır, \"herkes\" mi?",
+      "runsPerCase": 3,
+      "timeoutSeconds": 180,
+      "maxTurns": 5,
+      "graders": [
+        {
+          "name": "01-skill-not-fired",
+          "type": "tool_used",
+          "weight": 1,
+          "config": {
+            "tool": "Skill",
+            "input_match": "\"skill\"\\s*:\\s*\"(?:[\\w-]+:)?fact-check\"",
+            "min": 0,
+            "max": 0,
+            "arm": "both"
+          }
+        }
+      ],
+      "arms": {
+        "with": [
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 1,
+            "costUsd": 0.0294184,
+            "judgeCostUsd": 0,
+            "durationSeconds": 4,
+            "startedAt": "2026-11-09T12:21:29.783Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-kYbHb5/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-not-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 0x (expected 0..0)",
+                "withOnly": false,
+                "scored": true
+              }
+            ]
+          },
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 1,
+            "costUsd": 0.0298264,
+            "judgeCostUsd": 0,
+            "durationSeconds": 4,
+            "startedAt": "2026-11-09T12:21:33.649Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-yltn7d/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-not-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 0x (expected 0..0)",
+                "withOnly": false,
+                "scored": true
+              }
+            ]
+          },
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 1,
+            "costUsd": 0.0295584,
+            "judgeCostUsd": 0,
+            "durationSeconds": 5,
+            "startedAt": "2026-11-09T12:21:38.060Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-PvGNrR/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-not-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 0x (expected 0..0)",
+                "withOnly": false,
+                "scored": true
+              }
+            ]
+          }
+        ]
+      },
+      "aggregates": {
+        "score": 1,
+        "passRate": 1
+      }
+    },
+    {
+      "name": "tr-brain-myth-verdict",
+      "dir": "evals/fact-check/tr-brain-myth-verdict",
+      "source": "mixed",
+      "promptMarkdown": "İnsanların beyinlerinin sadece %10'unu kullandığı doğru mu?",
+      "runsPerCase": 3,
+      "timeoutSeconds": 900,
+      "maxTurns": 12,
+      "graders": [
+        {
+          "name": "01-skill-fired",
+          "type": "tool_used",
+          "weight": 1,
+          "config": {
+            "tool": "Skill",
+            "input_match": "\"skill\"\\s*:\\s*\"(?:[\\w-]+:)?fact-check\""
+          }
+        },
+        {
+          "name": "02-brief-asks-for-origin",
+          "type": "tool_used",
+          "weight": 1,
+          "config": {
+            "tool": "Agent",
+            "input_match": "(?=[\\s\\S]*\"subagent_type\"\\s*:\\s*\"(?:research:)?web-researcher\")(?=[\\s\\S]*earliest)(?=[\\s\\S]*original)",
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "name": "03-template-sections-in-order",
+          "type": "regex",
+          "weight": 1,
+          "config": {
+            "target": "last_message",
+            "pattern": "## Hüküm[\\s\\S]*## İddianın parçaları[\\s\\S]*## İzlenen yol[\\s\\S]*## Kaynaklar",
+            "flags": "",
+            "match": "contains"
+          }
+        },
+        {
+          "name": "04-verdict-is-yanlis",
+          "type": "regex",
+          "weight": 1,
+          "config": {
+            "target": "last_message",
+            "pattern": "## Hüküm\\s*\\n\\s*\\*\\*Yanlış",
+            "flags": "",
+            "match": "contains"
+          }
+        },
+        {
+          "name": "05-traces-to-primary-evidence",
+          "type": "llm",
+          "weight": 1,
+          "graderMarkdown": "PASS only if the report's \"İzlenen yol\" section does both: (1) says where or when the claim first appeared, or says plainly that its first appearance could not be found; (2) bases the verdict on primary evidence (for example brain imaging studies, lesion or stroke studies, or neuroscience reviews) and not only on fact-checking sites or news articles.\nFAIL if the verdict rests only on fact-checkers, popular articles or general statements, or if the origin of the claim is not addressed.",
+          "config": {
+            "criteria": "PASS only if the report's \"İzlenen yol\" section does both: (1) says where or when the claim first appeared, or says plainly that its first appearance could not be found; (2) bases the verdict on primary evidence (for example brain imaging studies, lesion or stroke studies, or neuroscience reviews) and not only on fact-checking sites or news articles.\nFAIL if the verdict rests only on fact-checkers, popular articles or general statements, or if the origin of the claim is not addressed.",
+            "focus": "last_message"
+          }
+        }
+      ],
+      "arms": {
+        "with": [
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 4,
+            "costUsd": 0.1340839,
+            "judgeCostUsd": 0.0015921999999999998,
+            "durationSeconds": 70,
+            "startedAt": "2026-11-09T12:21:43.016Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-fMbquy/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "02-brief-asks-for-origin",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Agent called 1x (expected 1..1)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "03-template-sections-in-order",
+                "passed": true,
+                "weight": 1,
+                "explanation": "matched ## Hüküm[\\s\\S]*## İddianın parçaları[\\s\\S]*## İzlenen yol[\\s\\S]*## Kaynaklar",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "04-verdict-is-yanlis",
+                "passed": true,
+                "weight": 1,
+                "explanation": "matched ## Hüküm\\s*\\n\\s*\\*\\*Yanlış",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "05-traces-to-primary-evidence",
+                "passed": true,
+                "weight": 1,
+                "explanation": "judge votes: PASS PASS PASS",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  true,
+                  true,
+                  true
+                ],
+                "evidence": "## Hüküm\n**Yanlış.** İnsanlar beyinlerinin yalnızca %10'unu kullanmaz. Görüntüleme, hasar çalışmaları ve enerji tüketimi verileri bunun tersini gösteriyor. Güven düzeyi: orta-yüksek.\n\n**Önemli not:** Araştırmacı ajan bu oturumda hiçbir web kaynağını açamadı (tüm WebFetch çağrıları \"proxy bağlantıyı reddetti\" hatası verdi). Aşağıdakiler bilinen literatüre dayanıyor. Bugün kaynak sayfalardan okuyup doğrulanmış değiller.\n\n## İddianın parçaları\n| Parça | Hüküm | Kısa gerekçe |\n| :- | :- | :- |\n| Beynin %90'ı kullanılmıyor | Yanlış | PET ve fMRI gün boyunca beynin tamamında etkinlik gösteriyor. Hiçbir bölgede \"boş\" doku bulunmadı. |\n| Hasar çalışmaları | Yanlış | Hemen her bölgedeki küçük bir hasar bile bir işlev kaybına yol açıyor. \"Yedek %90\" yok. |\n| Enerji tüketimi | Yanlış | Beyin vücut kütlesinin yaklaşık %2'si, ama dinlenme enerjisinin yaklaşık %20'sini harcıyor. Çoğunlukla boşta duran bir organ için bu mantıklı değil. |\n| İlk çıkış yeri | Doğrulanamadı | Kesin bir ilk çıkış tarihi yok. Sık anılan kaynakların çoğu yanlış atıf. |\n| Gerçek payı | Yanıltıcı | Aynı anda nöronların yalnızca küçük bir kısmı ateşler, ama bu \"%90 kullanılmıyor\" demek değil. |\n\n## İzlenen yol\n- **İlk çıktığı yer:** Kesin tarih bulunamadı. Genel anlatım, 20. yüzyıl başındaki kişisel gelişim yazılarına işaret ediyor.\n- **Orijinal kaynak:**\n  - William James'in *The Energies of Men* (1907) yazısı, insanların zihinsel kaynaklarının yalnızca küçük bir kısmını kullandığını söylüyor. \"%10\" rakamını ve beyin dokusu ifadesini içermiyor.\n  - Lowell Thomas'ın Dale Carnegie'nin *How to Win Friends and Influence People* (1936) kitabına yazdığı önsöz, ortalama insanın gizli zihinsel yeteneğinin yalnızca %10'unu geliştirdiğini söylüyor. Bu, beyin dokusuyla değil yetenekle ilgili bir iddia.\n  - Einstein'a atfedilen söz için bilinen bir birincil kaynak yok.\n- **Kaynağın güvenilirliği:** Kaynak olarak anılan metinler bilimsel çalışma değil, popüler ve motivasyon yazıları.\n- **Bağımsız kaynaklar:** Beyerstein'ın *Mind Myths* (1999) bölümü, Scientific American'ın 2008 tarihli \"Do People Only Use 10 Percent of Their Brains?\" yazısı ve Raichle'in beyin enerji bütçesi çalışmaları aynı sonuca varıyor. Bunları bu oturumda açıp okuyamadım.\n\n## Bağlam\nMitin yayılmasında \"insan potansiyeli\" söyleminin payı büyük. \"Yeteneklerinin küçük bir kısmını kullanıyorsun\" demek motivasyon için işe yarıyor ve zamanla \"beynin %10'u\" şekline dönüşmüş olabilir. Doğru olan kısım şu: bir an içinde nöronların yalnızca küçük bir kısmı ateşliyor (seyrek kodlama), ve öğrenmeyle gelişme potansiyeli var. Ayrıca \"glia hücreleri nöronlardan 10 kat fazla\" bilgisi de yanlış. Azevedo ve arkadaşlarının 2009 tarihli çalışması oranın yaklaşık 1:1 olduğunu buldu.\n\n## Doğrulanamayanlar\n- \"%10\" ifadesinin en erken tarihli kullanımı.\n- James ve Thomas metinlerinin tam ifadeleri.\n- Einstein atfının kaynağı.\n\n## Kaynaklar\nHiçbiri bu oturumda açılmadı. Doğrulamak için bakılabilecek kaynaklar:\n1. Beyerstein, B., \"Whence Cometh the Myth that We Only Use 10% of Our Brains?\", *Mind Myths* (Wiley, 1999)\n2. Scientific American, \"Do People Only Use 10 Percent of Their Brains?\" (2008)\n3. James, W., \"The Energies of Men\" (1907)\n4. Carnegie, D., *How to Win Friends and Influence People* (1936), Lowell Thomas önsözü\n5. Azevedo ve ark., *J Comp Neurol* (2009)\n6. Raichle & Gusnard, *PNAS* (2002)\n\nİsterseniz bağlantı sorunu çözülünce kaynakları açıp tekrar kontrol edebilirim."
+              }
+            ]
+          },
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 1,
+            "costUsd": 0.138496,
+            "judgeCostUsd": 0.0015915999999999999,
+            "durationSeconds": 73,
+            "startedAt": "2026-11-09T12:22:52.996Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-20xc8Y/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "02-brief-asks-for-origin",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Agent called 1x (expected 1..1)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "03-template-sections-in-order",
+                "passed": true,
+                "weight": 1,
+                "explanation": "matched ## Hüküm[\\s\\S]*## İddianın parçaları[\\s\\S]*## İzlenen yol[\\s\\S]*## Kaynaklar",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "04-verdict-is-yanlis",
+                "passed": true,
+                "weight": 1,
+                "explanation": "matched ## Hüküm\\s*\\n\\s*\\*\\*Yanlış",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "05-traces-to-primary-evidence",
+                "passed": true,
+                "weight": 1,
+                "explanation": "judge votes: PASS PASS PASS",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  true,
+                  true,
+                  true
+                ],
+                "evidence": "## Hüküm\n**Yanlış.** Beynin yalnızca %10'unun kullanıldığı iddiasını görüntüleme çalışmaları, beyin hasarı vakaları ve enerji tüketimi verileri çürütüyor. Güven düzeyi: orta-yüksek. Bilimsel görüş bu konuda çok net, ama araştırmacı bu oturumda hiçbir kaynağı açamadı (bağlantı engellendi). Aşağıdakiler kaynak sayfalarından değil, literatür bilgisinden geliyor.\n\n## İddianın parçaları\n| Parça | Hüküm | Kısa gerekçe |\n| :- | :- | :- |\n| İnsan beyninin ~%10'unu kullanır | Yanlış | PET ve fMRI, gün içinde beynin neredeyse tüm bölgelerinin etkin olduğunu gösteriyor. Uykuda bile durum böyle. Her bölgenin hasarı bir işlev kaybına yol açıyor. |\n| Köken (William James, Einstein vb.) | Yanlış atıf | Net bir tek kaynak yok. Einstein'a atfın belgelenmiş bir dayanağı bulunmuyor. |\n| Kalan %90 \"açılabilir\" | Yanlış | Uyuyan bir %90'ın olduğuna dair kanıt yok. Fikir *Lucy* ve *Limitless* gibi filmlerde ve kişisel gelişim pazarlamasında kullanılıyor. |\n\n## İzlenen yol\n- **İlk çıktığı yer:** Kesin tarihi doğrulanamadı. Bilinen en eski izler 1907 (William James) ve 1936'dır. Bu tarihlerin ikisi de burada teyit edilmedi.\n- **Orijinal kaynak:** William James, *The Energies of Men*, insanların potansiyellerinin yalnızca bir kısmını kullandığını söylüyor. Yüzde vermiyor ve anatomik bir iddiada bulunmuyor. Lowell Thomas'ın, Dale Carnegie'nin 1936 tarihli *How to Win Friends and Influence People* kitabına yazdığı önsöz, \"%10\" ifadesinin erken basılı örneklerinden biri olarak sık anılıyor. İlk örnek olduğu doğrulanmadı.\n- **Kaynağın güvenilirliği:** Beyerstein (*Mind Myths*, 1999) ve Barry Gordon'ın Scientific American yazısı standart derlemeler. Raichle ve Gusnard (PNAS, 2002) enerji bütçesi verisinin kaynağı. Bunlar güvenilir birincil veya derleme kaynakları ama bu oturumda açılıp okunmadı.\n- **Bağımsız kaynaklar:** Güvenilir bir itiraz bilinmiyor. Köken anlatıları, bilimsel çalışmaların desteklediğinden daha kesin sunuluyor.\n\n## Bağlam\nMitin yayılmasına şunlar katkıda bulunmuş olabilir:\n- James'in \"potansiyelimizin küçük bir kısmını kullanıyoruz\" anlamındaki mecazi sözü\n- Lashley ve Penfield'ın çalışmalarının yanlış yorumlanması\n- Glial hücrelerin eskiden \"işlevsiz\" sayılması\n- Kişisel gelişim sektörünün ve filmlerin bu fikri kullanması\n\nDoğru olan kısım şu: insanlar potansiyellerinin tamamını kullanmıyor olabilir. Bu mecazi bir söz, anatomik bir olgu değil. Beyin vücut kütlesinin yaklaşık %2'sidir ama dinlenme enerjisinin yaklaşık %20'sini harcar. Kullanılmayan bir dokunun bu bedeli taşıması beklenmez.\n\n## Doğrulanamayanlar\n- Mitin en eski basılı örneği ve tarihi\n- Einstein atfının kaynağı\n- İnsanların bu mite ne oranda inandığı. Sık dolaşan \"%65\" gibi rakamların kaynağı belirsiz, bu yüzden kullanmadım. Dekker ve diğerleri (2012) öğretmenler arasında mitin yaygın olduğunu bildiriyor.\n- Film ve pazarlama iddiaları kontrol edilmedi.\n\n## Kaynaklar\nHiçbiri bu oturumda açılmadı, ikinci kez kontrol edilmeleri gerekir.\n1. Beyerstein, B. L., \"Whence Cometh the Myth that We Only Use 10% of Our Brains?\", Della Sala (ed.), *Mind Myths*, Wiley, 1999.\n2. Raichle, M. E. ve Gusnard, D. A., \"Appraising the brain's energy budget\", PNAS, 2002.\n3. James, W., \"The Energies of Men\", 1907/1908.\n4. Thomas, L., Carnegie, D., *How to Win Friends and Influence People* (1936) kitabının önsözü.\n5. Dekker, S. ve diğerleri, \"Neuromyths in education\", Frontiers in Psychology, 2012.\n\nİsterseniz kaynaklara erişim sağlandığında aramayı yeniden yaptırıp bağlantılı, doğrulanmış bir sürüm hazırlayabilirim."
+              }
+            ]
+          },
+          {
+            "score": 0.8,
+            "passed": false,
+            "turns": 1,
+            "costUsd": 0.13584759999999999,
+            "judgeCostUsd": 0.0009870000000000005,
+            "durationSeconds": 60,
+            "startedAt": "2026-11-09T12:24:05.988Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-GeMcgn/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "02-brief-asks-for-origin",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Agent called 1x (expected 1..1)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "03-template-sections-in-order",
+                "passed": true,
+                "weight": 1,
+                "explanation": "matched ## Hüküm[\\s\\S]*## İddianın parçaları[\\s\\S]*## İzlenen yol[\\s\\S]*## Kaynaklar",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "04-verdict-is-yanlis",
+                "passed": true,
+                "weight": 1,
+                "explanation": "matched ## Hüküm\\s*\\n\\s*\\*\\*Yanlış",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "05-traces-to-primary-evidence",
+                "passed": false,
+                "weight": 1,
+                "explanation": "judge votes: FAIL FAIL FAIL",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  false,
+                  false,
+                  false
+                ],
+                "evidence": "## Hüküm\n**Yanlış.** Beyin görüntüleme, beyin hasarı vakaları ve enerji tüketimi verileri, insanların beyinlerinin büyük bölümünü kullandığını gösteriyor. \"Sadece %10\" iddiasını destekleyen güvenilir bir nörobilim kaynağı bilmiyorum. Güven düzeyi: **orta**. Bilimsel görüş çok yerleşik, ama araştırmacı ajan bu oturumda hiçbir kaynağa erişemedi (tüm web istekleri proxy tarafından reddedildi). Aşağıdaki bilgiler önceki bilgiye dayanıyor ve kaynaklardan yeniden doğrulanmadı.\n\n## İddianın parçaları\n| Parça | Hüküm | Kısa gerekçe |\n| :- | :- | :- |\n| İnsanlar beyinlerinin sadece %10'unu kullanır | **Yanlış** | PET/fMRI gün içinde tüm beyinde aktivite gösterir. Hemen her bölgedeki hasar bir işlev kaybına yol açar. Beyin vücut kütlesinin yaklaşık %2'si, ama dinlenme enerjisinin yaklaşık %20'sini harcar. Atıl bir %90'ı evrim taşımazdı. |\n| Einstein veya William James söyledi | **Desteklenmiyor** | Einstein için birincil kaynak bilmiyorum. James 1907'de \"The Energies of Men\" yazısında insanların zihinsel kaynaklarının küçük bir kısmını kullandığını söylemiş, ama %10 rakamını vermemiş. |\n| Doğru bir yanı var mı? | **Yanıltıcı** | Aynı anda nöronların yalnızca bir kısmı ateşler, ama bu verimli çalışmanın sonucu, boşta kapasite değil. İnsanlar öğrenip gelişebilir, ama bu \"%10 kullanım\" demek değil. |\n\n## İzlenen yol\n- **İlk çıktığı yer:** Doğrulanamadı. Rakamlı en eski örnek olarak hatırladığım metin, Lowell Thomas'ın Dale Carnegie'nin *How to Win Friends and Influence People* (1936) kitabına yazdığı önsöz. Orada bu söz James'e atfedilir. Daha eski bir kullanım olup olmadığını kontrol edemedik.\n- **Orijinal kaynak:** James'in 1907 metni küçük bir \"kullanılmayan potansiyel\"den söz eder ama sayı vermez. Mit büyük ihtimalle bu yorumun sayıya çevrilmesiyle doğdu.\n- **Kaynağın güvenilirliği:** Carnegie önsözü bir bilimsel kaynak değil, kendini geliştirme literatürü.\n- **Bağımsız kaynaklar:** Kontrol edilemedi. Başvurulacak kaynaklar şunlar:\n  - Beyerstein'ın \"Whence Cometh the Myth that We Only Use 10% of Our Brains?\" bölümü (*Mind Myths*, 1999)\n  - Scientific American'ın konuyla ilgili açıklaması\n\n## Bağlam\nMit; \"insan potansiyeli\" vurgusu yapan kendini geliştirme kitaplarında, filmlerde (*Lucy*, *Limitless*) ve James'in sözünün yanlış aktarılmasıyla yaygınlaşmış olabilir. Glia hücrelerinin \"nöronun 10 katı\" olduğu fikri de yanlış çıktı. Azevedo ve arkadaşlarının 2009 çalışmasına göre oran yaklaşık 1:1 (bu rakamı da doğrulayamadım).\n\n## Doğrulanamayanlar\n- Yukarıdaki tüm alıntı ve tarihler (James 1907, Thomas 1936, Beyerstein 1999, Azevedo 2009).\n- \"%10\" rakamının daha eski bir kullanımı.\n- Einstein'a atfın hiçbir birincil kaynağının olmadığı.\n\n## Kaynaklar\nBu oturumda hiçbirine ulaşılamadı. İsterseniz tekrar deneyebilirim:\n1. https://www.scientificamerican.com/article/do-people-only-use-10-percent-of-their-brains/\n2. https://www.ncbi.nlm.nih.gov/books/NBK2231/ (Beyerstein)\n3. https://en.wikipedia.org/wiki/Ten_percent_of_brain_myth (sadece ipucu olarak)"
+              }
+            ]
+          }
+        ]
+      },
+      "aggregates": {
+        "score": 0.9333333333333332,
+        "passRate": 0.6666666666666666
+      }
+    },
+    {
+      "name": "tr-brain-ten-percent",
+      "dir": "evals/fact-check/tr-brain-ten-percent",
+      "source": "mixed",
+      "promptMarkdown": "İnsanların beyninin sadece %10'unu kullandığı doğru mu?",
+      "runsPerCase": 3,
+      "timeoutSeconds": 180,
+      "maxTurns": 5,
+      "graders": [
+        {
+          "name": "01-skill-fired",
+          "type": "tool_used",
+          "weight": 1,
+          "config": {
+            "tool": "Skill",
+            "input_match": "\"skill\"\\s*:\\s*\"(?:[\\w-]+:)?fact-check\""
+          }
+        }
+      ],
+      "arms": {
+        "with": [
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 1,
+            "costUsd": 0.1337724,
+            "judgeCostUsd": 0,
+            "durationSeconds": 56,
+            "startedAt": "2026-11-09T12:25:06.360Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-Xc0FXc/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              }
+            ]
+          },
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 1,
+            "costUsd": 0.11096349999999999,
+            "judgeCostUsd": 0,
+            "durationSeconds": 47,
+            "startedAt": "2026-11-09T12:26:02.575Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-u5De5f/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              }
+            ]
+          },
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 1,
+            "costUsd": 0.1402631,
+            "judgeCostUsd": 0,
+            "durationSeconds": 62,
+            "startedAt": "2026-11-09T12:26:49.807Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-tNFOyN/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              }
+            ]
+          }
+        ]
+      },
+      "aggregates": {
+        "score": 1,
+        "passRate": 1
+      }
+    },
+    {
+      "name": "tr-claim-is-prediction",
+      "dir": "evals/fact-check/tr-claim-is-prediction",
+      "source": "mixed",
+      "promptMarkdown": "Yapay zeka 2030'da tüm programcıların işini alacak, doğru mu?",
+      "runsPerCase": 3,
+      "timeoutSeconds": 300,
+      "maxTurns": 6,
+      "graders": [
+        {
+          "name": "01-skill-fired",
+          "type": "tool_used",
+          "weight": 1,
+          "config": {
+            "tool": "Skill",
+            "input_match": "\"skill\"\\s*:\\s*\"(?:[\\w-]+:)?fact-check\""
+          }
+        },
+        {
+          "name": "02-no-researcher-dispatched",
+          "type": "tool_used",
+          "weight": 1,
+          "config": {
+            "tool": "Agent",
+            "min": 0,
+            "max": 0
+          }
+        },
+        {
+          "name": "03-says-it-is-a-prediction",
+          "type": "llm",
+          "weight": 1,
+          "graderMarkdown": "PASS only if the final message says, in plain words, that the claim is a prediction about the future (or an opinion) and so cannot be checked as a true/false fact. It may add what is known today or offer to check a narrower, checkable claim.\nFAIL if it gives a \"Doğru\", \"Yanlış\", \"Yanıltıcı\" or \"Doğrulanamadı\" verdict on the prediction itself, or if it does not say that the claim is a prediction.",
+          "config": {
+            "criteria": "PASS only if the final message says, in plain words, that the claim is a prediction about the future (or an opinion) and so cannot be checked as a true/false fact. It may add what is known today or offer to check a narrower, checkable claim.\nFAIL if it gives a \"Doğru\", \"Yanlış\", \"Yanıltıcı\" or \"Doğrulanamadı\" verdict on the prediction itself, or if it does not say that the claim is a prediction.",
+            "focus": "last_message"
+          }
+        }
+      ],
+      "arms": {
+        "with": [
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 3,
+            "costUsd": 0.046705399999999994,
+            "judgeCostUsd": 0.0003562999999999995,
+            "durationSeconds": 14,
+            "startedAt": "2026-11-09T12:27:51.629Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-SaUhtk/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "02-no-researcher-dispatched",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Agent called 0x (expected 0..0)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "03-says-it-is-a-prediction",
+                "passed": true,
+                "weight": 1,
+                "explanation": "judge votes: PASS PASS PASS",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  true,
+                  true,
+                  true
+                ],
+                "evidence": "Bu iddia gelecekle ilgili bir tahmin. 2030 henüz gelmediği için hiçbir kanıt bugün onu doğrulayamaz ya da çürütemez. Bu yüzden araştırmacı göndermiyorum ve hüküm de vermiyorum.\n\nTahminin etrafındaki olgusal kısımları ise kontrol edebilirim:\n\n1. **Uzmanlar ne dedi?** \"Programcılar bitecek\" gibi sözleri kimin, ne zaman, hangi bağlamda söylediğini ve sözün orijinaline uyup uymadığını izleyebilirim.\n2. **Bugünkü veriler:** Yazılım geliştirici istihdamı, ilan sayıları, yeni mezun işe alımları ve yapay zekâ araçlarının üretkenliğe etkisi üzerine yapılmış çalışmalar.\n3. **Resmî projeksiyonlar:** ABD Çalışma İstatistikleri Bürosu, Dünya Ekonomik Forumu gibi kurumların yazılım mesleklerine dair tahminleri.\n\nHangisini istersiniz? Hepsini de bakabilirim.\n\nBu arada bu tahminin \"tüm programcılar\" kısmı çok iddialı. Teknoloji tarihinde otomasyon genellikle mesleği tamamen ortadan kaldırmak yerine görevleri ve gereken becerileri değiştirdi. Ama bu bir tahmin, kesin bilgi değil."
+              }
+            ]
+          },
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 3,
+            "costUsd": 0.0501704,
+            "judgeCostUsd": 0.00038730000000000014,
+            "durationSeconds": 16,
+            "startedAt": "2026-11-09T12:28:05.310Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-E1DGvg/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "02-no-researcher-dispatched",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Agent called 0x (expected 0..0)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "03-says-it-is-a-prediction",
+                "passed": true,
+                "weight": 1,
+                "explanation": "judge votes: PASS PASS PASS",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  true,
+                  true,
+                  true
+                ],
+                "evidence": "Skill'e göre bu bir gelecek tahmini olduğu için şu an hiçbir kanıt onu kesin olarak doğrulayamaz ya da çürütemez. Bu yüzden araştırmacı başlatmadım ve hüküm vermiyorum.\n\n**Bilinenler (genel bilgiden, bu oturumda kaynak taramadım):**\n- \"Tüm programcılar\" iddiası çok güçlü bir ifade. Bu iddiayı savunan ciddi bir ekonomik tahmin bilmiyorum. Yöneticilerin bazı açıklamaları, kodun büyük bölümünü yapay zekanın yazacağı yönünde. Bunlar \"meslek tamamen bitecek\" demekle aynı şey değil.\n- Daha makul görülen senaryo, mesleğin değişmesi. Rutin kod yazımı otomatikleşiyor. Tasarım, doğrulama, güvenlik ve sistem düşüncesi ise insanda kalıyor. Giriş seviyesi işler bundan daha çok etkilenebilir.\n- Tarihte benzer teknolojiler (derleyiciler, yüksek seviyeli diller) işi yok etmek yerine yazılıma olan talebi artırdı. Ancak yapay zeka bu örüntüyü bozabilir. Bunu bugünden kesin söyleyemem.\n\n**Seçenekler:**\n1. İddianın olgusal kısımlarını kontrol edebilirim. Bunlar, bu iddiayı kimin ne dediği, 2026 sonu itibarıyla yazılım istihdamı verileri ve BLS ile WEF projeksiyonları. Bunun için tek bir araştırmacı başlatırım.\n2. Derin mod da var: 2–3 araştırmacı paralel çalışır. Kotayı birkaç kat fazla kullanır.\n\nHangisini istersiniz?"
+              }
+            ]
+          },
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 3,
+            "costUsd": 0.04694570000000001,
+            "judgeCostUsd": 0.00043289999999999995,
+            "durationSeconds": 15,
+            "startedAt": "2026-11-09T12:28:21.668Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-PJgylT/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "02-no-researcher-dispatched",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Agent called 0x (expected 0..0)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "03-says-it-is-a-prediction",
+                "passed": true,
+                "weight": 1,
+                "explanation": "judge votes: PASS PASS PASS",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  true,
+                  true,
+                  true
+                ],
+                "evidence": "Bu bir gelecek tahmini, o yüzden size \"doğru\" ya da \"yanlış\" diyemem. 2030 henüz gelmedi ve bugünkü hiçbir kanıt bu iddiayı kesin olarak doğrulayamaz ya da çürütemez. Araştırma başlatmadım ve hüküm vermiyorum.\n\nBu tahminin çevresindeki olgusal kısımları ise kontrol edebilirim:\n\n1. **Kim, ne dedi?** \"Programcılar işsiz kalacak\" diyen kişilerin (örneğin şirket CEO'ları) sözlerinin orijinal hali ve bağlamı.\n2. **Bugünkü veriler.** Yazılımcı istihdamı, ilanlar ve işe alım trendleri, ABD Çalışma İstatistikleri Bürosu gibi kaynaklara göre.\n3. **Ölçülmüş etkiler.** Yapay zeka kodlama araçlarının verimlilik üzerindeki etkisini ölçen çalışmalar (örneğin kontrollü deneyler) ne buluyor?\n4. **Uzman tahminleri.** Ekonomistlerin ve araştırma kuruluşlarının öngörüleri ve bunların dayandığı varsayımlar.\n\nHangisini istersiniz? Birini, birkaçını ya da hepsini seçebilirsiniz. Hepsini seçerseniz birden fazla araştırmacı paralel çalışır ve kotadan birkaç kat fazla harcar. Siz seçene kadar bekliyorum."
+              }
+            ]
+          }
+        ]
+      },
+      "aggregates": {
+        "score": 1,
+        "passRate": 1
+      }
+    },
+    {
+      "name": "tr-news-headline",
+      "dir": "evals/fact-check/tr-news-headline",
+      "source": "mixed",
+      "promptMarkdown": "Bu haber doğru mu: \"Bilim insanları Mars'ta sıvı halde göl buldu.\"",
+      "runsPerCase": 3,
+      "timeoutSeconds": 180,
+      "maxTurns": 5,
+      "graders": [
+        {
+          "name": "01-skill-fired",
+          "type": "tool_used",
+          "weight": 1,
+          "config": {
+            "tool": "Skill",
+            "input_match": "\"skill\"\\s*:\\s*\"(?:[\\w-]+:)?fact-check\""
+          }
+        }
+      ],
+      "arms": {
+        "with": [
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 1,
+            "costUsd": 0.13510759999999997,
+            "judgeCostUsd": 0,
+            "durationSeconds": 54,
+            "startedAt": "2026-11-09T12:28:36.493Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-BqhF0L/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              }
+            ]
+          },
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 1,
+            "costUsd": 0.1161772,
+            "judgeCostUsd": 0,
+            "durationSeconds": 48,
+            "startedAt": "2026-11-09T12:29:30.271Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-Xh6Uqw/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              }
+            ]
+          },
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 1,
+            "costUsd": 0.13922510000000002,
+            "judgeCostUsd": 0,
+            "durationSeconds": 58,
+            "startedAt": "2026-11-09T12:30:17.892Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-NsjlIc/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              }
+            ]
+          }
+        ]
+      },
+      "aggregates": {
+        "score": 1,
+        "passRate": 1
+      }
+    },
+    {
+      "name": "tr-whatsapp-health-rumor",
+      "dir": "evals/fact-check/tr-whatsapp-health-rumor",
+      "source": "mixed",
+      "promptMarkdown": "WhatsApp'ta dolaşan bir mesaj var: \"Sabahları aç karnına limonlu su içmek kanseri önlüyor.\" Bu gerçek mi?",
+      "runsPerCase": 3,
+      "timeoutSeconds": 180,
+      "maxTurns": 5,
+      "graders": [
+        {
+          "name": "01-skill-fired",
+          "type": "tool_used",
+          "weight": 1,
+          "config": {
+            "tool": "Skill",
+            "input_match": "\"skill\"\\s*:\\s*\"(?:[\\w-]+:)?fact-check\""
+          }
+        }
+      ],
+      "arms": {
+        "with": [
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 1,
+            "costUsd": 0.10880300000000001,
+            "judgeCostUsd": 0,
+            "durationSeconds": 48,
+            "startedAt": "2026-11-09T12:31:15.393Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-jPAYIr/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              }
+            ]
+          },
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 1,
+            "costUsd": 0.1047721,
+            "judgeCostUsd": 0,
+            "durationSeconds": 42,
+            "startedAt": "2026-11-09T12:32:03.127Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-kxOe6K/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              }
+            ]
+          },
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 1,
+            "costUsd": 0.1107341,
+            "judgeCostUsd": 0,
+            "durationSeconds": 44,
+            "startedAt": "2026-11-09T12:32:45.338Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-wDVXVe/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              }
+            ]
+          }
+        ]
+      },
+      "aggregates": {
+        "score": 1,
+        "passRate": 1
+      }
+    },
+    {
+      "name": "en-buy-or-wait",
+      "dir": "evals/purchase-research/en-buy-or-wait",
+      "source": "mixed",
+      "promptMarkdown": "Should I buy the Kindle Paperwhite now, or is there something better for the same price?",
+      "runsPerCase": 3,
+      "timeoutSeconds": 180,
+      "maxTurns": 5,
+      "graders": [
+        {
+          "name": "01-skill-fired",
+          "type": "tool_used",
+          "weight": 1,
+          "config": {
+            "tool": "Skill",
+            "input_match": "\"skill\"\\s*:\\s*\"(?:[\\w-]+:)?purchase-research\""
+          }
+        }
+      ],
+      "arms": {
+        "with": [
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 3,
+            "costUsd": 0.0460804,
+            "judgeCostUsd": 0,
+            "durationSeconds": 14,
+            "startedAt": "2026-11-09T12:33:28.872Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-nPzWFv/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              }
+            ]
+          },
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 3,
+            "costUsd": 0.0462524,
+            "judgeCostUsd": 0,
+            "durationSeconds": 11,
+            "startedAt": "2026-11-09T12:33:42.755Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-BKRarJ/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              }
+            ]
+          },
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 3,
+            "costUsd": 0.0441001,
+            "judgeCostUsd": 0,
+            "durationSeconds": 9,
+            "startedAt": "2026-11-09T12:33:53.735Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-6dStlx/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              }
+            ]
+          }
+        ]
+      },
+      "aggregates": {
+        "score": 1,
+        "passRate": 1
+      }
+    },
+    {
+      "name": "not-return-process",
+      "dir": "evals/purchase-research/not-return-process",
+      "source": "mixed",
+      "promptMarkdown": "İnternetten aldığım ürünü 14 gün içinde nasıl iade ederim?",
+      "runsPerCase": 3,
+      "timeoutSeconds": 180,
+      "maxTurns": 5,
+      "graders": [
+        {
+          "name": "01-skill-not-fired",
+          "type": "tool_used",
+          "weight": 1,
+          "config": {
+            "tool": "Skill",
+            "input_match": "\"skill\"\\s*:\\s*\"(?:[\\w-]+:)?purchase-research\"",
+            "min": 0,
+            "max": 0,
+            "arm": "both"
+          }
+        }
+      ],
+      "arms": {
+        "with": [
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 1,
+            "costUsd": 0.0478344,
+            "judgeCostUsd": 0,
+            "durationSeconds": 19,
+            "startedAt": "2026-11-09T12:34:03.152Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-guY2kM/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-not-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 0x (expected 0..0)",
+                "withOnly": false,
+                "scored": true
+              }
+            ]
+          },
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 1,
+            "costUsd": 0.0482564,
+            "judgeCostUsd": 0,
+            "durationSeconds": 20,
+            "startedAt": "2026-11-09T12:34:21.993Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-siZ6qf/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-not-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 0x (expected 0..0)",
+                "withOnly": false,
+                "scored": true
+              }
+            ]
+          },
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 1,
+            "costUsd": 0.0496964,
+            "judgeCostUsd": 0,
+            "durationSeconds": 21,
+            "startedAt": "2026-11-09T12:34:42.180Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-w1tL8L/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-not-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 0x (expected 0..0)",
+                "withOnly": false,
+                "scored": true
+              }
+            ]
+          }
+        ]
+      },
+      "aggregates": {
+        "score": 1,
+        "passRate": 1
+      }
+    },
+    {
+      "name": "not-tech-explainer",
+      "dir": "evals/purchase-research/not-tech-explainer",
+      "source": "mixed",
+      "promptMarkdown": "OLED ile IPS ekran arasındaki teknik fark nedir?",
+      "runsPerCase": 3,
+      "timeoutSeconds": 180,
+      "maxTurns": 5,
+      "graders": [
+        {
+          "name": "01-skill-not-fired",
+          "type": "tool_used",
+          "weight": 1,
+          "config": {
+            "tool": "Skill",
+            "input_match": "\"skill\"\\s*:\\s*\"(?:[\\w-]+:)?purchase-research\"",
+            "min": 0,
+            "max": 0,
+            "arm": "both"
+          }
+        }
+      ],
+      "arms": {
+        "with": [
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 1,
+            "costUsd": 0.0422304,
+            "judgeCostUsd": 0,
+            "durationSeconds": 15,
+            "startedAt": "2026-11-09T12:35:03.249Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-p3gozI/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-not-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 0x (expected 0..0)",
+                "withOnly": false,
+                "scored": true
+              }
+            ]
+          },
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 1,
+            "costUsd": 0.0406104,
+            "judgeCostUsd": 0,
+            "durationSeconds": 13,
+            "startedAt": "2026-11-09T12:35:17.964Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-vve8J0/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-not-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 0x (expected 0..0)",
+                "withOnly": false,
+                "scored": true
+              }
+            ]
+          },
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 1,
+            "costUsd": 0.039574399999999996,
+            "judgeCostUsd": 0,
+            "durationSeconds": 13,
+            "startedAt": "2026-11-09T12:35:31.318Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-Mlwi1b/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-not-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 0x (expected 0..0)",
+                "withOnly": false,
+                "scored": true
+              }
+            ]
+          }
+        ]
+      },
+      "aggregates": {
+        "score": 1,
+        "passRate": 1
+      }
+    },
+    {
+      "name": "tr-headphones-budget",
+      "dir": "evals/purchase-research/tr-headphones-budget",
+      "source": "mixed",
+      "promptMarkdown": "15 bin TL'ye kadar gürültü engellemeli kablosuz kulaklık almak istiyorum, hangisini alayım?",
+      "runsPerCase": 3,
+      "timeoutSeconds": 180,
+      "maxTurns": 5,
+      "graders": [
+        {
+          "name": "01-skill-fired",
+          "type": "tool_used",
+          "weight": 1,
+          "config": {
+            "tool": "Skill",
+            "input_match": "\"skill\"\\s*:\\s*\"(?:[\\w-]+:)?purchase-research\""
+          }
+        }
+      ],
+      "arms": {
+        "with": [
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 3,
+            "costUsd": 0.046008299999999995,
+            "judgeCostUsd": 0,
+            "durationSeconds": 13,
+            "startedAt": "2026-11-09T12:35:44.087Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-rdvvoR/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              }
+            ]
+          },
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 3,
+            "costUsd": 0.0457763,
+            "judgeCostUsd": 0,
+            "durationSeconds": 10,
+            "startedAt": "2026-11-09T12:35:56.827Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-hFF1IL/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              }
+            ]
+          },
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 3,
+            "costUsd": 0.04366829999999999,
+            "judgeCostUsd": 0,
+            "durationSeconds": 9,
+            "startedAt": "2026-11-09T12:36:07.019Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-uQlMEo/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              }
+            ]
+          }
+        ]
+      },
+      "aggregates": {
+        "score": 1,
+        "passRate": 1
+      }
+    },
+    {
+      "name": "tr-purchase-asks-first",
+      "dir": "evals/purchase-research/tr-purchase-asks-first",
+      "source": "mixed",
+      "promptMarkdown": "Bana bir kulaklık lazım, almalı mıyım?",
+      "runsPerCase": 3,
+      "timeoutSeconds": 300,
+      "maxTurns": 6,
+      "graders": [
+        {
+          "name": "01-skill-fired",
+          "type": "tool_used",
+          "weight": 1,
+          "config": {
+            "tool": "Skill",
+            "input_match": "\"skill\"\\s*:\\s*\"(?:[\\w-]+:)?purchase-research\""
+          }
+        },
+        {
+          "name": "02-no-researcher-dispatched",
+          "type": "tool_used",
+          "weight": 1,
+          "config": {
+            "tool": "Agent",
+            "min": 0,
+            "max": 0
+          }
+        },
+        {
+          "name": "03-asks-budget-and-use",
+          "type": "regex",
+          "weight": 1,
+          "config": {
+            "target": "last_message",
+            "pattern": "(?=[\\s\\S]*[Bb]üt[çc]e)(?=[\\s\\S]*\\?)",
+            "flags": "",
+            "match": "contains"
+          }
+        },
+        {
+          "name": "04-one-message-of-questions",
+          "type": "llm",
+          "weight": 1,
+          "graderMarkdown": "PASS only if the final message asks the user, in one message, for the missing facts: the budget and what the headphones will be used for (it may also ask for must-haves, products already considered, or deal-breakers), and it does not give a recommendation or a decision matrix yet.\nFAIL if it asks about only one of budget or use, if it recommends specific products as the answer, or if it never asks.",
+          "config": {
+            "criteria": "PASS only if the final message asks the user, in one message, for the missing facts: the budget and what the headphones will be used for (it may also ask for must-haves, products already considered, or deal-breakers), and it does not give a recommendation or a decision matrix yet.\nFAIL if it asks about only one of budget or use, if it recommends specific products as the answer, or if it never asks.",
+            "focus": "last_message"
+          }
+        }
+      ],
+      "arms": {
+        "with": [
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 3,
+            "costUsd": 0.044555399999999995,
+            "judgeCostUsd": 0.0003575000000000002,
+            "durationSeconds": 13,
+            "startedAt": "2026-11-09T12:36:16.177Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-rnMEks/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "02-no-researcher-dispatched",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Agent called 0x (expected 0..0)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "03-asks-budget-and-use",
+                "passed": true,
+                "weight": 1,
+                "explanation": "matched (?=[\\s\\S]*[Bb]üt[çc]e)(?=[\\s\\S]*\\?)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "04-one-message-of-questions",
+                "passed": true,
+                "weight": 1,
+                "explanation": "judge votes: FAIL PASS PASS",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  false,
+                  true,
+                  true
+                ],
+                "evidence": "Araştırmaya başlamadan önce birkaç şeyi bilmem gerekiyor. Cevaplarınıza göre doğru ürünleri karşılaştırabilirim:\n\n1. **Ne için kullanacaksınız?** Müzik, oyun, toplantı ve online ders, spor, yolculuk veya gürültülü ortamda ANC (aktif gürültü engelleme) gibi seçeneklerden hangisi?\n2. **Bütçeniz nedir?** TL olarak bir üst sınır ya da aralık yazabilirsiniz.\n3. **Tipi:** Kablosuz kulak içi (TWS), kulak üstü/çevreleyen (over-ear) ya da kablolu seçeneklerinden tercihiniz var mı?\n4. **Hangi cihazla kullanacaksınız?** iPhone, Android, bilgisayar, PlayStation veya başka bir cihaz olabilir. Bu bazı modellerin özelliklerini etkiler.\n5. **Olmazsa olmazlarınız var mı?** Örneğin ANC, mikrofon kalitesi, pil süresi, suya dayanıklılık ya da çok hafif olması.\n6. **Aklınızda ya da elenen bir model/marka var mı?**\n\nBunları yazmanız yeterli, bilmediklerinizi atlayabilirsiniz. Varsayılan olarak tek bir araştırmacıyla ölçüm sonuçlarına, uzun dönem kullanıcı şikayetlerine, Akakçe/Cimri fiyatlarına ve Türkiye garanti durumuna bakacağım. İsterseniz birkaç araştırmacıyı paralel çalıştıran derin moda da geçebilirim. O mod kotanızı birkaç kat daha fazla harcar."
+              }
+            ]
+          },
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 3,
+            "costUsd": 0.0438593,
+            "judgeCostUsd": 0.00036140000000000044,
+            "durationSeconds": 17,
+            "startedAt": "2026-11-09T12:36:29.509Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-g1RRev/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "02-no-researcher-dispatched",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Agent called 0x (expected 0..0)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "03-asks-budget-and-use",
+                "passed": true,
+                "weight": 1,
+                "explanation": "matched (?=[\\s\\S]*[Bb]üt[çc]e)(?=[\\s\\S]*\\?)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "04-one-message-of-questions",
+                "passed": true,
+                "weight": 1,
+                "explanation": "judge votes: PASS PASS PASS",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  true,
+                  true,
+                  true
+                ],
+                "evidence": "Araştırmaya başlamadan önce birkaç şeyi bilmem gerekiyor. Doğru kulaklığı bulmak için şunlara ihtiyacım var:\n\n1. **Kullanım amacı:** Müzik, oyun, toplantı/ders, spor, yolculuk veya günlük kullanım mı? Birden fazla olabilir.\n2. **Bütçe:** En çok kaç TL harcayabilirsin? Kesin bir üst sınır ya da aralık yeterli.\n3. **Tür:** Kablosuz (Bluetooth) mu kablolu mu? Kulak içi (TWS), kulak üstü ya da kulak çevreleyen model mi tercih edersin?\n4. **Olmazsa olmazlar:** Aktif gürültü engelleme (ANC), mikrofon kalitesi, pil ömrü, suya dayanıklılık, çoklu cihaz bağlantısı gibi beklentilerin var mı?\n5. **Telefon/platform:** iPhone, Android, bilgisayar veya konsol mu kullanıyorsun?\n6. **Bakmış olduklarını ve eleyeceklerini yaz:** Aklında bir model ya da marka var mı? Hiç istemediğin bir marka ya da tür var mı?\n\nBunları tek mesajda yazman yeterli. Ardından ölçüm bazlı incelemelere, uzun süre kullananların şikayetlerine, Akakçe/Cimri fiyatlarına ve Türkiye garanti durumuna bakıp karar tablosu hazırlayacağım."
+              }
+            ]
+          },
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 3,
+            "costUsd": 0.0428332,
+            "judgeCostUsd": 0.00030299999999999945,
+            "durationSeconds": 12,
+            "startedAt": "2026-11-09T12:36:46.755Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-BnQzm9/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "02-no-researcher-dispatched",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Agent called 0x (expected 0..0)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "03-asks-budget-and-use",
+                "passed": true,
+                "weight": 1,
+                "explanation": "matched (?=[\\s\\S]*[Bb]üt[çc]e)(?=[\\s\\S]*\\?)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "04-one-message-of-questions",
+                "passed": true,
+                "weight": 1,
+                "explanation": "judge votes: PASS PASS PASS",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  true,
+                  true,
+                  true
+                ],
+                "evidence": "Araştırmaya başlamadan önce birkaç şeyi bilmem gerekiyor:\n\n1. **Ne için kullanacaksın?** Müzik, oyun, toplantı/ders, spor, yolculuk, uyku gibi seçeneklerden hangisi ağırlıkta?\n2. **Bütçen ne kadar?** Kesin bir üst limit mi, yoksa bir aralık mı (TL olarak)?\n3. **Tipi:** Kablosuz mu kablolu mu? Kulak içi, kulak üstü ya da TWS (tamamen kablosuz) için tercihin var mı?\n4. **Olmazsa olmaz özellikler:** Aktif gürültü engelleme (ANC), mikrofon kalitesi, pil ömrü, çoklu cihaz bağlantısı gibi.\n5. **Hangi cihazla kullanacaksın?** iPhone, Android, PC ya da konsol.\n6. **Aklında bir model var mı?** Ya da kesin istemediğin bir marka veya özellik var mı?\n\nBunları tek mesajda yazman yeterli. Cevaplarına göre ölçüm tabanlı incelemelere, uzun süre kullananların şikayetlerine ve Türkiye fiyat ile garanti durumuna bakarım."
+              }
+            ]
+          }
+        ]
+      },
+      "aggregates": {
+        "score": 1,
+        "passRate": 1
+      }
+    },
+    {
+      "name": "tr-purchase-full-report",
+      "dir": "evals/purchase-research/tr-purchase-full-report",
+      "source": "mixed",
+      "promptMarkdown": "Ofis kullanımı için kablosuz bir mouse almayı düşünüyorum. Bütçem en fazla 1500 TL, sessiz tıklama şart, Logitech MX Anywhere 3S'i düşünüyorum ama emin değilim. Almalı mıyım, alternatif var mı? Sorularını sormana gerek yok, bilgiler bu kadar; araştırmayı tek araştırmacıyla yap.",
+      "runsPerCase": 3,
+      "timeoutSeconds": 900,
+      "maxTurns": 12,
+      "graders": [
+        {
+          "name": "01-skill-fired",
+          "type": "tool_used",
+          "weight": 1,
+          "config": {
+            "tool": "Skill",
+            "input_match": "\"skill\"\\s*:\\s*\"(?:[\\w-]+:)?purchase-research\""
+          }
+        },
+        {
+          "name": "02-brief-covers-turkey-price-and-warranty",
+          "type": "tool_used",
+          "weight": 1,
+          "config": {
+            "tool": "Agent",
+            "input_match": "(?=[\\s\\S]*\"subagent_type\"\\s*:\\s*\"(?:research:)?web-researcher\")(?=[\\s\\S]*Akak)(?=[\\s\\S]*Cimri)(?=[\\s\\S]*[Ww]arranty)(?=[\\s\\S]*owner)",
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "name": "03-template-sections-in-order",
+          "type": "regex",
+          "weight": 1,
+          "config": {
+            "target": "last_message",
+            "pattern": "## Karar özeti[\\s\\S]*## Karar matrisi[\\s\\S]*## Bilinen arıza noktaları[\\s\\S]*## Kim almalı[\\s\\S]*## Kaynaklar",
+            "flags": "",
+            "match": "contains"
+          }
+        },
+        {
+          "name": "04-turkey-price-warranty-and-alternative",
+          "type": "llm",
+          "weight": 1,
+          "graderMarkdown": "PASS only if all three hold in the report: (1) every product in the decision matrix has a Turkey price with a date (or says the price could not be confirmed); (2) every product has a Turkey warranty status (official distributor, grey import, or \"doğrulanamadı\"); (3) at least one alternative the user did not name (that is, not the Logitech MX Anywhere 3S) is compared.\nFAIL if prices have no date, if warranty is missing for a product, or if only the product the user named is covered.",
+          "config": {
+            "criteria": "PASS only if all three hold in the report: (1) every product in the decision matrix has a Turkey price with a date (or says the price could not be confirmed); (2) every product has a Turkey warranty status (official distributor, grey import, or \"doğrulanamadı\"); (3) at least one alternative the user did not name (that is, not the Logitech MX Anywhere 3S) is compared.\nFAIL if prices have no date, if warranty is missing for a product, or if only the product the user named is covered.",
+            "focus": "last_message"
+          }
+        }
+      ],
+      "arms": {
+        "with": [
+          {
+            "score": 0.5,
+            "passed": false,
+            "turns": 4,
+            "costUsd": 0.0917585,
+            "judgeCostUsd": 0.0003413999999999995,
+            "durationSeconds": 40,
+            "startedAt": "2026-11-09T12:36:59.137Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-5RcqSe/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "02-brief-covers-turkey-price-and-warranty",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Agent called 1x (expected 1..1)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "03-template-sections-in-order",
+                "passed": false,
+                "weight": 1,
+                "explanation": "pattern not found in last_message",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "04-turkey-price-warranty-and-alternative",
+                "passed": false,
+                "weight": 1,
+                "explanation": "judge votes: FAIL FAIL FAIL",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  false,
+                  false,
+                  false
+                ],
+                "evidence": "Araştırma sonuç vermedi, bu yüzden size doğrulanmış bir öneri veremiyorum.\n\n**Ne oldu:** Araştırmacı ajan Akakçe, Cimri ve RTINGS dahil hiçbir siteye ulaşamadı. Proxy bağlantıyı reddetti. Fiyat, garanti, ölçüm ve kullanıcı şikayeti tarafında elimde kaynaklı hiçbir veri yok. Tek araştırmacı istediğiniz için ikinci bir ajan başlatmadım.\n\n**Aşağıdakiler kaynaksız, kendi bilgimden ve güncel olmayabilir:**\n- **MX Anywhere 3S bütçenize büyük olasılıkla sığmaz.** Türkiye'de fiyatının 1500 TL'nin epey üstünde olduğunu tahmin ediyorum, ama bunu kontrol edemedim. Sessiz tıklaması var, Logitech \"%90 daha sessiz\" diyor. Taşınabilir, küçük bir mouse. Bu, uzun süre masa başında kullanılacak bir ofis mouse'u için avantaj sayılmaz.\n- **Bütçeye uyabilecek sessiz Logitech modelleri:** M240 Silent, M331 Silent Plus ve M650 serisi (sessiz tıklamalı sürümleri olan). Hangisinin sessiz olduğunu, güncel fiyatını ve Türkiye garantisini doğrulamadım.\n\n**Karar için şunlara bakın:**\n1. Akakçe veya Cimri'de MX Anywhere 3S fiyatı 1500 TL altında mı? Değilse eleyin.\n2. Sessiz tıklamalı olduğundan emin olduğunuz modelleri (M650, M331 Silent Plus) aynı sitelerde karşılaştırın. Satıcının \"Logitech Türkiye distribütör garantili\" ibaresi olup olmadığına bakın.\n3. Hepsiburada ve Trendyol yorumlarında \"çift tıklama\" ve \"bozuldu\" aramasıyla kullanıcı şikayetlerini tarayın.\n\nErişim açıkken araştırmayı yeniden çalıştırabilirim. Akakçe veya Cimri sayfalarını ya da fiyatları buraya yapıştırırsanız onları değerlendiririm."
+              }
+            ]
+          },
+          {
+            "score": 0.5,
+            "passed": false,
+            "turns": 1,
+            "costUsd": 0.1000315,
+            "judgeCostUsd": 0.00037349999999999883,
+            "durationSeconds": 46,
+            "startedAt": "2026-11-09T12:37:39.353Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-OKTKKX/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "02-brief-covers-turkey-price-and-warranty",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Agent called 1x (expected 1..1)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "03-template-sections-in-order",
+                "passed": false,
+                "weight": 1,
+                "explanation": "pattern not found in last_message",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "04-turkey-price-warranty-and-alternative",
+                "passed": false,
+                "weight": 1,
+                "explanation": "judge votes: FAIL FAIL FAIL",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  false,
+                  false,
+                  false
+                ],
+                "evidence": "Araştırma sonuç vermedi. Ajanın web erişimi \"proxy bağlantıyı reddetti\" hatasıyla tamamen düştü. Akakçe, Cimri, RTINGS ve Logitech sayfalarının hiçbiri açılmadı. Bu yüzden fiyat, garanti, ölçüm ve kullanıcı şikayetleri konusunda doğrulanmış hiçbir veri yok. Aşağıdakiler benim genel bilgim, kaynaklı bulgu değil.\n\n**Genel bilgiye dayanan değerlendirme (doğrulanmadı)**\n- **MX Anywhere 3S:** Kompakt, sessiz tıklamalı (Logitech yaklaşık %90 daha az tık sesi diyor), USB-C ile şarj oluyor, Bluetooth ve Bolt destekli. Türkiye fiyatının 1500 TL'nin üstünde olduğunu tahmin ediyorum. Bunu kontrol etmeden karar verme.\n- **Alternatif adayları:** Logitech M650 Signature (sessiz versiyon), Logitech M240 Silent, Ugreen/Xiaomi/Microsoft'un sessiz modelleri. Hiçbirinin sessizlik durumunu ya da fiyatını doğrulamadım. M720'nin sessiz tıklaması olduğundan emin değilim.\n- **Dikkat edilecek arıza:** Logitech farelerde aylar sonra sol tuşta çift tıklama sorunu sık anlatılıyor. Bunun için elimde kaynak yok.\n\n**Sonuç:** Bu veriyle \"al\" ya da \"alma\" diyemem. Güven düzeyi düşük.\n\n**Kendin kontrol etmek istersen (5 dakika):**\n1. Akakçe ve Cimri'de \"MX Anywhere 3S\" fiyat geçmişine bak. 1500 TL altına inip inmediğini ve satıcının resmi distribütör olup olmadığını gör.\n2. Fiyat sığmıyorsa aynı sitelerde \"Logitech M650 Signature\" ve \"M240 Silent\" fiyatlarına bak. Bunlar bütçeye daha yakın adaylar.\n3. Ürün sayfasında \"Logitech Türkiye / distribütör garantisi\" ibaresini ara. Gri ithalat ürünün garantisi sorunlu olabilir.\n\nİstersen aramayı yeniden deneyebilirim. Erişim sorunu devam ederse aynı sonucu alırız. Sen Akakçe veya Cimri'den fiyatları buraya yapıştırırsan, onlar üzerinden karşılaştırma yaparım."
+              }
+            ]
+          },
+          {
+            "score": 0.5,
+            "passed": false,
+            "turns": 1,
+            "costUsd": 0.09223780000000001,
+            "judgeCostUsd": 0.00028169999999999844,
+            "durationSeconds": 38,
+            "startedAt": "2026-11-09T12:38:25.100Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-S7NIPJ/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "02-brief-covers-turkey-price-and-warranty",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Agent called 1x (expected 1..1)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "03-template-sections-in-order",
+                "passed": false,
+                "weight": 1,
+                "explanation": "pattern not found in last_message",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "04-turkey-price-warranty-and-alternative",
+                "passed": false,
+                "weight": 1,
+                "explanation": "judge votes: FAIL FAIL FAIL",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  false,
+                  false,
+                  false
+                ],
+                "evidence": "Araştırma sonuç vermedi. Araştırmacının Akakçe, Cimri ve RTINGS'e yaptığı tüm bağlantılar \"proxy refused the connection\" hatasıyla reddedildi. Doğrulanmış hiçbir veri yok: fiyat, ölçüm, kullanıcı şikayeti ve garanti bilgisine ulaşılamadı. Bu yüzden \"al\" ya da \"alma\" diyemem.\n\nAşağıdakiler kaynaksız, hafızadan gelen genel bilgi. Karar için kullanmayın, önce doğrulayın:\n- **MX Anywhere 3S:** Sessiz tıklaması olduğunu biliyorum. Premium segmentte olduğu için 1500 TL sınırını aşıyor olabilir. Güncel fiyatı bilmiyorum.\n- **Daha ucuz sessiz seçenekler:** Logitech Signature M650 ve Pebble serisi bu bütçeye daha yakın olabilir. Bunlar da doğrulanmadı.\n\nBu işi ilerletmek için üç yol var:\n1. **Ağ erişimini düzeltip aynı araştırmayı tekrar çalıştırabilirim.** Tek araştırmacı kuralını koruyorum. Proxy sorunu sürerse yine sonuç çıkmaz.\n2. **Siz Akakçe veya Cimri'deki ilan sayfalarını ya da RTINGS inceleme metnini buraya yapıştırabilirsiniz.** Karar matrisini bunlarla çıkarırım.\n3. **Hafızadan, kaynaksız bir ön değerlendirme isteyebilirsiniz.** Bunu net şekilde \"doğrulanmamış\" diye işaretleyerek yazarım.\n\nHangisini istersiniz?"
+              }
+            ]
+          }
+        ]
+      },
+      "aggregates": {
+        "score": 0.5,
+        "passRate": 0
+      }
+    },
+    {
+      "name": "tr-x-vs-y",
+      "dir": "evals/purchase-research/tr-x-vs-y",
+      "source": "mixed",
+      "promptMarkdown": "Steam Deck OLED mi ROG Ally X mi almalıyım?",
+      "runsPerCase": 3,
+      "timeoutSeconds": 180,
+      "maxTurns": 5,
+      "graders": [
+        {
+          "name": "01-skill-fired",
+          "type": "tool_used",
+          "weight": 1,
+          "config": {
+            "tool": "Skill",
+            "input_match": "\"skill\"\\s*:\\s*\"(?:[\\w-]+:)?purchase-research\""
+          }
+        }
+      ],
+      "arms": {
+        "with": [
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 3,
+            "costUsd": 0.043946200000000005,
+            "judgeCostUsd": 0,
+            "durationSeconds": 10,
+            "startedAt": "2026-11-09T12:39:02.974Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-gjoIdd/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              }
+            ]
+          },
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 3,
+            "costUsd": 0.0449939,
+            "judgeCostUsd": 0,
+            "durationSeconds": 10,
+            "startedAt": "2026-11-09T12:39:13.176Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-OZDEky/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              }
+            ]
+          },
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 3,
+            "costUsd": 0.0444742,
+            "judgeCostUsd": 0,
+            "durationSeconds": 11,
+            "startedAt": "2026-11-09T12:39:22.718Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-R8I9KI/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              }
+            ]
+          }
+        ]
+      },
+      "aggregates": {
+        "score": 1,
+        "passRate": 1
+      }
+    },
+    {
+      "name": "en-dual-boot",
+      "dir": "evals/tech-howto/en-dual-boot",
+      "source": "mixed",
+      "promptMarkdown": "How do I set up dual boot with Fedora on a laptop that already has Windows 11?",
+      "runsPerCase": 3,
+      "timeoutSeconds": 180,
+      "maxTurns": 5,
+      "graders": [
+        {
+          "name": "01-skill-fired",
+          "type": "tool_used",
+          "weight": 1,
+          "config": {
+            "tool": "Skill",
+            "input_match": "\"skill\"\\s*:\\s*\"(?:[\\w-]+:)?tech-howto\""
+          }
+        }
+      ],
+      "arms": {
+        "with": [
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 1,
+            "costUsd": 0.16284110000000002,
+            "judgeCostUsd": 0,
+            "durationSeconds": 72,
+            "startedAt": "2026-11-09T12:39:34.121Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-DXUdRt/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              }
+            ]
+          }
+        ]
+      },
+      "aggregates": {
+        "score": 1,
+        "passRate": 1
+      }
+    }
+  ],
+  "aggregates": {
+    "casesTotal": 18,
+    "casesPassed": 16,
+    "overallScore": 0.9685185185185186,
+    "overallPassRate": 0.925925925925926
+  }
+}
