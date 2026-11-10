@@ -6,7 +6,7 @@ Decisions about how this AI setup works, newest first. Each entry records what w
 
 Read this first in a new conversation. It is the short version of everything below.
 
-- **What exists.** Three plugins, all enabled locally from this checkout:
+- **What exists.** Four plugins. `question-writer` is for the user's father and runs in Cowork (entry of 2026-11-11). The other three are enabled locally from this checkout:
   - `prompt-craft`: the brief template, plus hooks that reject subagent briefs without `<objective>`, `<context>`, `<done_when>`, `<output_format>`.
   - `research`: the `web-researcher` agent and four skills (`ai-engineering-radar`, `purchase-research`, `tech-howto`, `fact-check`). A hook blocks WebSearch in the main thread.
   - `agent-architect`: builds new agent/skill bundles and improves existing ones through an eval-gated loop. Design in [design/agent-architect.md](design/agent-architect.md).
@@ -35,6 +35,11 @@ Read this first in a new conversation. It is the short version of everything bel
    - **What the skill does.** From a learning outcome ("kazanım") and a context, draft the question, the answer, and distractors with a reason for each. Then run a checklist: exactly one correct answer, plausible distractors, no clue in the wording, language fit for the grade, and the outcome actually tested.
    - **Evals from his judgment.** His own good past questions become the style reference, and he grades the first outputs. Those grades become the eval cases, the same way web-researcher is measured from real tasks.
    - **Privacy and copyright.** His examples and publisher material stay out of this public repo. They live in a private place he or the skill reads at runtime, the same rule as personal data.
+   - **Status (2026-11-11).** Built as `question-writer` v0.1.0, all 13 cases pass (entry "question-writer built for Cowork"). Next:
+     - Install it on his PC with him (Cowork, his own Pro plan).
+     - Run his first real set.
+     - He grades it item by item; recurring failures become synthetic cases.
+     - Still to get from him: 2-3 good past questions per grade, and his Word template.
 
 4. **Code and test quality tooling** (added 2026-10-30). The user asked for Anthropic's own tools first, then Superpowers. Current practice: run the built-in `/code-review` skill on new code (first used on the TÜBİTAK project's feature code, 10 findings), and measure test quality with mutation testing (it changes the code on purpose and checks that some test fails). On native Windows use `cosmic-ray`: `mutmut` 3 doesn't support Windows. Lessons from the first run (2026-11-01): run `cosmic-ray baseline` first, and check that no result is `INCOMPETENT`. The first run reported "0 surviving mutants" while all 936 were INCOMPETENT, because the tests never started. On Windows the test command must be the venv's `pytest`, not `python -m pytest`: the venv's python.exe hands off to the system Python. Set `PYTHONIOENCODING=utf-8` before the run: with the Turkish code page, cosmic-ray can't decode pytest's output and reports killed mutants as INCOMPETENT. Expect about an hour for roughly 900 mutants. The TÜBİTAK project went from 71% to 87% killed after one round of new tests. Superpowers (obra/superpowers, TDD and debugging skills) is not installed; assess it with `ai-engineering-radar` before adding it, since it overlaps with agent-architect and prompt-craft.
 
@@ -67,6 +72,51 @@ Read this first in a new conversation. It is the short version of everything bel
 - 2026-10-29: phone access decided (Remote Control when the PC is on, cloud otherwise).
 
 ---
+
+## 2026-11-11: question-writer built for Cowork, 13/13 cases
+
+**Decision (user).** The question-writing plugin for the user's father is `plugins/question-writer/` (v0.1.0). Design: [design/question-writer.md](design/question-writer.md), approved the same day. Research: [radar 2026-11-11](../research/radar/2026-11-11-meb-skill-based-items.md), one sonnet web-researcher, about 46k tokens.
+
+**Who uses it.** He writes 15-question sets of new-generation multiple-choice items in Turkish for grades 2-4, for kazanım değerlendirme booklets and a soru bankası. Every question measures a different Maarif Modeli learning outcome. Some questions are visual or graph interpretation items. He delivers in the publisher's Word template.
+
+**Options.** Grades 2-3 have 3 options and grade 4 has 4. These are defaults in his `ayarlar.md`.
+
+**Delivery surface.** Cowork in the Claude desktop app, on his own Pro plan. He installs it with no terminal: Customize > Plugins > Add marketplace. claude.ai chat was rejected, because subagents do not run there ([Use plugins in Claude](https://support.claude.com/en/articles/13837440-use-plugins-in-claude), [Getting started with Cowork](https://support.claude.com/en/articles/13345190-getting-started-with-cowork)).
+
+**Shape.**
+- `question-set` is the entry skill. It leads the whole flow: work folder, outcomes, a 15-row plan he approves, drafting in groups of five, one review, and the Word file.
+- `item-writing` covers one item, written by MEB's March 2026 *Bağlam Temelli Çoktan Seçmeli Soru Yazım Kılavuzu*.
+- `visual-item` covers visual items. It builds tables and charts itself and writes a brief for the publisher's illustrator.
+- `item-reviewer` is a sonnet agent with Read and Glob only. It solves the set blind before it reads the key.
+- There are no hooks, no `dependencies`, and none of web-researcher or prompt-craft.
+
+**Why this shape and not a skill plus an agent per question type.**
+- Subagents cannot spawn subagents, so the main thread orchestrates.
+- He writes one main type, with a visual variant.
+- One blind review per set catches the defects that make an item unusable (two keys, a wrong key, no need for the context) at the cost of one subagent run.
+- Hooks would need Node on his PC.
+
+**He is new to AI tools (user, at approval).**
+- The skills fire on everyday Turkish, with no commands.
+- They lead one step at a time and use no jargon.
+- They ask for what they need and offer a way forward without it.
+- A missing folder is a guided step, not an error.
+
+**Private material.** His examples, the template and the publisher's rules live in a `Soru Yazarlığı/` folder on his PC, connected to Cowork. All eval cases use synthetic items.
+
+**Measurement.** 13 cases (`plugins/question-writer/evals/`), Sonnet, `--runs 1`, `--allow-tools Write Edit Agent`. The runs went 9/13, then 10/13, then 13/13, for about $2.5 API-equivalent in all.
+- **Case fixes.** Two failures came from the cases, not the skills: a rubric read the plan's answer-letter column as an answer key, and the reviewer case gave outcome codes without their text.
+- **Skill fixes:**
+  - ask for the outcomes in the first message
+  - argue for each distractor (a distractor on the same cause chain was a second key)
+  - count the option words (the key was the longest)
+  - report a wrong key first and never drop it (it was lost once in the summary)
+
+**Open.**
+- Cowork on Windows is beta. The first install on his PC is the real test of the folder flow and of Word output (the built-in docx skill or python-docx).
+- Whether the 2026 program PDF replaces the 2024 one is unverified, and its text is garbled when read, so the outcomes he pastes are the primary input.
+
+**Revisit** after his first two graded sets.
 
 ## 2026-11-08: GM helper v2 after the first played session; next game moves to full 5e classes
 **Decision (user).** After the first one-shot was played, the trpg skills were improved through agent-architect's improve loop. Spec: trpg `docs/design/gm-helper-v2.md`, approved by the user. `adventure-prep` now writes `Adventure.md` as a short hub that links to separate `Scenes/`, `NPCs/`, `Locations/` and `Handouts/` notes, runs a gap check (every hook, prop and handout answers who/what/why; handouts written in full), writes the climax as an obstacle plus a final beat that still lands when the players bypass the obstacle, uses short distinct NPC names with name cards, and draws one clue-map Obsidian Canvas per adventure (node-based scenario design and the Three Clue Rule, instead of the branching "story tree" the user first asked for). `character-sheets` writes skills as "Skill (Ability) +N" and asks for a want that lasts the session with an obstacle; House Rules list skills by ability. The user also decided the next game drops the tavern jobs for full 5e classes, keeping 5e backgrounds; that change gets its own spec.

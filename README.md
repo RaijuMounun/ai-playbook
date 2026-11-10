@@ -27,6 +27,7 @@ Predecessor: [RaijuMounun/skills](https://github.com/RaijuMounun/skills) (archiv
 | `prompt-craft` | `prompt-craft` skill (delegation briefs, agent definitions, skills, I/O contracts). Hooks: every subagent spawn must carry a structured brief; the policy is re-injected at session start and after compaction. |
 | `research` | `web-researcher` subagent with source-weighing standards; skills `ai-engineering-radar` (Adopt/Trial/Assess/Hold), `purchase-research`, `tech-howto`, and `fact-check` (SIFT). Hook: web search runs only in subagents. Requires `prompt-craft`. |
 | `agent-architect` | `agent-architect` skill: designs new domain bundles (an agent with preloaded skills plus an entry skill) and improves existing ones through an eval-gated loop (reproduce as a case, baseline, one edit, no-regression gate). Builds on Anthropic's `skill-creator` and `claude plugin eval`. Requires `prompt-craft` and `research`. |
+| `question-writer` | For a writer of Turkish test questions (grades 2-4, MEB Maarif Modeli). Skills `question-set` (leads the whole set step by step: outcomes, plan, drafting, review, Word file), `item-writing` (one item by MEB's 2026 item-writing guide), `visual-item` (picture, table and graph items with illustrator briefs); agent `item-reviewer` (blind solve and rule check). Made for Cowork in the Claude desktop app. The writer's examples and publisher material stay in his own work folder, never in this repo. Standalone. |
 
 Radar reports land in [`research/radar/`](research/radar/).
 

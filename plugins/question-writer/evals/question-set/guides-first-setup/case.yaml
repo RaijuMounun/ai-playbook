@@ -1,0 +1,5 @@
+schema_version: "1.1"
+name: guides-first-setup
+description: A first-time user with no connected folder. The eval run's working directory is empty, so there is no ayarlar.md. The skill must lead the setup in plain Turkish instead of failing or writing questions.
+expected_outcome: |
+  question-set is invoked, notices that the work folder is not set up, and guides the user through the next step in plain Turkish with a recommended choice. It writes no questions and dispatches no reviewer.

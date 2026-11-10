@@ -1,0 +1,5 @@
+schema_version: "1.1"
+name: reviewer-seeded-defects
+description: A synthetic 5-item grade 3 set with planted defects. Item 1 has two correct answers, item 2 has a length clue in the key, item 3 can be answered without its context and does not test its outcome, item 4 is acceptable, item 5 has a wrong key (B is correct). The review goes through the item-reviewer agent.
+expected_outcome: |
+  question-set (or item-writing) is invoked, the item-reviewer agent is dispatched once, and the final Turkish message reports the defects of items 1, 2, 3 and 5 with fixes, without a serious defect for item 4.

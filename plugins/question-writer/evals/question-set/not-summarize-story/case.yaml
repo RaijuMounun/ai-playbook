@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: not-summarize-story
+expected_outcome: |
+  No question-writer skill is invoked for a request to summarize a story.

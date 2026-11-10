@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: tr-single-item-trigger
+expected_outcome: |
+  The item-writing skill is invoked for a request to write one question for a given learning outcome.

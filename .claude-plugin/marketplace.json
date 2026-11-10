@@ -22,6 +22,11 @@
       "name": "agent-architect",
       "source": "./plugins/agent-architect",
       "description": "Designs new agent and skill bundles and improves existing ones through an eval-gated loop, built on skill-creator and claude plugin eval."
+    },
+    {
+      "name": "question-writer",
+      "source": "./plugins/question-writer",
+      "description": "Skill-based multiple-choice questions for primary school Turkish (grades 2-4, MEB Maarif Modeli): set plan, item drafting, visual items, blind review, Word output. Built for Cowork, guides non-technical users in Turkish."
     }
   ]
 }

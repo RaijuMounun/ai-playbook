@@ -1,0 +1,5 @@
+schema_version: "1.1"
+name: item-quality-grade4
+description: One grade 4 item from a made-up outcome in the program's code format. Checks the MEB guide's item rules and the grade 4 default of 4 options.
+expected_outcome: |
+  item-writing is invoked and returns one context-based item with options A-D, an answer key, a reason for each distractor, and language fit for a 9-10 year old.

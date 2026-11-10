@@ -1,0 +1,5 @@
+schema_version: "1.1"
+name: visual-adds-information
+description: A grade 3 visual item from a made-up outcome. The visual must carry information the question needs (MEB guide 2.5), and the designer gets a complete brief.
+expected_outcome: |
+  visual-item is invoked and returns a 3-option item whose answer depends on data shown only in the table or graph, with the data given in full and a designer brief.

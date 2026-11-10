@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: tr-set-trigger
+expected_outcome: |
+  The question-set skill is invoked for a Turkish request to prepare a question set.

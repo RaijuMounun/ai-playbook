@@ -1,0 +1,5 @@
+schema_version: "1.1"
+name: asks-for-outcomes
+description: The user wants a set but gives no learning outcomes. The skill must ask for them (pasted, or looked up from the program) instead of inventing a list.
+expected_outcome: |
+  question-set is invoked, asks for the learning outcomes of the set with choices, and writes neither a plan nor questions.

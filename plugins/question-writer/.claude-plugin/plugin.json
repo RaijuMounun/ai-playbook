@@ -1,0 +1,6 @@
+{
+  "name": "question-writer",
+  "description": "Helps a question writer prepare skill-based multiple-choice questions for primary school Turkish (grades 2-4) under MEB's Maarif Modeli: set plan from learning outcomes, item drafting with MEB's 2026 item-writing rules, visual items with illustrator briefs, a blind independent review, and Word output in the publisher's template. Guides first-time AI users step by step in Turkish.",
+  "version": "0.1.0",
+  "author": { "name": "Eren Keskinoğlu", "url": "https://github.com/RaijuMounun" }
+}

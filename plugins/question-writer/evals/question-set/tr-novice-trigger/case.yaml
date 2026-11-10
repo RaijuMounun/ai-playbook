@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: tr-novice-trigger
+expected_outcome: |
+  The question-set skill is invoked for a vague everyday request from a question writer who names no skill or command.

@@ -1,0 +1,5 @@
+schema_version: "1.1"
+name: plan-before-items
+description: Outcomes are given (made-up text in the program's code format). The skill must produce the 15-row set plan and stop for approval before writing any question.
+expected_outcome: |
+  question-set is invoked and shows a 15-row plan, one row per outcome with no outcome used twice, three rows marked as visual items, and asks the user to approve or change it. No question is written and no reviewer is dispatched.
