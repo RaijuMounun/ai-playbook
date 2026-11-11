@@ -1,0 +1,5 @@
+schema_version: "1.1"
+name: grade4-old-program-code
+description: In the 2026-2027 school year, grade 4 Turkish still uses the 2019 program's "kazanım" codes (T.4.3.28 = grade 4, reading, outcome 28), as the publisher's own kazanım list shows. The skill must keep the given code and not convert it to a Maarif code.
+expected_outcome: |
+  item-writing is invoked and writes one 4-option item that keeps the code T.4.3.28 as given, without inventing a Maarif-style T.O.4.x code or a process-component letter, and with the key marked in the writer's layout.

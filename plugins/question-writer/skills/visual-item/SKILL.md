@@ -20,7 +20,10 @@ MEB's guide (section 2.5) says a visual must add information. A visual that repe
 ## Which kind of visual
 
 - **Tables, bar charts and pictographs.** Build them yourself: write the table with every label and value, or describe the chart's data completely so it can be drawn exactly. Keep the categories few (about 3-5 in grade 2). Use round, small numbers. Prefer pictographs to numbers in grade 2.
-- **Pictures, scenes, posters and picture sequences.** You do not draw these for print; the publisher's illustrator does. Write the illustrator brief from [references/visual-brief-template.md](references/visual-brief-template.md), so that the drawing cannot change the answer by accident.
+- **Pictures, scenes, posters, children with speech bubbles or cards, picture options.** You do not draw these for print. How much you write depends on who prepares them (`ayarlar.md`, "Görseller"):
+  - **He places pictures himself:** give a short "[GÖRSEL: …]" note where the picture goes. Say what it shows and the exact words in any bubble, card or sign.
+  - **The publisher's illustrator draws them, or it is not known:** write the full brief from [references/visual-brief-template.md](references/visual-brief-template.md), so the drawing cannot change the answer by accident.
+- **Words and sentences carried by pictures** (speech bubbles, word cards, notebook pages, the board) are part of the item. Always write them out in full.
 - **Mixed items.** Some items have both a table and a drawing. Give the table in full and a brief for the drawing.
 
 ## Output

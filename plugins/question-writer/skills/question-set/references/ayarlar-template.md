@@ -15,8 +15,14 @@ On first use, create `ayarlar.md` in his work folder from the block below, after
 
 ## Teslim
 - Word şablonu: sablon.docx
+- Başlık: <YAYINEVİ> <N>. SINIF TÜRKÇE <M>. DENEME
 - Bir sette soru sayısı: 15
-- Her soru farklı bir öğrenme çıktısını ölçer.
+- Her soru mümkünse farklı bir öğrenme çıktısını ölçer. Liste yetmezse tekrar edilebilir.
+- Cevap: soru kökünün altında harf üç kez yazılır (örnek: BBB).
+- Öğrenme çıktısı: şıkların altında, kodu ve metniyle yazılır.
+
+## Görseller
+- Görselleri kim hazırlıyor: (kendim yerleştiriyorum / yayınevinin çizeri çiziyor)
 
 ## Üslup notları
 - (Beğendiği ve beğenmediği şeyler, zamanla eklenir.)

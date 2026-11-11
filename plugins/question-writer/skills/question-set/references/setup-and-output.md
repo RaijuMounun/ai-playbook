@@ -38,13 +38,27 @@ Do not copy them, and do not reuse their contexts. They are a style reference, a
 
 Goal: a `.docx` in his publisher's template, saved to `setler/<set name>/`.
 
-1. **Use the built-in Word support if this session has it.** Claude apps often include a Word (docx) skill. Copy `sablon.docx`, keep its styles, and insert each item in order: number, context, visual or visual brief, stem, options. Put the answer key at the end, in a table with the item number, the key and the outcome code.
+1. **Use the built-in Word support if this session has it.** Claude apps often include a Word (docx) skill. Copy `sablon.docx` and keep its styles. Lay the set out as his own booklets are:
+   - the title line from `ayarlar.md`
+   - for each item, in order:
+     - the stimulus (text, sentences, cards, or the visual or its placeholder)
+     - the shared-stimulus line when there is one
+     - "<n>. <stem>"
+     - the key line (the letter three times, for example "BBB")
+     - the options
+     - the outcome code and its text
+   - no separate answer key table: the publisher builds its own
+
+   Keep the distractor reasons out of the Word file. They go in `key.md` for him.
 2. **Fallback:** if there is no Word skill but code execution works, use `python-docx` to open the copied template and add the paragraphs with the template's existing styles.
 3. **No template:** if he has no template yet, make a plain, clean document. Say that it will match the publisher's format once he adds `sablon.docx`.
 4. **Nothing works:** if no Word file can be made, give the set as clean text ready to paste into Word, and say why in one sentence.
 
 **Visuals in the file:**
-- Tables and simple charts go into the document as real Word tables, or as a chart image if a chart was drawn.
-- Visuals for the illustrator appear as their brief, in a clearly marked box or paragraph where the picture will go.
+- Tables, word cards and simple charts go into the document as real Word tables, or as a chart image if a chart was drawn.
+- Pictures go in as a clearly marked placeholder where the picture belongs. What the placeholder says depends on who prepares the pictures (`ayarlar.md`, "Görseller"):
+  - **He places them himself:** "[GÖRSEL: …]" with a one-line suggestion, for example "iki çocuk, birinin konuşma balonunda: …".
+  - **The publisher's illustrator draws them:** the full illustrator brief from the `visual-item` skill.
+  - **Not known yet:** ask him once and save the answer to `ayarlar.md`.
 
 **After saving:** tell him the file name, where it is, and what to check in it (the answer key, the visual briefs).

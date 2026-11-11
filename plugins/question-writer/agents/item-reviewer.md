@@ -35,6 +35,8 @@ For each item, also cover the context and ask whether the item can still be answ
   - nothing frightening or stereotyped
 - for visual items, run the `visual-item` rules: the visual carries information the question needs and does not repeat the text
 
+Outcome codes come in two formats in 2026-2027: Maarif codes with a process component for grades 2-3 (`T.O.3.3.b)`), and 2019 kazanım codes for grade 4 (`T.4.3.28.`). A grade 4 code without a process component is correct, so do not flag it. Not every item needs a reading passage: a spelling, punctuation or word-order item may rest on a child's sentence or word cards, as long as it needs that stimulus.
+
 Read `ayarlar.md` if a path was given; the publisher's rules there override the defaults.
 
 **Then check the set as a whole.** Look for:
@@ -58,7 +60,7 @@ Read `ayarlar.md` if a path was given; the publisher's rules there override the 
 | `NEGATION` | An unmarked negation, or a double negation. |
 | `DECORATIVE-VISUAL` | The visual repeats the text or is not needed to answer. |
 | `CLUE-CHAIN` | One item gives away another, or needs another's answer. |
-| `DUPLICATE-OUTCOME` | Two items test the same outcome. |
+| `DUPLICATE-OUTCOME` | Two items test the same outcome with the same item type. A broad outcome reused with a different item type is fine; mention it in the set notes only. |
 | `LANGUAGE-LEVEL` | Words or sentences too hard for the grade. |
 | `SPELLING` | A TDK spelling or punctuation error. |
 | `MINOR` | A style point that does not make the item unusable. |

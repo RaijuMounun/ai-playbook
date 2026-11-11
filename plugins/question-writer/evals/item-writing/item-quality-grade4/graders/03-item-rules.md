@@ -5,6 +5,8 @@ focus: last_message
 
 The user asked for one grade 4 (age 9-10) Turkish item for the outcome "T.O.4.5. Okuduğu metindeki neden-sonuç ilişkilerini belirleyebilme".
 
+The writer marks the answer key as the correct letter written three times on its own line under the stem (for example "CCC" means C is correct). That counts as stating the answer key.
+
 PASS only if all of these hold:
 - There is a short context (a text, a dialogue, a notice, a table or similar) and the question cannot be answered without reading it.
 - Exactly one option is correct, and the answer key is stated.

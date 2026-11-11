@@ -7,7 +7,14 @@ description: Writes or checks a single skill-based ("beceri temelli", "yeni nesi
 
 This skill drafts one question at a time, the way a careful professional writer would. The person using it writes questions for Turkish publishers and is new to AI tools. Talk to him in plain, warm Turkish. Avoid technical words ("skill", "prompt", "agent", "markdown"). He is the author: you draft, he decides.
 
-The rules come from MEB's 2026 guide for context-based multiple-choice items. Read [references/guide-rules.md](references/guide-rules.md) before the first item of a conversation. Read [references/grade-language.md](references/grade-language.md) for the grade's option count and language level. Read [references/outcome-coding.md](references/outcome-coding.md) when an outcome code is unclear or he asks you to look one up.
+The rules come from MEB's 2026 guide for context-based multiple-choice items. Before the first item of a conversation, read:
+- [references/guide-rules.md](references/guide-rules.md): the item rules
+- [references/item-types.md](references/item-types.md): the item types he writes and the stimulus each one uses
+- [references/grade-language.md](references/grade-language.md): the grade's option count and language level
+
+Read [references/outcome-coding.md](references/outcome-coding.md) when an outcome code is unclear or he asks you to look one up.
+
+Two programs are in use at once. Grades 2-3 use Maarif codes (`T.O.3.3.b)`), and grade 4 still uses 2019 kazanım codes (`T.4.3.28.`). Use every code exactly as he gives it: never convert it, and never add a letter to a grade 4 code.
 
 ## Before writing
 
@@ -21,10 +28,10 @@ The rules come from MEB's 2026 guide for context-based multiple-choice items. Re
 Follow the guide's five steps. Keep the self-checks to yourself; show only the result:
 
 1. Name the outcome and the process component the item targets.
-2. Write a short daily-life context, sized for the grade.
+2. Choose the item type that fits the outcome (`item-types.md`). Write its stimulus: a short daily-life text, a child's sentence, word cards, a dialogue or a notice, sized for the grade.
 3. Write the stem so that it calls up the outcome's skill.
 4. Write the key and the distractors. Each distractor models a named mistake a child at that age makes.
-5. Cover the context and check that the item can no longer be answered. Then run the checklist at the end of `guide-rules.md`, and fix anything that fails before showing the item.
+5. Cover the stimulus and check that the item can no longer be answered. Then run the checklist at the end of `guide-rules.md`, and fix anything that fails before showing the item.
 6. Count the words in each option. If the key is the longest by more than two words, or is the only option joining two ideas with "ve" or a comma, shorten it or lengthen the distractors until they match.
 7. Argue for each distractor as a child who has the skill would. If the context supports it, even partly, it is a second key. Replace it with an option the text clearly rules out. Do not rescue it with qualifiers in the stem such as "asıl", "en doğru" or "ilk". A common trap in cause-effect items: an option that names a symptom or an intermediate link of the same cause chain ("toprak kurudu" next to "sulanmadı") is defensible.
 
@@ -32,28 +39,28 @@ For a picture, table or graph item, also follow the `visual-item` skill.
 
 ## Output
 
-Write the item in Turkish, in this shape:
+Write the item in Turkish, in his own booklet layout. The key goes on its own line under the stem, as the letter written three times. The outcome code and its text go under the options:
 
 ```
-**Soru** (<sınıf>. sınıf · <çıktı kodu ve süreç bileşeni>)
+<uyarıcı: metin, cümle, diyalog, kartlar ya da görsel>
+(<n> ve <n+1>. soruları yukarıdaki metne göre cevaplayınız.)   ← only when several items share the stimulus
 
-<bağlam metni>
-
-<soru kökü>
-
+<n>. <soru kökü>
+BBB
 A) ...
 B) ...
 C) ...
-(D) ... yalnızca 4. sınıfta)
-
-**Cevap:** <harf>
-
-**Çeldiriciler:**
-- <harf>: <hangi yanlış düşünceyle seçilir>
-- <harf>: <hangi yanlış düşünceyle seçilir>
+(D) ...  ← only in grade 4)
+<çıktı kodu> <çıktının metni>
 ```
 
-After the item, add one line saying which skill the item measures. Then offer what he can do next: change the context, make it easier or harder, or write another item. Offer these as short choices, not a long explanation.
+Short options (a word or two) can sit in one row: `A) biber    B) limon    C) karpuz`.
+
+Below the item, outside the booklet layout, add:
+- **Çeldiriciler:** one line per wrong option, naming the mistake that makes a child choose it
+- one line on which skill the item measures
+
+Then offer what he can do next: change the context, make it easier or harder, or write another item. Offer these as short choices, not a long explanation.
 
 ## Checking a question he wrote
 

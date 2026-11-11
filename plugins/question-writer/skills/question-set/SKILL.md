@@ -34,11 +34,16 @@ Do not ask for the option count: it follows from the grade (`ayarlar.md`, or 3 o
 
 ### 3. Learning outcomes
 
-Every question measures a different outcome, so the set needs one outcome per question. Ask him for the outcome list. Offer:
+He aims for each question to measure a different outcome, so ask for one outcome per question. Ask him for the outcome list. Offer:
 - he pastes the list the publisher gave him (önerilen)
 - you look them up from the MEB Türkçe program, and he picks
 
-Never invent outcomes or codes. If he wants a lookup, follow `outcome-coding.md` in the `item-writing` skill, show the candidates with their codes, and let him choose. If the list is shorter than the number of questions, say so and ask how to fill the gap (fewer questions, or more outcomes). Never reuse an outcome in the same set.
+Never invent outcomes or codes. If he wants a lookup, follow `outcome-coding.md` in the `item-writing` skill, show the candidates with their codes, and let him choose. If the list is shorter than the number of questions, say so and offer choices:
+- reuse the broadest outcomes, with a different item type each time (önerilen)
+- add more outcomes
+- write fewer questions
+
+Publishers do reuse broad outcomes, especially grade 4 kazanımlar such as "çıkarım yapar". Codes come in two formats (Maarif for grades 2-3, 2019 for grade 4); use them exactly as given.
 
 ### 4. Set plan, then stop
 
@@ -50,7 +55,9 @@ Write a plan as a table, one row per question:
 - intended answer letter
 
 The plan must meet these rules:
-- **No repeated outcome** in the set.
+- **A different outcome per question** where the list allows it. A repeated outcome must use a different item type, and he has agreed to it.
+- **A mix of item types** like his own booklets: reading items alongside language items (spelling, punctuation, word order, word meaning, dialogue gap). See `item-types.md` in the `item-writing` skill.
+- **Shared stimuli** are fine for 2-3 reading items, as in his booklets, as long as no item gives another away.
 - **Varied contexts.** No two questions share a situation unless he wants a shared reading text. If he does, keep the questions on it free of clue chains.
 - **Visual items** go where the outcome suits a visual (for example, reading a table or predicting from pictures).
 - **Answer letters** spread evenly across the options.

@@ -5,6 +5,8 @@ focus: last_message
 
 The user asked for a grade 3 Turkish visual item for "T.O.3.7. Tablo ve grafiklerdeki bilgileri yorumlayabilme", with instructions for the publisher's illustrator.
 
+The writer marks the answer key as the correct letter written three times on its own line under the stem (for example "CCC" means C is correct). That counts as stating the answer key.
+
 PASS only if all of these hold:
 - The table or graph is given with all its data (labels and values), either built directly or fully specified.
 - The question cannot be answered from the text alone: the needed information is in the visual and is not repeated in the text.

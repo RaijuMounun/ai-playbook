@@ -35,11 +35,11 @@ Read this first in a new conversation. It is the short version of everything bel
    - **What the skill does.** From a learning outcome ("kazanım") and a context, draft the question, the answer, and distractors with a reason for each. Then run a checklist: exactly one correct answer, plausible distractors, no clue in the wording, language fit for the grade, and the outcome actually tested.
    - **Evals from his judgment.** His own good past questions become the style reference, and he grades the first outputs. Those grades become the eval cases, the same way web-researcher is measured from real tasks.
    - **Privacy and copyright.** His examples and publisher material stay out of this public repo. They live in a private place he or the skill reads at runtime, the same rule as personal data.
-   - **Status (2026-11-11).** Built as `question-writer` v0.1.0, all 13 cases pass (entry "question-writer built for Cowork"). Next:
+   - **Status (2026-11-11).** `question-writer` v0.2.0, all 14 cases pass (entries "question-writer built for Cowork" and "question-writer v0.2.0"). Next:
      - Install it on his PC with him (Cowork, his own Pro plan).
-     - Run his first real set.
-     - He grades it item by item; recurring failures become synthetic cases.
-     - Still to get from him: 2-3 good past questions per grade, and his Word template.
+     - Copy his example booklets into `Soru Yazarlığı/ornekler/` there.
+     - Run his first real set. He grades it item by item; recurring failures become synthetic cases.
+     - Still to ask him: who prepares the pictures, and whether the publisher has a real Word template.
 
 4. **Code and test quality tooling** (added 2026-10-30). The user asked for Anthropic's own tools first, then Superpowers. Current practice: run the built-in `/code-review` skill on new code (first used on the TÜBİTAK project's feature code, 10 findings), and measure test quality with mutation testing (it changes the code on purpose and checks that some test fails). On native Windows use `cosmic-ray`: `mutmut` 3 doesn't support Windows. Lessons from the first run (2026-11-01): run `cosmic-ray baseline` first, and check that no result is `INCOMPETENT`. The first run reported "0 surviving mutants" while all 936 were INCOMPETENT, because the tests never started. On Windows the test command must be the venv's `pytest`, not `python -m pytest`: the venv's python.exe hands off to the system Python. Set `PYTHONIOENCODING=utf-8` before the run: with the Turkish code page, cosmic-ray can't decode pytest's output and reports killed mutants as INCOMPETENT. Expect about an hour for roughly 900 mutants. The TÜBİTAK project went from 71% to 87% killed after one round of new tests. Superpowers (obra/superpowers, TDD and debugging skills) is not installed; assess it with `ai-engineering-radar` before adding it, since it overlaps with agent-architect and prompt-craft.
 
@@ -72,6 +72,21 @@ Read this first in a new conversation. It is the short version of everything bel
 - 2026-10-29: phone access decided (Remote Control when the PC is on, cloud otherwise).
 
 ---
+
+## 2026-11-11: question-writer v0.2.0, corrected by his real booklets, 14/14 cases
+
+**Decision (user).** Four changes after reading his drafts of three 2026-2027 practice booklets (grades 2-4) and the publisher's print-approval PDFs. These stay on the user's PC and go into his work folder, never into this repo:
+
+1. **Two curricula at once.** Grade 4 still uses the 2019 program's kazanım codes (`T.4.3.28.`, no process components), and grades 2-3 use Maarif codes (`T.O.3.3.b)`). Codes are used as given, never converted.
+2. **Outcomes may repeat.** The publisher's lists reuse broad outcomes. "A different outcome per question" stays the goal. A repeat needs his agreement and a different item type.
+3. **His layout.** Title line; shared-stimulus line; "<n>. stem"; the key as the letter three times ("BBB") under the stem; the options; the outcome code with its text. There is no answer-key table, because the publisher makes its own.
+4. **Item types.** A new reference, `item-types.md`, lists the types he writes (spelling, punctuation, word cards, dialogue gaps, brochures and others) without copying his items.
+
+**Pictures.** `ayarlar.md` now records who prepares them: a short "[GÖRSEL: …]" note if he places them himself, the full illustrator brief otherwise. Still to ask him.
+
+**Measurement.** New case `grade4-old-program-code`, and a key-marker grader on `item-quality-grade2`. The first full run scored 12/14. Both failures were the judges not knowing the "CCC" key convention, so the rubrics now explain it and the skills were not changed. The rerun of those cases passed, so the suite is 14/14. Cost about $1.25.
+
+**Revisit** when grade 4 moves to Maarif, expected 2027-2028 but not verified.
 
 ## 2026-11-11: question-writer built for Cowork, 13/13 cases
 

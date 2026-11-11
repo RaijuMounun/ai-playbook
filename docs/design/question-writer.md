@@ -27,6 +27,25 @@ Added at approval (user, 2026-11-11). He has little experience with AI tools. Th
 - **Missing setup is a guided step, not an error.** If no folder is connected, it explains exactly what to click. He can also choose to continue without a folder for now; the set is then shown in the chat and the Word file is saved where Cowork allows.
 - **Every step ends by saying what comes next** and what he should check.
 
+## 1b. What his real booklets showed (2026-11-11)
+
+He shared his drafts of three practice booklets (grades 2-4) and the publisher's print-approval PDFs for the 2026-2027 school year. They stay on the user's PC and in his work folder, not in this repo. Four corrections followed, applied in v0.2.0:
+
+1. **Grade 4 still uses the 2019 program.** The publisher's grade 4 list uses "kazanım" codes like `T.4.3.28.`, with no process components. Grades 2-3 use Maarif codes with components (`T.O.3.3.b)`). Codes are used exactly as given and never converted.
+2. **Outcomes can repeat.** The publisher's lists reuse broad outcomes (one grade 4 kazanım appears in four items). "A different outcome per question" is a goal. A repeat is allowed when he agrees and the item type differs, and the reviewer flags a repeat only when the item type is also the same.
+3. **His layout:**
+   - a title line
+   - the stimulus, and a "1 ve 2. soruları … cevaplayınız." line when several items share it
+   - "<n>. stem"
+   - the key on its own line as the letter three times ("BBB")
+   - the options
+   - the outcome code with its text
+   
+   There is no answer-key table: the publisher makes its own.
+4. **Item types are broader than reading passages.** They include spelling, capital letters, punctuation, word cards, synonyms and antonyms, dictionary order, idioms, dialogue gaps, rules and brochures. The stimulus is often a child's sentence or a card. `item-writing/references/item-types.md` lists them without copying his items.
+
+**Open: who prepares the pictures.** His drafts embed many pictures. `ayarlar.md` records whether he places them himself (a short "[GÖRSEL: …]" note) or the illustrator draws them (the full brief).
+
 ## 2. Delivery surface
 
 The plugin runs in **Cowork** in the Claude desktop app, on his own **Pro** plan. He installs it with no terminal: Customize > Plugins > Add marketplace > `RaijuMounun/ai-playbook`, then he enables `question-writer` only.
