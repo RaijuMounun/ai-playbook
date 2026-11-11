@@ -1,0 +1,5 @@
+schema_version: "1.1"
+name: picture-placeholder
+description: He finds a stand-in picture on the internet and the publisher prepares the final picture. A picture item must carry a placeholder with what to show, Turkish search words, and the details the publisher must keep.
+expected_outcome: |
+  visual-item is invoked and writes a 3-option grade 2 item with a picture placeholder that says what the picture shows, gives search words ("Aranacak") and notes for the publisher ("Yayınevi için").

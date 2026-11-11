@@ -35,11 +35,10 @@ Read this first in a new conversation. It is the short version of everything bel
    - **What the skill does.** From a learning outcome ("kazanım") and a context, draft the question, the answer, and distractors with a reason for each. Then run a checklist: exactly one correct answer, plausible distractors, no clue in the wording, language fit for the grade, and the outcome actually tested.
    - **Evals from his judgment.** His own good past questions become the style reference, and he grades the first outputs. Those grades become the eval cases, the same way web-researcher is measured from real tasks.
    - **Privacy and copyright.** His examples and publisher material stay out of this public repo. They live in a private place he or the skill reads at runtime, the same rule as personal data.
-   - **Status (2026-11-11).** `question-writer` v0.2.0, all 14 cases pass (entries "question-writer built for Cowork" and "question-writer v0.2.0"). Next:
+   - **Status (2026-11-11).** `question-writer` v0.3.0, all 15 cases pass (entries "question-writer built for Cowork", "v0.2.0" and "v0.3.0"). His intake is complete. Next:
      - Install it on his PC with him (Cowork, his own Pro plan).
      - Copy his example booklets into `Soru Yazarlığı/ornekler/` there.
-     - Run his first real set. He grades it item by item; recurring failures become synthetic cases.
-     - Still to ask him: who prepares the pictures, and whether the publisher has a real Word template.
+     - Run his first real set. He grades it item by item, and recurring failures become synthetic cases.
 
 4. **Code and test quality tooling** (added 2026-10-30). The user asked for Anthropic's own tools first, then Superpowers. Current practice: run the built-in `/code-review` skill on new code (first used on the TÜBİTAK project's feature code, 10 findings), and measure test quality with mutation testing (it changes the code on purpose and checks that some test fails). On native Windows use `cosmic-ray`: `mutmut` 3 doesn't support Windows. Lessons from the first run (2026-11-01): run `cosmic-ray baseline` first, and check that no result is `INCOMPETENT`. The first run reported "0 surviving mutants" while all 936 were INCOMPETENT, because the tests never started. On Windows the test command must be the venv's `pytest`, not `python -m pytest`: the venv's python.exe hands off to the system Python. Set `PYTHONIOENCODING=utf-8` before the run: with the Turkish code page, cosmic-ray can't decode pytest's output and reports killed mutants as INCOMPETENT. Expect about an hour for roughly 900 mutants. The TÜBİTAK project went from 71% to 87% killed after one round of new tests. Superpowers (obra/superpowers, TDD and debugging skills) is not installed; assess it with `ai-engineering-radar` before adding it, since it overlaps with agent-architect and prompt-craft.
 
@@ -72,6 +71,14 @@ Read this first in a new conversation. It is the short version of everything bel
 - 2026-10-29: phone access decided (Remote Control when the PC is on, cloud otherwise).
 
 ---
+
+## 2026-11-11: question-writer v0.3.0, pictures and template settled by him
+
+**Decision (user's father, relayed).**
+- **Pictures.** He finds a stand-in picture on the internet, and the publisher prepares the final one. Every picture slot now gets a placeholder with three parts: what the picture must show, Turkish search words ("Aranacak"), and "Yayınevi için", the details the final picture must keep so it cannot change the answer.
+- **Template.** The publisher has no Word template, and he writes into a blank document. His own booklet layout is the output format, and `sablon.docx` is dropped from the work folder.
+
+**Measurement.** New case `picture-placeholder`. It first failed because the placeholder format was only in `question-set`'s reference, which `visual-item` does not load. The format was then written into `visual-item`'s SKILL.md, and the visual cases now pass 3/3. `guides-first-setup` passes 1/1. The suite is 15 cases. Cost about $0.5.
 
 ## 2026-11-11: question-writer v0.2.0, corrected by his real booklets, 14/14 cases
 

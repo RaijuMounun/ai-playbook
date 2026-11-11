@@ -14,7 +14,7 @@ On first use, create `ayarlar.md` in his work folder from the block below, after
 - (Yayınevinin özel kuralları varsa buraya yazılır. Örnek: "Olumsuz ifadenin altı çizilir.")
 
 ## Teslim
-- Word şablonu: sablon.docx
+- Word şablonu: yok, boş bir belgeye kendi düzenimle yazıyorum
 - Başlık: <YAYINEVİ> <N>. SINIF TÜRKÇE <M>. DENEME
 - Bir sette soru sayısı: 15
 - Her soru mümkünse farklı bir öğrenme çıktısını ölçer. Liste yetmezse tekrar edilebilir.
@@ -22,7 +22,7 @@ On first use, create `ayarlar.md` in his work folder from the block below, after
 - Öğrenme çıktısı: şıkların altında, kodu ve metniyle yazılır.
 
 ## Görseller
-- Görselleri kim hazırlıyor: (kendim yerleştiriyorum / yayınevinin çizeri çiziyor)
+- Görselleri kim hazırlıyor: internetten uygun bir görsel bulup koyuyorum, son görseli yayınevi hazırlıyor
 
 ## Üslup notları
 - (Beğendiği ve beğenmediği şeyler, zamanla eklenir.)

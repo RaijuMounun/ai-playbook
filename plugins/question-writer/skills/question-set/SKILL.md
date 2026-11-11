@@ -89,7 +89,7 @@ Questions with no problem are listed in one line. Apply the fixes he accepts. Do
 
 ### 7. Word file
 
-Make the Word file as [references/setup-and-output.md](references/setup-and-output.md) describes: his template if he has one, the answer key at the end, illustrator briefs where pictures go. Tell him where the file is and what to look over before sending it to the publisher.
+Make the Word file as [references/setup-and-output.md](references/setup-and-output.md) describes: his own booklet layout in a new document, the key line under each stem, and picture placeholders (what to show, search words, notes for the publisher) where pictures go. Tell him where the file is and what to look over before sending it to the publisher.
 
 ## When he brings questions to check
 

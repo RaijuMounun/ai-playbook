@@ -44,7 +44,9 @@ He shared his drafts of three practice booklets (grades 2-4) and the publisher's
    There is no answer-key table: the publisher makes its own.
 4. **Item types are broader than reading passages.** They include spelling, capital letters, punctuation, word cards, synonyms and antonyms, dictionary order, idioms, dialogue gaps, rules and brochures. The stimulus is often a child's sentence or a card. `item-writing/references/item-types.md` lists them without copying his items.
 
-**Open: who prepares the pictures.** His drafts embed many pictures. `ayarlar.md` records whether he places them himself (a short "[GÖRSEL: …]" note) or the illustrator draws them (the full brief).
+**Answered by him (2026-11-11):**
+- **Pictures:** he finds a stand-in picture on the internet, and the publisher prepares the final one. Every picture slot gets a placeholder with three parts: what the picture must show, Turkish search words, and "Yayınevi için", the details the final picture must keep. The full illustrator brief is used only on request.
+- **Template:** the publisher has no Word template, and he writes into a blank document. His own booklet layout is the output format, and `sablon.docx` is dropped from the work folder.
 
 ## 2. Delivery surface
 

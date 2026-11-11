@@ -20,9 +20,20 @@ MEB's guide (section 2.5) says a visual must add information. A visual that repe
 ## Which kind of visual
 
 - **Tables, bar charts and pictographs.** Build them yourself: write the table with every label and value, or describe the chart's data completely so it can be drawn exactly. Keep the categories few (about 3-5 in grade 2). Use round, small numbers. Prefer pictographs to numbers in grade 2.
-- **Pictures, scenes, posters, children with speech bubbles or cards, picture options.** You do not draw these for print. How much you write depends on who prepares them (`ayarlar.md`, "Görseller"):
-  - **He places pictures himself:** give a short "[GÖRSEL: …]" note where the picture goes. Say what it shows and the exact words in any bubble, card or sign.
-  - **The publisher's illustrator draws them, or it is not known:** write the full brief from [references/visual-brief-template.md](references/visual-brief-template.md), so the drawing cannot change the answer by accident.
+- **Pictures, scenes, posters, children with speech bubbles or cards, picture options.** You do not draw these. He finds a stand-in picture on the internet for his draft, and the publisher prepares the final picture. Where the picture goes, write a placeholder with three parts:
+  - what the picture must show
+  - Turkish search words for the stand-in picture
+  - "Yayınevi için:" the details the final picture must keep (the exact words, numbers, and what must not appear)
+
+  Write it exactly in this shape, inside the item where the picture belongs:
+
+  ```
+  [GÖRSEL: <what the picture must show, in one sentence>
+   Aranacak: "<2-4 Turkish search words for a stand-in picture>"
+   Yayınevi için: <details the final picture must keep: exact words in bubbles or cards, numbers, what must not appear>]
+  ```
+
+  For picture options (A, B, C are pictures), write one such placeholder per option. When the answer depends on fine detail in a drawing, or he asks for one, write the full brief from [references/visual-brief-template.md](references/visual-brief-template.md) instead.
 - **Words and sentences carried by pictures** (speech bubbles, word cards, notebook pages, the board) are part of the item. Always write them out in full.
 - **Mixed items.** Some items have both a table and a drawing. Give the table in full and a brief for the drawing.
 
@@ -30,7 +41,7 @@ MEB's guide (section 2.5) says a visual must add information. A visual that repe
 
 Write it in Turkish:
 1. The item, in the `item-writing` shape: context, the visual (the table itself, or "[Görsel: bkz. görsel tarifi]" where the picture goes), stem, options, answer and distractor reasons.
-2. The illustrator brief ("GÖRSEL TARİFİ"), when a drawing is needed.
+2. The picture placeholder (what to show, search words, "Yayınevi için"), or the full brief ("GÖRSEL TARİFİ") when he asks for one or the answer depends on fine detail.
 3. One line on what the student must read from the visual to answer.
 
 Before showing it, cover the visual and confirm the question can no longer be answered. Cover the text and confirm the visual alone does not reveal more than intended.
