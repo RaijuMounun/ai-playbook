@@ -56,7 +56,7 @@ Read this first in a new conversation. It is the short version of everything bel
 
 ### Later
 
-- **health follow-ups.** Set `HEALTH_VAULT` in `~/.claude/settings.json`; add `.claude/settings.json` to `saglik-vault` (ai-playbook GitHub marketplace, `health` and `research` enabled) for cloud sessions; install Obsidian Git on the PC; run the first protocol check on the existing vault protocols.
+- **health follow-ups.** Run the first protocol check on the existing vault protocols. (Done 2026-11-13: `HEALTH_VAULT` set, health enabled locally, `saglik-vault` has `.claude/settings.json` and a `CLAUDE.md` for cloud sessions. Obsidian Git is not needed: only Claude edits the vault, with pull before reading and push after writing, recorded in the global CLAUDE.md.)
 - `game-research`, `stack-selection`, `market-research`. Then the pre-production pipeline, kept separate from a per-feature spec/ADR development loop. `project-loop-architect` (per-project agent loops) is a separate tool, designed on its own.
 - Optional: a LICENSE file. `claude plugin validate` passes, but the official plugin directory would refuse a submission without one. Not needed for local use.
 
