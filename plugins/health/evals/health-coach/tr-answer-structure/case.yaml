@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: tr-answer-structure
+expected_outcome: |
+  health-coach answers a settled question directly with the answer template, including the evidence label.

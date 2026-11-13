@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: tr-sleep-waking-up
+expected_outcome: |
+  health-coach is invoked for a Turkish sleep question.

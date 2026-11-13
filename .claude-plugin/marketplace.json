@@ -27,6 +27,11 @@
       "name": "question-writer",
       "source": "./plugins/question-writer",
       "description": "Skill-based multiple-choice questions for primary school Turkish (grades 2-4, MEB Maarif Modeli): set plan, item drafting, visual items, blind review, Word output. Built for Cowork, guides non-technical users in Turkish."
+    },
+    {
+      "name": "health",
+      "source": "./plugins/health",
+      "description": "Personal health assistant: profile-aware answers from the Obsidian health vault, evidence labels, researched answers for contested questions, red-flag escalation, dated notes saved to the vault."
     }
   ]
 }

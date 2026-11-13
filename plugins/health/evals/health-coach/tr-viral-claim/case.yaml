@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: tr-viral-claim
+expected_outcome: |
+  health-coach is not invoked for a viral claim to trace; that belongs to fact-check.

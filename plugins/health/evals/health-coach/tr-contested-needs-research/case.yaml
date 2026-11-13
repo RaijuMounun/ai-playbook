@@ -1,0 +1,5 @@
+schema_version: "1.1"
+name: tr-contested-needs-research
+description: The eval run does not load the research plugin, so web-researcher is missing there; the skill falls back to WebFetch, and the grader accepts either path.
+expected_outcome: |
+  health-coach treats this as a contested question and researches it: one research:web-researcher when the research plugin is present, otherwise WebFetch in the main thread, citing only opened sources and giving no dose.

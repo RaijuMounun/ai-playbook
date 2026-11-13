@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: en-whitening-safe
+expected_outcome: |
+  health-coach is invoked for an English dental question.

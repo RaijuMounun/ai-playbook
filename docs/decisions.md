@@ -56,12 +56,13 @@ Read this first in a new conversation. It is the short version of everything bel
 
 ### Later
 
-- **`health-evidence` with a `health-coach` plugin.** A good first real build for `agent-architect` after its self-improvement round. Personal health data stays in the Obsidian vault.
+- **health follow-ups.** Set `HEALTH_VAULT` in `~/.claude/settings.json`; add `.claude/settings.json` to `saglik-vault` (ai-playbook GitHub marketplace, `health` and `research` enabled) for cloud sessions; install Obsidian Git on the PC; run the first protocol check on the existing vault protocols.
 - `game-research`, `stack-selection`, `market-research`. Then the pre-production pipeline, kept separate from a per-feature spec/ADR development loop. `project-loop-architect` (per-project agent loops) is a separate tool, designed on its own.
 - Optional: a LICENSE file. `claude plugin validate` passes, but the official plugin directory would refuse a submission without one. Not needed for local use.
 
 ### Done
 
+- 2026-11-13: `health` plugin (`health-coach`) built, 12/12; health vault pushed to private `saglik-vault`.
 - 2026-10-28: hooks live-tested (main-thread WebSearch denied; a brief without sections denied; SessionStart injection works).
 - 2026-10-28: research playbooks `purchase-research`, `tech-howto`, `fact-check` written.
 - 2026-10-29: `agent-architect` designed, approved, implemented (v0.1.0), and enabled locally.
@@ -71,6 +72,18 @@ Read this first in a new conversation. It is the short version of everything bel
 - 2026-10-29: phone access decided (Remote Control when the PC is on, cloud otherwise).
 
 ---
+
+## 2026-11-13: health plugin with one `health-coach` skill; the health vault becomes a private repo
+
+**Decision (user).** The health assistant is `plugins/health/` (v0.1.0): one entry skill `health-coach`, no agent of its own. Design: [design/health.md](design/health.md), approved the same day. Built through agent-architect's Create flow.
+
+**Shape and why.** One skill with topic reference files (nutrition, exercise, sleep, oral, skin, labs) instead of a skill per topic: one trigger point, one eval suite, and a new topic is one file (the user's choice). Research goes to the existing `research:web-researcher` (sonnet), one per question and only for contested, recent or person-specific questions; settled answers come directly with an evidence label. A health agent would add a subagent context per question, too costly on Pro. Topic files hold method and sources, not facts, because health guidance goes out of date; facts are researched live and cited only when opened. If `research` is not installed, the skill researches with WebFetch itself.
+
+**Rules from the research.** Bean et al. (Nature Medicine, 2026) and a BMJ Open audit (2026) show chatbot health advice fails through made-up references, agreeing with the user's framing and missed red flags. So: red-flag check first (112; ALO 184 is not an emergency line), premise check, no doses, evidence labels mapped to GRADE (Güçlü/Orta/Sınırlı/Belirsiz), cite only opened sources. Two sonnet web-researcher runs: one on practice and failure modes, one that opened and verified every topic source (ACSM's 2026 resistance-training stand replaces 2009; ESC/EAS 2025 update; ADA 2026).
+
+**Vault.** The user chose to push the whole health vault, family profiles included, to the private repo `RaijuMounun/saglik-vault`, so cloud sessions can use it. The skill finds the vault from the working directory, then `HEALTH_VAULT`, then asks; no path is in the plugin. Researched answers are saved to `06_Arastirmalar/` only after the user says yes.
+
+**Measurement.** 12 cases. First run 9/12 ($0.77): the red-flag and premise cases did not fire the skill, and the research case could not dispatch web-researcher in the isolated run. Fixes: description covers symptoms and belief checks; WebFetch fallback; the research case grades either path with an `llm` trace grader and gets 15 turns. Second run 10/12 ($0.62), research case rerun 1/1 ($0.14). Accepted gap: Sonnet answers chest pain with "call 112" directly without the skill, which is the safe result, so that case grades the outcome only. Final: 12/12 on the current graders.
 
 ## 2026-11-11: question-writer v0.3.0, pictures and template settled by him
 
