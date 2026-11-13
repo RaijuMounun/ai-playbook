@@ -32,7 +32,11 @@ Many questions carry a claim ("salon şart değil mi?", "detoks çayı karaciğe
 Decide with [references/evidence.md](references/evidence.md):
 
 - **Settled** (long-standing guideline consensus, no recent change, nothing about the person that would change it): answer directly with an evidence label. You may name the guideline body, but write no URL, study, statistic or year from memory, and add "(güncel kaynaktan kontrol edilmedi)" to the evidence line.
-- **Research** (contested, recently changed, a decision specific to this person, an out-of-range lab value, a protocol check, or the user asks for it): dispatch one `research:web-researcher` with the brief below. Read the topic file first (`references/<topic>.md`) and put its sources in the brief. If the topic has no file, the researcher works from the general ranking in `evidence.md`.
+- **Research** (contested, recently changed, a decision specific to this person, an out-of-range lab value, a protocol check, or the user asks for it): dispatch one `research:web-researcher` with the brief below.
+
+Some questions are always research, however familiar the answer feels: choosing between medicines or treatments, how common a side effect is, and any answer that would agree or disagree with what the person's doctor said. Do the research before answering, not as an offer at the end; safety labelling changes (for example a regulator adding a side effect) are exactly what memory misses.
+
+When one answer holds claims of different strength, label each claim or group of claims ("Finasteridin etkisi: Güçlü. Kalıcı cinsel yan etki tartışması: Belirsiz."), not one label for the whole answer. Read the topic file first (`references/<topic>.md`) and put its sources in the brief. If the topic has no file, the researcher works from the general ranking in `evidence.md`.
 
 Tell the user in one line that you are starting research, since it uses quota. One researcher per question; never fan out on your own.
 
