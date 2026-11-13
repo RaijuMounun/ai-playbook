@@ -27,7 +27,7 @@ Two programs are in use at once. Grades 2-3 use Maarif codes (`T.O.3.3.b)`), and
 
 Follow the guide's five steps. Keep the self-checks to yourself; show only the result:
 
-1. Name the outcome and the process component the item targets.
+1. Name the outcome and the process component the item targets. Read its wording for direction: what the student starts from and what the student produces. The stimulus is what the outcome starts from. For example, "başlığından ve görsellerinden hareketle … tahminde bulunur" means the stimulus is a title and a picture, and the student predicts the content. Never reverse it, as in giving the story and asking which picture fits; he rejected that as not matching the outcome.
 2. Choose the item type that fits the outcome (`item-types.md`). Write its stimulus: a short daily-life text, a child's sentence, word cards, a dialogue or a notice, sized for the grade.
 3. Write the stem so that it calls up the outcome's skill.
 4. Write the key and the distractors. Each distractor models a named mistake a child at that age makes.

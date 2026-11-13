@@ -1,0 +1,5 @@
+schema_version: "1.1"
+name: outcome-direction-title-visual
+description: From the writer's first review (2026-11-13). The sample item for T.O.3.2.b gave a book title and asked which picture fits it. He rejected it because the outcome goes the other way, from title and pictures to predicting the text's events.
+expected_outcome: |
+  item-writing is invoked and writes an item whose stimulus is a title and a picture (placeholder), with text options that predict the events or information of the text.

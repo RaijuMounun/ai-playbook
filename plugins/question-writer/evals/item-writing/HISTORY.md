@@ -5,3 +5,4 @@
 2026-11-11 | step: count option words | sonnet, runs 1 | 3/3 | gate passed
 2026-11-11 | v0.2.0: his booklet layout (key as "BBB" under the stem, outcome line under the options), item-types reference, grade 4 uses 2019 codes; new case grade4-old-program-code | sonnet, runs 1 | 3/4 | item-quality-grade2 failed: the judge did not know the "CCC" key convention (rubric fixed, skill untouched)
 2026-11-11 | rubrics explain the key marker | sonnet, runs 1 | 4/4 | gate passed (reran item-quality-*)
+2026-11-13 | his review: T.O.3.2.b item reversed the outcome's direction (text -> pick a picture); rule added to step 1, new case outcome-direction-title-visual. No baseline was taken before the edit (deviation) | sonnet, runs 1 | new case 1/1 | other cases not rerun

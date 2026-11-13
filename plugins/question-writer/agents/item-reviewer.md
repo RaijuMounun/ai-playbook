@@ -54,7 +54,7 @@ Read `ayarlar.md` if a path was given; the publisher's rules there override the 
 | `TWO-KEYS` | More than one option can be defended from the context. |
 | `WRONG-KEY` | The keyed answer is wrong; give the right one. |
 | `NO-CONTEXT-NEEDED` | The item can be answered without the context. |
-| `OUTCOME-MISMATCH` | The item does not test its stated outcome or process component. |
+| `OUTCOME-MISMATCH` | The item does not test its stated outcome or process component, including a reversed direction (the outcome starts from a title or picture, but the item gives the text and asks for a picture). |
 | `WEAK-DISTRACTOR` | A distractor nobody would choose, or "hepsi"/"hiçbiri". |
 | `LENGTH-CLUE` | The key stands out by length, detail or a word echoed from the stem. |
 | `NEGATION` | An unmarked negation, or a double negation. |
