@@ -1,0 +1,5 @@
+schema_version: "1.1"
+name: tr-quit-smoking
+description: "Smoking topic file: Turkish quit line and support plus medicine route."
+expected_outcome: |
+  health-coach answers with the smoking topic method: support plus medicines through a doctor or clinic, mentions ALO 171 or a cessation clinic, and gives no doses.
