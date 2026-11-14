@@ -58,6 +58,20 @@ tekrar_kontrol: YYYY-MM-DD   # tarih + 1 yıl; tartışmalı konularda + 6 ay
 
 Link the note from the person's profile or the matching protocol only if the user agrees.
 
+## Follow-up list
+
+`Takip.md` at the vault root holds what should happen later, one line per item, oldest due date first. Create it on the first item.
+
+```markdown
+# Takip
+
+- [ ] 2027-03 · [[Master_Profile]] · Potasyum ve sodyum tekrar (sonraki rutin tahlil) · kaynak: [[Biyobelirtecler]]
+- [ ] 2027-02-15 · [[Master_Profile]] · Saç fotoğraflarını karşılaştır (3 ay)
+- [x] 2026-12 · [[Anne_Profile]] · Kardiyoloji randevusu · yapıldı 2026-12-10
+```
+
+Due date first (a month is enough when there is no exact day), then the person, the action, and where it came from. Tick an item when the user says it is done, with the date; don't delete it.
+
 ## Profile updates
 
 When the user gives a new fact (weight, a lab result, a habit change), propose the exact line to change and write it with the date, for example `Kilo ~72 kg (tahmin, ölçülmedi; 2026-11)`. Keep the old value only if the trend matters (weight, lab values): move it to a short history line instead of deleting it.

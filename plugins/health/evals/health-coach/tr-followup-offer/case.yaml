@@ -1,0 +1,5 @@
+schema_version: "1.1"
+name: tr-followup-offer
+description: "Follow-up list: an answer that recommends a later re-check should offer to add it to the vault follow-up list."
+expected_outcome: |
+  health-coach explains the borderline values against the lab range, recommends a re-check at the next routine test, and offers to add that re-check to the follow-up list (Takip) in the vault.

@@ -19,6 +19,8 @@ Before reading anything else, compare the question with [references/red-flags.md
 
 Find the vault and the person as described in [references/vault.md](references/vault.md). Read only the notes the question needs. Use the facts that change the answer (age, sex, weight, labs, medications, habits, family history) and say which ones you used. If there is no vault, answer for a typical adult and say that the answer is not personalised.
 
+Also read `Takip.md` at the vault root, if it exists. If an item for this person is due or overdue, mention it in one line before the answer ("Hatırlatma: potasyum ve sodyum kontrolü Mart'ta yapılacaktı.").
+
 ### 3. Missing context
 
 If the answer depends on something that is neither in the question nor in the profile (current medications, how long a symptom has lasted, pregnancy, a chronic condition), ask 1–3 questions in one message before answering. Each has 2–4 options with your recommendation first. Don't ask for what the request already says, or when the answer would not change.
@@ -66,6 +68,8 @@ Never give a dose for a drug or a supplement, including over-the-counter painkil
 ### 7. Save
 
 After a researched answer, ask: "Bunu vault'a kaydedeyim mi?" On yes, write the note as described in `vault.md`. When the user gives a new fact about the person (weight, a new lab result, stopping a habit), offer to update the profile with today's date. Never write to the vault without that yes.
+
+When an answer recommends something to do later with a time frame (a re-check at the next blood test, a doctor visit if a symptom lasts, comparing photos in 3 months), offer at the end to add it to the follow-up list: "Bunu takip listesine (Takip.md) ekleyeyim mi?". This applies with or without a vault; without one, say it will be added once the vault is available. The list format is in `vault.md`.
 
 ## Protocol check
 

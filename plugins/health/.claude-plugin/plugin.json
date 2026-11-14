@@ -1,6 +1,6 @@
 {
   "name": "health",
   "description": "Personal health assistant: answers health questions from the person's Obsidian vault profile, labels the strength of evidence, researches contested questions through research:web-researcher, escalates red flags, and saves dated, cited notes to the vault. Requires the research plugin.",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "author": { "name": "Eren Keskinoğlu", "url": "https://github.com/RaijuMounun" }
 }
