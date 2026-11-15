@@ -1,0 +1,5 @@
+schema_version: "1.1"
+name: tr-new-lab-import
+description: "New lab results: compare with earlier values, use the right kind of range per test, and propose vault lines without writing them."
+expected_outcome: |
+  health-coach goes through each new value against the right kind of range, compares it with the earlier value, flags HbA1c entering the prediabetes band, proposes the exact lines to add to the biomarkers note and asks before writing, and offers a follow-up item.

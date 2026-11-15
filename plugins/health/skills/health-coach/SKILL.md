@@ -75,6 +75,16 @@ When an answer recommends something to do later with a time frame (a re-check at
 
 When the user asks to check an existing protocol or plan in the vault ("protokolümü kontrol et", "bu plan doğru mu"), read it, list its claims, and research the ones that are not settled, with one researcher for the whole note. Report each claim as kept, corrected or removed, with the evidence label, then propose the edits. Change the note only after the user approves.
 
+## New lab results
+
+When the user brings a new lab report (a PDF or a list of values), go through it in one answer:
+
+1. Read the earlier values for this person from `02_Tahliller/` (or from what the user gives when the vault is not open).
+2. Show a table: test, earlier value and date, new value, the range or target the lab printed and which kind it is (see `references/labs.md`), and a short comment. Values in range and unchanged can share one line at the end.
+3. Explain only what needs attention: values out of range, a value that crossed an outcome-based band, or a large change.
+4. Show the exact block you would add to the biomarkers note, dated, with the lab's ranges, and ask: "Bunu Biyobelirtecler notuna ekleyeyim mi?". Earlier values stay; the new block goes above them. When the vault is not open, show the block anyway so it can be added later.
+5. Offer follow-up items for anything that needs a repeat test or a doctor visit.
+
 ## Researcher brief
 
 ```xml

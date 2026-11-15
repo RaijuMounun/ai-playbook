@@ -62,6 +62,7 @@ Read this first in a new conversation. It is the short version of everything bel
 
 ### Done
 
+- 2026-11-15: `health-coach` v0.3.0 (follow-up hook, lab range kinds, new-lab flow), 19/19; first vault protocol check applied.
 - 2026-11-13: `health` plugin (`health-coach`) built, 12/12; health vault pushed to private `saglik-vault`.
 - 2026-10-28: hooks live-tested (main-thread WebSearch denied; a brief without sections denied; SessionStart injection works).
 - 2026-10-28: research playbooks `purchase-research`, `tech-howto`, `fact-check` written.
@@ -72,6 +73,16 @@ Read this first in a new conversation. It is the short version of everything bel
 - 2026-10-29: phone access decided (Remote Control when the PC is on, cloud otherwise).
 
 ---
+
+## 2026-11-15: health-coach v0.3: follow-up hook, lab range kinds, new-lab flow, 19/19
+
+**Decision (user picked the order 3, 2, 1).** Three improvements after the vault protocol check:
+
+1. A SessionStart hook (`scripts/takip-reminder.js`) lists due or overdue `Takip.md` items, only when the session opens in the vault (cwd has `01_Profil/`). Silent elsewhere, so coding sessions get no health context. Tested by piping sample JSON (overdue month, due today, future, ticked, non-vault).
+2. `labs.md` separates three kinds of range: the lab reference range (central 95% of screened healthy people, not an average of sick and healthy), outcome-based targets (LDL, HbA1c, glucose, blood pressure), and unvalidated "optimal" ranges from wellness and functional-medicine sources. New case `tr-optimal-range`: 0/2 to 2/3; the failing run met the rubric on reading (judge false negative).
+3. A "New lab results" flow: earlier vs new values in one table with the range kind, then the exact block for the biomarkers note shown before asking to write it, plus follow-up offers. New case `tr-new-lab-import` (fake values, since the repo is public): 0/2 to 3/3.
+
+**Why.** The user asked whether "ideal ranges" exist after the vault had followed functional-medicine ranges; lab entry was done by hand each time. Eval cost about $4 for the three.
 
 ## 2026-11-14: health-coach v0.2 after the first real use, 17/17
 
