@@ -62,7 +62,7 @@ Read this first in a new conversation. It is the short version of everything bel
 
 ### Done
 
-- 2026-11-15: `health-coach` v0.3.0 (follow-up hook, lab range kinds, new-lab flow), 19/19; first vault protocol check applied.
+- 2026-11-15: `health-coach` v0.3.0 (follow-up hook, lab range kinds, new-lab flow), 19/19; first vault protocol check applied, then the family notes (doses removed, unsupported targets corrected, aorta screening split into thoracic and abdominal, follow-ups added).
 - 2026-11-13: `health` plugin (`health-coach`) built, 12/12; health vault pushed to private `saglik-vault`.
 - 2026-10-28: hooks live-tested (main-thread WebSearch denied; a brief without sections denied; SessionStart injection works).
 - 2026-10-28: research playbooks `purchase-research`, `tech-howto`, `fact-check` written.
