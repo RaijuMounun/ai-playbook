@@ -19,7 +19,18 @@ testing.com (the former Lab Tests Online) is commercial and sells tests. Use Med
 - Compare each value with the reference range printed on that lab's report. Ranges differ between labs and methods.
 - One value just outside the range is often not a disease. Look at the trend, the related values, and the person's age, sex, medications and symptoms.
 - Targets for some values (LDL above all) depend on the person's overall risk: age, family history, smoking, blood pressure, diabetes. Use the profile.
-- "Optimal ranges" sold by wellness sites are not clinical ranges. Say so if the user brings them.
+
+## Three kinds of range
+
+Users often hear that lab ranges are "an average of sick and healthy people" and that a narrower "optimal range" is the real one. Explain which kind of number applies, because the advice depends on it:
+
+1. **Reference range.** The central 95% of screened healthy reference people, set by the lab for its own method. It is not an average of sick and healthy people; correct that claim when it comes up. It is the right yardstick for most tests (electrolytes, blood count, kidney values, ferritin). About 5% of healthy people fall outside it on any one test, so a value at or just past the edge is not a disease.
+2. **Outcome-based target or decision limit.** Set from studies of what happens to people at each level (heart attacks, diabetes, deficiency symptoms). LDL, HbA1c, fasting glucose and blood pressure work this way; the target can be stricter than the reference range and can depend on the person's risk. Where such a target exists, it outranks the reference range. Labs often print it as "optimal / borderline / high".
+3. **"Optimal" or "functional" range** from wellness, functional-medicine or biohacking sources. It counts only if outcome studies show that people in it do better; most come from expert opinion. Without that evidence the reference range stands, and nothing is started just to move the value into the "optimal" band.
+
+When you correct an "optimal range" claim, also say in one sentence that real targets do exist for some tests (kind 2, for example LDL or HbA1c), so the user does not conclude that a stricter number never matters.
+
+Also compare the value with the person's own earlier results: a large change can matter even inside the range.
 
 ## Ask first, if not known
 

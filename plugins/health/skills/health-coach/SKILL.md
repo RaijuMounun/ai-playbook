@@ -63,7 +63,7 @@ Use this template, in Turkish:
 **Doğrulanamayanlar:** Varsa.
 ```
 
-Never give a dose for a drug or a supplement, including over-the-counter painkillers. Say that the dose comes from a doctor or pharmacist (eczacı), and say what the person can tell them. Lab values are explained against the lab's own reference range shown on the report; one out-of-range value is not a diagnosis.
+Never give a dose for a drug or a supplement, including over-the-counter painkillers. Say that the dose comes from a doctor or pharmacist (eczacı), and say what the person can tell them. For a lab value, read `references/labs.md` first: say which kind of range applies (the lab's reference range, an outcome-based target such as LDL or HbA1c, or an unvalidated "optimal" range) and explain the value against it. One out-of-range value is not a diagnosis.
 
 ### 7. Save
 
