@@ -1,0 +1,2375 @@
+{
+  "schemaVersion": 1,
+  "claudeVersion": "2.1.325",
+  "startedAt": "2026-11-16T12:32:31.007Z",
+  "durationSeconds": 1223,
+  "costUsd": 3.4327540000000005,
+  "partial": false,
+  "suite": {
+    "root": "/home/user/ai-playbook/plugins/question-writer",
+    "ablation": "none",
+    "modelOverride": "sonnet",
+    "threshold": 1,
+    "concurrency": 1,
+    "plugins": [
+      {
+        "name": "question-writer",
+        "version": "0.3.0",
+        "path": "/home/user/ai-playbook/plugins/question-writer"
+      }
+    ]
+  },
+  "cases": [
+    {
+      "name": "reviewer-seeded-defects",
+      "dir": "evals/item-reviewer/reviewer-seeded-defects",
+      "source": "mixed",
+      "promptMarkdown": "Hazırladığım 5 soruyu yayınevine göndermeden önce kontrol eder misin? 3. sınıf Türkçe, 3 seçenekli. Klasörsüz devam edelim.\n\nKullandığım öğrenme çıktıları:\nT.O.3.1. Okuduğu metindeki olayların oluş sırasını belirleyebilme\nT.O.3.2. Okuduğu ile ilgili anlam oluşturabilme\nT.O.3.3. Metnin konusunu belirleyebilme\nT.O.3.5. Okuduğu metindeki neden-sonuç ilişkilerini belirleyebilme\nT.O.3.6. Görsellerden hareketle metin hakkında tahminde bulunabilme\n\n1. (T.O.3.1) Elif sabah erkenden kalktı. Kahvaltısını yaptıktan sonra çantasını hazırladı ve okula gitti. Okulda arkadaşlarıyla resim yaptı.\nElif'in okula gitmeden önce yaptığı işlerden biri aşağıdakilerden hangisidir?\nA) Kahvaltı yapmak\nB) Çantasını hazırlamak\nC) Resim yapmak\nCevap: A\n\n2. (T.O.3.5) Ali'nin balkondaki çiçekleri birkaç gündür sulanmamıştı. Yaprakları sararmaya başlayınca Ali çiçekleri suladı.\nAli çiçekleri neden sulamıştır?\nA) Çiçekler birkaç gündür su almadığı için yaprakları sararmaya başlamış ve kurumak üzere oldukları için\nB) Canı sıkıldığı için\nC) Annesi istediği için\nCevap: A\n\n3. (T.O.3.3) Kediler çok temiz hayvanlardır. Günün büyük bölümünde tüylerini yalayarak temizlerler. Kediler ayrıca çok uyurlar.\nAşağıdakilerden hangisi bir hayvandır?\nA) Kedi\nB) Masa\nC) Kalem\nCevap: A\n\n4. (T.O.3.2) Sınıf kitaplığına yeni kitaplar geldi. Öğretmen, her öğrencinin bir kitap seçip bir hafta içinde okumasını istedi. Kitabını bitiren öğrenci, kitabı arkadaşlarına anlatacaktı.\nMetne göre öğrenciler kitaplarını okuduktan sonra ne yapacaktır?\nA) Kitabı kitaplığa geri koyacaktır.\nB) Kitabı arkadaşlarına anlatacaktır.\nC) Yeni bir kitap seçecektir.\nCevap: B\n\n5. (T.O.3.1) Mert'in üç balonu vardı: kırmızı, mavi ve sarı. Rüzgâr çıkınca mavi balon uçup gitti.\nRüzgârdan sonra Mert'in elinde hangi renk balonlar kalmıştır?\nA) Kırmızı ve mavi\nB) Kırmızı ve sarı\nC) Mavi ve sarı\nCevap: A",
+      "runsPerCase": 3,
+      "timeoutSeconds": 600,
+      "maxTurns": 10,
+      "graders": [
+        {
+          "name": "01-reviewer-dispatched",
+          "type": "tool_used",
+          "weight": 1,
+          "config": {
+            "tool": "Agent",
+            "input_match": "item-reviewer",
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "name": "02-defects-found",
+          "type": "llm",
+          "weight": 1,
+          "graderMarkdown": "The user asked for a review of 5 grade 3 items. The planted defects are:\n- Item 1: two defensible answers (A and B both happen before school).\n- Item 2: the key (A) is much longer and more detailed than the other options, which gives it away.\n- Item 3: it can be answered without reading the context, and it does not test the stated outcome (finding the topic of a text).\n- Item 4: acceptable; at most a minor suggestion.\n- Item 5: the key is wrong; B (Kırmızı ve sarı) is correct, not A.\n\nPASS only if the final message, in Turkish, reports each of the defects of items 1, 2, 3 and 5 (in its own words) and proposes a fix for each, and does not claim item 4 has two answers, a wrong key, or no need for its context.\nFAIL if any of the four defects is missed, if item 5's correct answer is not identified as B, or if item 4 is reported as having one of those serious defects.",
+          "config": {
+            "criteria": "The user asked for a review of 5 grade 3 items. The planted defects are:\n- Item 1: two defensible answers (A and B both happen before school).\n- Item 2: the key (A) is much longer and more detailed than the other options, which gives it away.\n- Item 3: it can be answered without reading the context, and it does not test the stated outcome (finding the topic of a text).\n- Item 4: acceptable; at most a minor suggestion.\n- Item 5: the key is wrong; B (Kırmızı ve sarı) is correct, not A.\n\nPASS only if the final message, in Turkish, reports each of the defects of items 1, 2, 3 and 5 (in its own words) and proposes a fix for each, and does not claim item 4 has two answers, a wrong key, or no need for its context.\nFAIL if any of the four defects is missed, if item 5's correct answer is not identified as B, or if item 4 is reported as having one of those serious defects.",
+            "focus": "last_message"
+          }
+        }
+      ],
+      "arms": {
+        "with": [
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 6,
+            "costUsd": 0.1664105,
+            "judgeCostUsd": 0.0011971999999999998,
+            "durationSeconds": 55,
+            "startedAt": "2026-11-16T12:32:31.130Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-KGSr6w/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-reviewer-dispatched",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Agent called 1x (expected 1..1)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "02-defects-found",
+                "passed": true,
+                "weight": 1,
+                "explanation": "judge votes: PASS PASS PASS",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  true,
+                  true,
+                  true
+                ],
+                "evidence": "Kontrol bitti. 5 sorunun 2'si şu haliyle yayınevine gönderilemez, kalan 3'ünde de düzeltilmesi gereken yerler var. Soruları cevap anahtarına bakmadan çözdürdüm. Aşağıda en ciddi sorunlardan başlıyorum.\n\n## Kullanılamaz durumda olanlar\n\n**5. soru: cevap anahtarı yanlış.** Doğru cevap **B** (Kırmızı ve sarı). Mavi balon uçup gittiği için A şıkkında hâlâ mavi balon var. Soru olay sırasını da ölçmüyor, \"geriye ne kaldı\" diye soruyor. İki yoldan biri olabilir:\n- Anahtarı B yaparsınız. Ama soru T.O.3.1'i ölçmeyen bir çıkarma sorusu olarak kalır.\n- Soruyu T.O.3.1'e uygun yazarsınız. Örneğin \"Önce ne olmuştur?\" diye sorarsınız. Şıklar \"Rüzgâr çıkmıştır\" ve \"Mavi balon uçmuştur\" gibi olur.\n\n**1. soru: iki doğru cevap var.** Metne göre Elif hem kahvaltı yapmış hem çantasını hazırlamış, ikisi de okula gitmeden önce oldu. Yani A da B de doğru. \"Biri\" diye sormak sıra bilgisini de ölçmüyor. Önerim:\n> Elif kahvaltısını yaptıktan sonra ne yapmıştır? A) Resim yapmıştır. B) Çantasını hazırlamıştır. C) Uyumuştur.\n\nBu hâliyle yalnızca B doğru olur ve soru gerçekten sıra ölçer.\n\n## Düzeltilmesi gerekenler\n\n**3. soru: metni okumadan çözülüyor.** Masa ve kalem hayvan olmadığı için metne bakmadan A bulunur. Soru metnin konusunu da ölçmüyor, genel bilgi soruyor. Önerim:\n> Bu metin neyi anlatmaktadır? A) Kedilerin temizliğini B) Kedilerin yiyeceklerini C) Kedilerin oyunlarını\n\n\"Kediler ayrıca çok uyurlar.\" cümlesi çocuğu konudan saptırabilir. Ya konuyu \"temizlik\" diye netleştirin ya da bu cümleyi çıkarın.\n\n**2. soru: doğru şık çok uzun ve metinde olmayan bilgi içeriyor.** A şıkkı diğerlerinden belirgin biçimde uzun, bu da cevabı ele veriyor. \"Kurumak üzere oldukları için\" ifadesi de metinde yok. B ve C (\"Canı sıkıldığı için\", \"Annesi istediği için\") metinle ilgisiz, kimse bunları seçmez. Önerim:\n- Doğru şık: \"Yaprakları sarardığı için\"\n- Çeldiriciler: \"Yeni çiçekler aldığı için\", \"Yağmur yağmadığı için\"\n\nHer çeldiricinin metinden elenebildiğini kontrol edin.\n\n**4. soru: cevap doğru, çeldiriciler zayıf.** Soru düz hatırlama düzeyinde, \"anlam oluşturma\" için kabul edilebilir ama zayıf. A ve C metinle bağlantılı değil. Daha güçlü çeldiriciler: \"Kitabı arkadaşına verecektir.\" ve \"Kitabın resmini çizecektir.\"\n\n## Genel notlar\n- **Cevap dağılımı** A, A, A, B, A. Beşinci soru B olunca A, A, A, B, B oluyor. 3. soruyu C ya da B yaparak dengeleyin.\n- **T.O.3.6** (görselden tahmin) listenizde var ama hiçbir soru onu ölçmüyor. 5 soru için 5 farklı çıktı istiyorsanız 5. soruyu bu çıktıya çevirebilirsiniz. Bu bir görsel soru olur, isterseniz çizer için tarif hazırlarım.\n- **T.O.3.1** 1. ve 5. soruda tekrar ediyor. Bu tekrar sorun değil, ama iki soru da şu an sırayı ölçmüyor.\n- Çeldirici gerekçelerini yazmadınız. Yayınevi isterse her şık için tek cümlelik gerekçe eklemek iyi olur.\n\nİsterseniz kabul ettiğiniz düzeltmeleri uygulayıp 5 soruyu temiz hâliyle size vereyim. Önce şunları söyleyin:\n1. 5. soru için hangisi olsun: anahtarı B yapıp bırakmak mı, sıra sorusuna çevirmek mi, T.O.3.6'ya uygun görsel soru yapmak mı?\n2. 3. soru için hangi cevap harfini istersiniz?"
+              }
+            ]
+          },
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 6,
+            "costUsd": 0.15213700000000002,
+            "judgeCostUsd": 0.0014943,
+            "durationSeconds": 54,
+            "startedAt": "2026-11-16T12:33:26.459Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-pt634F/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-reviewer-dispatched",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Agent called 1x (expected 1..1)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "02-defects-found",
+                "passed": true,
+                "weight": 1,
+                "explanation": "judge votes: PASS PASS PASS",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  true,
+                  true,
+                  true
+                ],
+                "evidence": "5 sorunun 3'ünde yayınevine gitmeden düzeltilmesi gereken ciddi bir sorun var. Kontrolcü soruları cevap anahtarını görmeden çözdü.\n\n## Kullanılamaz durumdaki sorular\n\n**Soru 5: cevap anahtarı yanlış.** Doğru cevap **B**. Mavi balon uçtuğuna göre elde kırmızı ve sarı kalır. A şıkkında \"mavi\" var, o yüzden olamaz. Bu soru olayların oluş sırasını da ölçmüyor, çıkarma ve hatırlama sorusu. Ayrıca 1. soruyla aynı çıktıyı (T.O.3.1) kullanıyor.\n\n**Soru 1: iki doğru cevap var.** \"Kahvaltı yapmak\" ve \"Çantasını hazırlamak\" okuldan önce yapılıyor. Soru \"biri\" diye sorduğu için ikisi de doğru. Soru sıra da ölçmüyor.\n- Önerim: \"Elif kahvaltıdan hemen sonra ne yapmıştır?\" A) Çantasını hazırlamak B) Resim yapmak C) Uyanmak. Bu durumda yalnızca A doğru olur.\n\n**Soru 3: metne bakmadan çözülüyor.** Masa ve kalem hayvan değil. Soru ayrıca \"metnin konusu\" yerine sınıflama ölçüyor.\n- Önerim: \"Bu metin en çok neyi anlatmaktadır?\" A) Kedilerin temizliğini B) Kedilerin yiyeceklerini C) Kedilerin renklerini. Metin yalnızca A'yı desteklemeli. Şu an \"uyuma\" bilgisi de metinde var, bu yüzden metni de ona göre gözden geçirmelisin.\n\n## Düzeltilmesi önerilen sorular\n\n**Soru 2**\n- A şıkkı çok uzun ve metni tekrar ediyor. B ve C'yi kimse seçmez.\n- Önerim: A) \"Yaprakları sararmaya başladığı için\". Çeldiriciler \"Yağmur yağmadığı için\" ve \"Çiçekler büyüdüğü için\" olabilir. Bunları metin eleyebilmeli.\n\n**Soru 4**\n- Cevap metinden kelimesi kelimesine alınmış, yani yalnızca bulma sorusu. \"Anlam oluşturma\" için yeterli değil. A ve C şıkları da zayıf.\n- Önerim: \"Öğretmen bu çalışmayla en çok neyi amaçlamış olabilir?\" A) Kitap okuma alışkanlığı kazandırmayı B) Öğrencileri ödevlendirmeyi C) Kitaplığı düzenlemeyi.\n\n## Genel notlar\n- **T.O.3.6 (görselden tahmin)** listede var ama hiçbir soruya atanmamış. 5. soruyu bu çıktıya çevirebiliriz, bu da 1. soruyla tekrarı çözer. Görselli bir soru olacağı için çizere kısa bir tarif de yazarım.\n- **Cevap dağılımı** A, A, A, B, A. Düzeltmelerle B ağırlıklı oluyor, A-B-C'ye eşit yaymak lazım.\n- **Çeldirici gerekçeleri** yok. Yayınevi isteyebilir.\n- **Kod biçimi:** Çıktı kodlarında işlem bileşeni harfi (örneğin T.O.3.3.b) eksik. Bunu yayınevinin istediği biçimle kontrol et. Ben harf uydurmuyorum.\n\nNasıl devam edelim?\n1. Tüm önerilen düzeltmeleri uygulayıp 5 soruyu yeniden yazayım, 5. soruyu T.O.3.6 görselli soru yapayım (önerilen)\n2. Yalnızca 1, 3 ve 5. soruları düzelteyim, 2 ve 4'ü olduğu gibi bırakayım\n3. Sen kendi düzeltmelerini yaz, ben tekrar bakayım"
+              }
+            ]
+          },
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 6,
+            "costUsd": 0.139843,
+            "judgeCostUsd": 0.0012280999999999998,
+            "durationSeconds": 51,
+            "startedAt": "2026-11-16T12:34:20.889Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-bvxE1j/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-reviewer-dispatched",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Agent called 1x (expected 1..1)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "02-defects-found",
+                "passed": true,
+                "weight": 1,
+                "explanation": "judge votes: PASS PASS PASS",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  true,
+                  true,
+                  true
+                ],
+                "evidence": "Kontrol bitti. İki soru olduğu haliyle yayınevine gidemez, bir soru da çıktısına uymuyor.\n\n## Kullanılamaz durumda olanlar\n\n**Soru 5: cevap anahtarı yanlış.** Mavi balon uçup gittiği için Mert'in elinde kırmızı ve sarı kalır, yani doğru cevap **B**. A şıkkında uçup giden mavi balon da var.\n- Önerim: anahtarı B yapmak.\n- Bu soru olayların sırasını da ölçmüyor, kalanı buluyor. Sıra sorusu istiyorsanız şöyle olabilir: \"Mert'in balonlarına rüzgâr çıkınca ne olmuştur?\"\n\n**Soru 1: iki doğru cevap var.** Kahvaltı yapmak (A) ve çantayı hazırlamak (B) okula gitmeden önce yapılıyor, ikisi de doğru. Soru \"sıra\" çıktısına rağmen sıra sormuyor.\n- Önerim: kökü \"Elif okula gitmeden önce **ilk olarak** ne yapmıştır?\" şeklinde değiştirmek. Şıklar aynı kalır, cevap A olur.\n\n## Çıktıya uymayanlar\n\n**Soru 3 (konu):** Soru metne gerek duymadan cevaplanıyor. \"Masa\" ve \"kalem\" hayvan değil, bunu her çocuk bilir. Ayrıca metnin konusunu sormuyor.\n- Önerim: \"Bu metnin konusu aşağıdakilerden hangisidir?\" Şıklar: A) Kedilerin yiyecekleri B) Kedilerin temizliği C) Kedilerin oyunları. Cevap B olur.\n\n**Soru 2 (neden-sonuç):** Cevap doğru ama A şıkkı çok uzun ve metni tekrar ediyor. B ve C'nin yanlış olduğunu metne bakmadan da anlıyoruz.\n- Önerim: Şıkları kısa ve eşit uzunlukta tutmak. A) Yaprakları sararmaya başladığı için B) Balkon kirlendiği için C) Çiçekler büyüdüğü için. Cevap A kalır, ya da A'yı C'ye taşıyabiliriz.\n\n**Soru 4 (anlam oluşturma):** Cevap anahtarıyla uyuşuyor (B) ama metindeki cümle neredeyse aynen şıkta duruyor. Bu yüzden ölçtüğü şey metinden bilgiyi bulmak, anlam oluşturmak değil. Zorunlu bir düzeltme değil, isteğe bağlı.\n- İsterseniz çıkarım sorusuna çevirebiliriz: \"Öğretmen bu çalışmayı neden istemiş olabilir?\"\n\n## Setin geneli\n\n- **Cevap harfleri:** A, A, A, B, A. A çok fazla. Düzeltmelerden sonra dağılım örneğin B, C, B, A, B olabilir.\n- **Tekrar eden çıktı:** 1 ve 5 aynı çıktıyı (T.O.3.1) ölçüyor. 5'i düzeltmezseniz başka bir çıktıya taşımanız gerekir.\n- **T.O.3.6 eksik:** Listenizde var ama hiçbir soru bu çıktıyı ölçmüyor. Görselden tahmin sorusu eklemek ister misiniz? Bu soru için çizer notu hazırlarım.\n\nKontrolcü çıktı kodlarına harf eklemenizi önerdi. Kodları yayınevinin verdiği gibi bıraktım, sizde bir sorun yok.\n\nBu düzeltmelerden hangilerini uygulayayım? Hepsini yazıp güncel seti size göstermemi de isteyebilirsiniz."
+              }
+            ]
+          }
+        ]
+      },
+      "aggregates": {
+        "score": 1,
+        "passRate": 1
+      }
+    },
+    {
+      "name": "grade4-old-program-code",
+      "dir": "evals/item-writing/grade4-old-program-code",
+      "source": "mixed",
+      "promptMarkdown": "4. sınıf deneme için şu kazanıma bir soru yaz. Ayar klasörü yok, varsayılanlarla devam et.\n\nT.4.3.28. Okudukları ile ilgili çıkarımlar yapar.",
+      "runsPerCase": 3,
+      "timeoutSeconds": 300,
+      "maxTurns": 6,
+      "graders": [
+        {
+          "name": "01-skill-fired",
+          "type": "tool_used",
+          "weight": 1,
+          "config": {
+            "tool": "Skill",
+            "input_match": "\"skill\"\\s*:\\s*\"(?:[\\w-]+:)?item-writing\""
+          }
+        },
+        {
+          "name": "02-keeps-code",
+          "type": "regex",
+          "weight": 1,
+          "config": {
+            "target": "last_message",
+            "pattern": "T\\.4\\.3\\.28",
+            "flags": "",
+            "match": "contains"
+          }
+        },
+        {
+          "name": "03-no-maarif-code",
+          "type": "regex",
+          "weight": 1,
+          "config": {
+            "target": "last_message",
+            "pattern": "T\\.[DKOY]\\.4\\.",
+            "flags": "",
+            "match": "not_contains"
+          }
+        },
+        {
+          "name": "04-key-marker",
+          "type": "regex",
+          "weight": 1,
+          "config": {
+            "target": "last_message",
+            "pattern": "(?:^|\\n)\\s*\\**(?:AAA|BBB|CCC|DDD)\\**\\s*(?:\\n|$)",
+            "flags": "",
+            "match": "contains"
+          }
+        }
+      ],
+      "arms": {
+        "with": [
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 6,
+            "costUsd": 0.0942969,
+            "judgeCostUsd": 0,
+            "durationSeconds": 35,
+            "startedAt": "2026-11-16T12:35:12.172Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-2WK2NX/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "02-keeps-code",
+                "passed": true,
+                "weight": 1,
+                "explanation": "matched T\\.4\\.3\\.28",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "03-no-maarif-code",
+                "passed": true,
+                "weight": 1,
+                "explanation": "pattern absent as expected",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "04-key-marker",
+                "passed": true,
+                "weight": 1,
+                "explanation": "matched (?:^|\\n)\\s*\\**(?:AAA|BBB|CCC|DDD)\\**\\s*(?:\\n|$)",
+                "withOnly": false,
+                "scored": true
+              }
+            ]
+          },
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 6,
+            "costUsd": 0.08571290000000001,
+            "judgeCostUsd": 0,
+            "durationSeconds": 29,
+            "startedAt": "2026-11-16T12:35:47.201Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-8ml9eO/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "02-keeps-code",
+                "passed": true,
+                "weight": 1,
+                "explanation": "matched T\\.4\\.3\\.28",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "03-no-maarif-code",
+                "passed": true,
+                "weight": 1,
+                "explanation": "pattern absent as expected",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "04-key-marker",
+                "passed": true,
+                "weight": 1,
+                "explanation": "matched (?:^|\\n)\\s*\\**(?:AAA|BBB|CCC|DDD)\\**\\s*(?:\\n|$)",
+                "withOnly": false,
+                "scored": true
+              }
+            ]
+          },
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 6,
+            "costUsd": 0.08991289999999999,
+            "judgeCostUsd": 0,
+            "durationSeconds": 33,
+            "startedAt": "2026-11-16T12:36:16.698Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-lMFRtg/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "02-keeps-code",
+                "passed": true,
+                "weight": 1,
+                "explanation": "matched T\\.4\\.3\\.28",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "03-no-maarif-code",
+                "passed": true,
+                "weight": 1,
+                "explanation": "pattern absent as expected",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "04-key-marker",
+                "passed": true,
+                "weight": 1,
+                "explanation": "matched (?:^|\\n)\\s*\\**(?:AAA|BBB|CCC|DDD)\\**\\s*(?:\\n|$)",
+                "withOnly": false,
+                "scored": true
+              }
+            ]
+          }
+        ]
+      },
+      "aggregates": {
+        "score": 1,
+        "passRate": 1
+      }
+    },
+    {
+      "name": "item-quality-grade2",
+      "dir": "evals/item-writing/item-quality-grade2",
+      "source": "mixed",
+      "promptMarkdown": "2. sınıf Türkçe için şu öğrenme çıktısına tek bir yeni nesil soru yaz, cevabını da ver. Klasör ayarlarımız yok, varsayılanlarla yaz.\n\nT.O.2.4. Okuduğu metindeki olayların oluş sırasını belirleyebilme",
+      "runsPerCase": 3,
+      "timeoutSeconds": 300,
+      "maxTurns": 6,
+      "graders": [
+        {
+          "name": "01-skill-fired",
+          "type": "tool_used",
+          "weight": 1,
+          "config": {
+            "tool": "Skill",
+            "input_match": "\"skill\"\\s*:\\s*\"(?:[\\w-]+:)?item-writing\""
+          }
+        },
+        {
+          "name": "02-three-options",
+          "type": "regex",
+          "weight": 1,
+          "config": {
+            "target": "last_message",
+            "pattern": "(?:^|\\n)\\s*\\**A\\)[\\s\\S]*\\n\\s*\\**B\\)[\\s\\S]*\\n\\s*\\**C\\)",
+            "flags": "",
+            "match": "contains"
+          }
+        },
+        {
+          "name": "03-no-fourth-option",
+          "type": "regex",
+          "weight": 1,
+          "config": {
+            "target": "last_message",
+            "pattern": "\\n\\s*\\**D\\)",
+            "flags": "",
+            "match": "not_contains"
+          }
+        },
+        {
+          "name": "04-item-rules",
+          "type": "llm",
+          "weight": 1,
+          "graderMarkdown": "The user asked for one grade 2 (age 7-8) Turkish item for the outcome \"T.O.2.4. Okuduğu metindeki olayların oluş sırasını belirleyebilme\".\n\nThe writer marks the answer key as the correct letter written three times on its own line under the stem (for example \"CCC\" means C is correct). That counts as stating the answer key.\n\nPASS only if all of these hold:\n- There is a short context (a text, a dialogue, a notice, a table or similar) and the question cannot be answered without reading it.\n- Exactly one option is correct, and the answer key is stated.\n- Each wrong option (distractor) has a stated reason naming the mistake or misconception a student would make to choose it.\n- The options have similar length and structure; the correct option is not visibly longer or more detailed.\n- No option is \"hepsi\", \"hiçbiri\", \"Hepsi doğrudur\" or similar.\n- The stem has at most one negation, and any negation is marked (bold, underlined or capitalised).\n- The language suits the grade: short sentences, familiar everyday words, Turkish spelling and punctuation correct.\n- The item really asks about the order of events in the context, not about another skill.\n- The context is short enough for a grade 2 student (roughly under 80 words).\n\nFAIL if any of the points above does not hold.",
+          "config": {
+            "criteria": "The user asked for one grade 2 (age 7-8) Turkish item for the outcome \"T.O.2.4. Okuduğu metindeki olayların oluş sırasını belirleyebilme\".\n\nThe writer marks the answer key as the correct letter written three times on its own line under the stem (for example \"CCC\" means C is correct). That counts as stating the answer key.\n\nPASS only if all of these hold:\n- There is a short context (a text, a dialogue, a notice, a table or similar) and the question cannot be answered without reading it.\n- Exactly one option is correct, and the answer key is stated.\n- Each wrong option (distractor) has a stated reason naming the mistake or misconception a student would make to choose it.\n- The options have similar length and structure; the correct option is not visibly longer or more detailed.\n- No option is \"hepsi\", \"hiçbiri\", \"Hepsi doğrudur\" or similar.\n- The stem has at most one negation, and any negation is marked (bold, underlined or capitalised).\n- The language suits the grade: short sentences, familiar everyday words, Turkish spelling and punctuation correct.\n- The item really asks about the order of events in the context, not about another skill.\n- The context is short enough for a grade 2 student (roughly under 80 words).\n\nFAIL if any of the points above does not hold.",
+            "focus": "last_message"
+          }
+        },
+        {
+          "name": "05-key-marker",
+          "type": "regex",
+          "weight": 1,
+          "config": {
+            "target": "last_message",
+            "pattern": "(?:^|\\n)\\s*\\**(?:AAA|BBB|CCC)\\**\\s*(?:\\n|$)",
+            "flags": "",
+            "match": "contains"
+          }
+        }
+      ],
+      "arms": {
+        "with": [
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 6,
+            "costUsd": 0.07950940000000001,
+            "judgeCostUsd": 0.0012712,
+            "durationSeconds": 31,
+            "startedAt": "2026-11-16T12:36:49.220Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-mTiNEA/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "02-three-options",
+                "passed": true,
+                "weight": 1,
+                "explanation": "matched (?:^|\\n)\\s*\\**A\\)[\\s\\S]*\\n\\s*\\**B\\)[\\s\\S]*\\n\\s*\\**C\\)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "03-no-fourth-option",
+                "passed": true,
+                "weight": 1,
+                "explanation": "pattern absent as expected",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "04-item-rules",
+                "passed": true,
+                "weight": 1,
+                "explanation": "judge votes: PASS PASS PASS",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  true,
+                  true,
+                  true
+                ],
+                "evidence": "**1.** Ela, okuldan gelince fasulye ekmek istedi. Tohumu koymadan önce saksıyı toprakla doldurdu. Tohumu koyduktan sonra da suladı.\n\n**Ela'nın yaptığı işler hangi sıradadır?**\nBBB\nA) tohum koydu, toprak doldurdu, suladı\nB) toprak doldurdu, tohum koydu, suladı\nC) toprak doldurdu, suladı, tohum koydu\n\nT.O.2.4. Okuduğu metindeki olayların oluş sırasını belirleyebilme\n\n---\n\n**Çeldiriciler:**\n- **A:** Çocuk olayları metinde geçtiği sırayla alıyor. Metin \"tohumu koymadan önce\" diye başladığı için tohum ilk akla geliyor, oysa \"önce\" sözcüğü toprağı gösteriyor.\n- **C:** Çocuk \"sonra\" sözcüğünü atlıyor ve sulamayı tohumdan önceye alıyor. Metinde \"tohumu koyduktan sonra da suladı\" yazdığı için bu seçenek açıkça yanlış.\n\n**Ölçtüğü beceri:** \"önce\" ve \"sonra\" sözcüklerinden yararlanarak, metinde karışık anlatılan olayların gerçek oluş sırasını kurmak.\n\n**Cevap: B**\n\nSırada ne yapmak istersin?\n1. Bağlamı değiştireyim (örneğin okulda ya da mutfakta geçen bir olay).\n2. Daha kolay yapayım (metin olayları sırayla anlatsın).\n3. Başka bir soru yazayım. İstersen cevabı A ya da C olsun."
+              },
+              {
+                "name": "05-key-marker",
+                "passed": true,
+                "weight": 1,
+                "explanation": "matched (?:^|\\n)\\s*\\**(?:AAA|BBB|CCC)\\**\\s*(?:\\n|$)",
+                "withOnly": false,
+                "scored": true
+              }
+            ]
+          },
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 6,
+            "costUsd": 0.07910769999999999,
+            "judgeCostUsd": 0.0017974999999999996,
+            "durationSeconds": 35,
+            "startedAt": "2026-11-16T12:37:19.943Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-5oVjCI/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "02-three-options",
+                "passed": true,
+                "weight": 1,
+                "explanation": "matched (?:^|\\n)\\s*\\**A\\)[\\s\\S]*\\n\\s*\\**B\\)[\\s\\S]*\\n\\s*\\**C\\)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "03-no-fourth-option",
+                "passed": true,
+                "weight": 1,
+                "explanation": "pattern absent as expected",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "04-item-rules",
+                "passed": true,
+                "weight": 1,
+                "explanation": "judge votes: PASS PASS FAIL",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  true,
+                  true,
+                  false
+                ],
+                "evidence": "Anlaşılır olsun diye bir olay sırası sorusu hazırladım. Çıktının \"olayların oluş sırası\" ifadesine uyuyor. Çocuk metindeki olayları sıraya dizip belirli bir olaydan hemen önce ne olduğunu buluyor. 2. sınıf olduğu için 3 seçenek var.\n\n---\n\nCumartesi sabahı Mert ile babası bahçeye gitti. Mert’in elinde küçük bir fidan vardı. Babası toprağı kazdı. Sonra fidanı çukura koydular. Çukuru toprakla kapattılar. En son fidanı suladılar. Mert çok sevindi.\n\n1. Mert ile babası fidanı çukura koymadan hemen önce ne yaptı?\n\nBBB\n\nA) Çukuru kapattılar.\nB) Toprağı kazdılar.\nC) Fidanı suladılar.\n\nT.O.2.4. Okuduğu metindeki olayların oluş sırasını belirleyebilme\n\n---\n\n**Çeldiriciler:**\n- **A) Çukuru kapattılar:** Çocuk \"önce/sonra\" ilişkisini karıştırıyor. Fidanın hemen *sonrasındaki* olayı seçiyor.\n- **C) Fidanı suladılar:** Çocuk sırayı tersine çeviriyor ya da metnin en sonundaki olayı alıyor.\n\n**Ölçtüğü beceri:** Metindeki olayları oluş sırasına dizip belirli bir olayın öncesini bulma.\n\nBağlam testini yaptım. Metni kapatınca soru cevaplanamıyor, çünkü üç seçeneğin de \"makul\" bir bahçe işi olduğu görülüyor. Seçenekler 2 sözcükle eşit uzunlukta. Cevap harfini dağılım için B yaptım. Başka sorularla birlikte kullanırsan harfleri dengeleyebiliriz.\n\n**Bundan sonra ne yapalım?**\n1. Bağlamı değiştireyim (ör. sandviç hazırlama, sınıfı toplama).\n2. Daha kolay yapayım (\"Önce ne yaptılar?\") ya da daha zor yapayım (zaman sözcüklerini çıkarayım).\n3. Aynı çıktıya ikinci bir soru yazayım."
+              },
+              {
+                "name": "05-key-marker",
+                "passed": true,
+                "weight": 1,
+                "explanation": "matched (?:^|\\n)\\s*\\**(?:AAA|BBB|CCC)\\**\\s*(?:\\n|$)",
+                "withOnly": false,
+                "scored": true
+              }
+            ]
+          },
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 6,
+            "costUsd": 0.08333890000000001,
+            "judgeCostUsd": 0.0014420000000000006,
+            "durationSeconds": 35,
+            "startedAt": "2026-11-16T12:37:55.369Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-Nc59Cq/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "02-three-options",
+                "passed": true,
+                "weight": 1,
+                "explanation": "matched (?:^|\\n)\\s*\\**A\\)[\\s\\S]*\\n\\s*\\**B\\)[\\s\\S]*\\n\\s*\\**C\\)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "03-no-fourth-option",
+                "passed": true,
+                "weight": 1,
+                "explanation": "pattern absent as expected",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "04-item-rules",
+                "passed": true,
+                "weight": 1,
+                "explanation": "judge votes: PASS PASS PASS",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  true,
+                  true,
+                  true
+                ],
+                "evidence": "**Metin**\n\nCumartesi günü Deniz annesiyle dışarı çıktı. Önce pazara gittiler. Annesi sebze aldı. Pazardan sonra parka uğradılar. Deniz salıncakta sallandı. Eve dönmeden önce en son kütüphaneye girdiler. Deniz bir masal kitabı seçti.\n\n1. Deniz ile annesi bu yerlere hangi sırayla gitmiştir?\nBBB\nA) park, pazar, kütüphane\nB) pazar, park, kütüphane\nC) pazar, kütüphane, park\n\nT.O.2.4. Okuduğu metindeki olayların oluş sırasını belirleyebilme\n\n---\n\n**Çeldiriciler**\n- **A:** Çocuk \"Pazardan sonra parka\" ifadesini ters okuyor ve park ile pazarın yerini değiştiriyor. Metindeki \"Önce pazara gittiler\" cümlesini gözden kaçırıyor.\n- **C:** Çocuk \"Eve dönmeden önce\" ifadesine takılıp kütüphaneyi park gezisinden önceye alıyor. \"En son\" sözünü okumuyor.\n\n**Ölçtüğü beceri:** \"Önce, sonra, en son\" gibi zaman sözcüklerinden yararlanarak metindeki olayları gerçekleştiği sırayla dizebilme.\n\n**Bağlam testi:** Metni kapatınca soru cevaplanamaz. Pazar, park ve kütüphanenin sırası mantıkla tahmin edilemez, bu yüzden metni okumak gerekir.\n\n**Notlar**\n- Metin 40 kelime kadar, cümleler 10 kelimenin altında. Bu, 2. sınıf düzeyine uygun.\n- Seçenekler 3 tane ve aynı uzunlukta.\n\n**Sonra ne yapalım?**\n1. Bağlamı değiştirelim (okul, oyun, hayvan vb.)\n2. Daha kolay yapalım (iki olay) ya da daha zor yapalım (dört olay)\n3. Başka bir soru yazalım"
+              },
+              {
+                "name": "05-key-marker",
+                "passed": true,
+                "weight": 1,
+                "explanation": "matched (?:^|\\n)\\s*\\**(?:AAA|BBB|CCC)\\**\\s*(?:\\n|$)",
+                "withOnly": false,
+                "scored": true
+              }
+            ]
+          }
+        ]
+      },
+      "aggregates": {
+        "score": 1,
+        "passRate": 1
+      }
+    },
+    {
+      "name": "item-quality-grade4",
+      "dir": "evals/item-writing/item-quality-grade4",
+      "source": "mixed",
+      "promptMarkdown": "4. sınıf Türkçe soru bankası için şu öğrenme çıktısına bir soru hazırla, doğru cevabı ve çeldiricilerin neden seçilebileceğini de yaz. Ayar klasörü yok, varsayılanlarla devam et.\n\nT.O.4.5. Okuduğu metindeki neden-sonuç ilişkilerini belirleyebilme",
+      "runsPerCase": 3,
+      "timeoutSeconds": 300,
+      "maxTurns": 6,
+      "graders": [
+        {
+          "name": "01-skill-fired",
+          "type": "tool_used",
+          "weight": 1,
+          "config": {
+            "tool": "Skill",
+            "input_match": "\"skill\"\\s*:\\s*\"(?:[\\w-]+:)?item-writing\""
+          }
+        },
+        {
+          "name": "02-four-options",
+          "type": "regex",
+          "weight": 1,
+          "config": {
+            "target": "last_message",
+            "pattern": "(?:^|\\n)\\s*\\**A\\)[\\s\\S]*\\n\\s*\\**B\\)[\\s\\S]*\\n\\s*\\**C\\)[\\s\\S]*\\n\\s*\\**D\\)",
+            "flags": "",
+            "match": "contains"
+          }
+        },
+        {
+          "name": "03-item-rules",
+          "type": "llm",
+          "weight": 1,
+          "graderMarkdown": "The user asked for one grade 4 (age 9-10) Turkish item for the outcome \"T.O.4.5. Okuduğu metindeki neden-sonuç ilişkilerini belirleyebilme\".\n\nThe writer marks the answer key as the correct letter written three times on its own line under the stem (for example \"CCC\" means C is correct). That counts as stating the answer key.\n\nPASS only if all of these hold:\n- There is a short context (a text, a dialogue, a notice, a table or similar) and the question cannot be answered without reading it.\n- Exactly one option is correct, and the answer key is stated.\n- Each wrong option (distractor) has a stated reason naming the mistake or misconception a student would make to choose it.\n- The options have similar length and structure; the correct option is not visibly longer or more detailed.\n- No option is \"hepsi\", \"hiçbiri\", \"Hepsi doğrudur\" or similar.\n- The stem has at most one negation, and any negation is marked (bold, underlined or capitalised).\n- The language suits the grade: short sentences, familiar everyday words, Turkish spelling and punctuation correct.\n- There are exactly 4 options (A-D).\n- The item asks for a cause or an effect that the student has to work out from the context, not a sentence copied word for word from it.\n\nFAIL if any of the points above does not hold.",
+          "config": {
+            "criteria": "The user asked for one grade 4 (age 9-10) Turkish item for the outcome \"T.O.4.5. Okuduğu metindeki neden-sonuç ilişkilerini belirleyebilme\".\n\nThe writer marks the answer key as the correct letter written three times on its own line under the stem (for example \"CCC\" means C is correct). That counts as stating the answer key.\n\nPASS only if all of these hold:\n- There is a short context (a text, a dialogue, a notice, a table or similar) and the question cannot be answered without reading it.\n- Exactly one option is correct, and the answer key is stated.\n- Each wrong option (distractor) has a stated reason naming the mistake or misconception a student would make to choose it.\n- The options have similar length and structure; the correct option is not visibly longer or more detailed.\n- No option is \"hepsi\", \"hiçbiri\", \"Hepsi doğrudur\" or similar.\n- The stem has at most one negation, and any negation is marked (bold, underlined or capitalised).\n- The language suits the grade: short sentences, familiar everyday words, Turkish spelling and punctuation correct.\n- There are exactly 4 options (A-D).\n- The item asks for a cause or an effect that the student has to work out from the context, not a sentence copied word for word from it.\n\nFAIL if any of the points above does not hold.",
+            "focus": "last_message"
+          }
+        }
+      ],
+      "arms": {
+        "with": [
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 6,
+            "costUsd": 0.1029709,
+            "judgeCostUsd": 0.0015627000000000002,
+            "durationSeconds": 53,
+            "startedAt": "2026-11-16T12:38:30.098Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-nk3V8O/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "02-four-options",
+                "passed": true,
+                "weight": 1,
+                "explanation": "matched (?:^|\\n)\\s*\\**A\\)[\\s\\S]*\\n\\s*\\**B\\)[\\s\\S]*\\n\\s*\\**C\\)[\\s\\S]*\\n\\s*\\**D\\)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "03-item-rules",
+                "passed": true,
+                "weight": 1,
+                "explanation": "judge votes: PASS PASS PASS",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  true,
+                  true,
+                  true
+                ],
+                "evidence": "**Soru (4. sınıf, 4 seçenekli)**\n\nElif'in balkonunda bir fesleğen saksısı vardı. Her sabah onu sular, yapraklarını koklardı. Bir hafta boyunca hava hep ılık geçti. Bu arada Elif'in kardeşi Can, saksıyı dolabın arkasındaki karanlık köşeye koydu. Yedi gün sonra Elif, fesleğenin yapraklarının sarardığını fark etti. Saksıyı hemen güneşli yere taşıdı. Birkaç gün sonra yapraklar yeniden yeşerdi.\n\n1. Bu metne göre fesleğenin yapraklarının sararmasının nedeni hangisidir?\nBBB\nA) Hava çok soğuk olduğu için\nB) Saksı güneş ışığı almadığı için\nC) Elif yaprakları kokladığı için\nD) Elif saksıyı güneşe taşıdığı için\n\nT.O.4.5. Okuduğu metindeki neden-sonuç ilişkilerini belirleyebilme\n\n---\n\n**Çeldiriciler**\n- **A:** Çocuk, bitkilerin soğukta sarardığı bilgisini metne bakmadan kullanır. Metin \"hava hep ılık geçti\" diyerek bunu açıkça dışlıyor.\n- **C:** Çocuk, metinde geçen bir ayrıntıyı (yaprakları koklama) neden sanır. Bu ayrıntı olayın akışıyla ilgili değil.\n- **D:** Çocuk neden ile sonucu karıştırır. Saksının güneşe taşınması sararmanın değil, yeniden yeşermenin nedenidir.\n\n**Ölçtüğü beceri:** Metindeki olayların arasından, sonucu (yaprakların sararması) doğuran nedeni bulma. Metinde \"güneş görmediği için\" gibi hazır bir cümle yok. Çocuk, \"karanlık köşeye koyma\" ile \"güneşli yere taşıyınca yeşerme\" olaylarını birleştirerek nedene ulaşıyor.\n\n**Notlar**\n- Metin yaklaşık 55 kelime. 4. sınıf için önerilen 70-150 kelimenin altında kaldı. Yayınevi uzunluk isterse bir iki ayrıntı ekleyebilirim.\n- Seçenekler 4-5 kelime. Doğru cevap diğerlerinden uzun değil.\n- Soru kökünde olumsuzluk yok.\n- Kodu verdiğin şekliyle bıraktım.\n\n**Sonra ne yapalım?**\n1. Bağlamı değiştireyim (hayvan, okul, oyun gibi).\n2. Daha kolay ya da daha zor yapayım.\n3. Aynı çıktıdan, \"sebep ve sonuç birlikte\" tarzında ikinci bir soru yazayım."
+              }
+            ]
+          },
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 6,
+            "costUsd": 0.0917313,
+            "judgeCostUsd": 0.0016462999999999998,
+            "durationSeconds": 42,
+            "startedAt": "2026-11-16T12:39:23.517Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-oQkQXs/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "02-four-options",
+                "passed": true,
+                "weight": 1,
+                "explanation": "matched (?:^|\\n)\\s*\\**A\\)[\\s\\S]*\\n\\s*\\**B\\)[\\s\\S]*\\n\\s*\\**C\\)[\\s\\S]*\\n\\s*\\**D\\)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "03-item-rules",
+                "passed": true,
+                "weight": 1,
+                "explanation": "judge votes: PASS PASS PASS",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  true,
+                  true,
+                  true
+                ],
+                "evidence": "**Metin**\n\nHafta sonu ailemle dedemin bahçesine gittik. Bahçe her zamanki gibi güzel kokuyordu. Ama domates fidelerinin yaprakları sararmıştı. Dedem fidelerin dibindeki toprağa dokundu. Toprak kupkuruydu. Bir haftadır yağmur yağmamıştı. Dedem hortumu açmayı da unutmuştu. Hemen fidelere birer kova su verdik. İki gün sonra yapraklar yeniden yemyeşil oldu.\n\n**1. Bu metne göre domates fidelerinin yapraklarının sararmasının nedeni aşağıdakilerden hangisidir?**\nCCC\nA) Dedemin fidelerin dibindeki toprağa dokunması\nB) Fidelere birer kova su verilmesi\nC) Fidelerin uzun süre susuz kalması\nD) Ailenin hafta sonu bahçeye gitmesi\n\nT.O.4.5. Okuduğu metindeki neden-sonuç ilişkilerini belirleyebilme\n\n---\n\n**Çeldiriciler**\n- **A)** Çocuk, sararmadan hemen önce anlatılan olayı sebep sanır. Olayların art arda gelmesini neden-sonuç ilişkisiyle karıştırır.\n- **B)** Çocuk, çözümü sebep sanır. Su vermeyi, sararmayla aynı bölümde geçtiği için seçer. Oysa yapraklar su verildikten sonra yeşillenmiştir.\n- **D)** Çocuk, metindeki ilk olayı sebep sanır. Bahçeye gitmek yalnızca sararmayı görmelerini sağlamıştır.\n\n**Doğru cevap C.** Metin \"susuz kaldı\" demez. Yağmurun yağmaması ve hortumun açılmaması bilgilerini birleştirip sebebi çıkarmak gerekir.\n\n**Ölçülen beceri:** Metindeki olaylar arasından sebep olanı, yalnızca art arda gelenlerden ayırarak bulmak.\n\n**Kontroller:**\n- Metin gizlenince soru cevaplanamaz.\n- Seçenekler 5'er kelimedir.\n- Olumsuz kök yoktur.\n- Metin yaklaşık 60 kelimedir. Bu, 4. sınıf için önerilen 70–150 aralığının biraz altındadır. İstersen bir iki cümle ekleyebilirim.\n- \"Toprağın kuruması\" seçeneğini bilerek koymadım. Aynı sebep zincirinin bir halkası olduğu için savunulabilir olur ve ikinci bir doğru cevap yaratırdı.\n\n**Sonra ne yapalım?**\n1. Bağlamı değiştireyim (okul, hayvan, hava durumu vb.).\n2. Daha kolay ya da daha zor hâlini yazayım.\n3. \"Sonuç\" soran bir soru yazayım.\n4. Aynı metne ikinci bir soru ekleyeyim."
+              }
+            ]
+          },
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 7,
+            "costUsd": 0.1206897,
+            "judgeCostUsd": 0.001962000000000002,
+            "durationSeconds": 65,
+            "startedAt": "2026-11-16T12:40:05.546Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-OtNzPJ/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "02-four-options",
+                "passed": true,
+                "weight": 1,
+                "explanation": "matched (?:^|\\n)\\s*\\**A\\)[\\s\\S]*\\n\\s*\\**B\\)[\\s\\S]*\\n\\s*\\**C\\)[\\s\\S]*\\n\\s*\\**D\\)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "03-item-rules",
+                "passed": true,
+                "weight": 1,
+                "explanation": "judge votes: PASS FAIL PASS",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  true,
+                  false,
+                  true
+                ],
+                "evidence": "Soruyu hazırladım. Ayar klasörü olmadığı için varsayılanları kullandım: 4. sınıf, 4 seçenek (A-D), 4. sınıfa uygun metin uzunluğu. Çıktı kodunu da verdiğin biçimde bıraktım.\n\n---\n\nHafta sonu sabahıydı. Mert'in kedisi Pamuk her sabah kapının önünde miyavlardı. Mert de hemen kalkıp ona mama verirdi. Bu sabah miyavlama sesi gelmedi. Mert yatağında gerinirken bir şeyin eksik olduğunu fark etti. Kapıyı açtı. Kapının önünde boş bir mama kabı duruyordu. Mutfaktan ablası Nehir seslendi: \"Pamuk'u ben erkenden doyurdum.\"\n\n1. Bu metne göre Pamuk bu sabah neden miyavlamamıştır?\nCCC\nA) Mert kapıyı açtığı için\nB) Mama kabı boş olduğu için\nC) Ablası Nehir mama verdiği için\nD) Mert her sabah mama verdiği için\n\nT.O.4.5. Okuduğu metindeki neden-sonuç ilişkilerini belirleyebilme\n\n---\n\n**Çeldiriciler**\n- **A) Mert kapıyı açtığı için:** Çocuk olayların sırasını karıştırır. Kapının açılması, miyavlamama olayından sonra gerçekleşir. Yani bu seçenek nedeni değil, sonradan olan bir olayı verir.\n- **B) Mama kabı boş olduğu için:** Çocuk sonucu neden sanır. Kap, Pamuk mamayı yediği için boştur. Kabın boş olması miyavlamamanın nedeni olamaz, çünkü aç bir kedi zaten miyavlar.\n- **D) Mert her sabah mama verdiği için:** Çocuk metindeki alışkanlık bilgisini bu sabahın nedeni sanır. Metne göre Mert, Pamuk miyavlayınca mama verir. Bu sabah olan değişikliği bu bilgi açıklamaz.\n\n**Ölçtüğü beceri:** Metinde \"çünkü\" gibi bir bağlaç olmadan verilen olaylardan, \"miyavlamama\" sonucunun nedenini bulmak.\n\n**Kontroller**\n- **Metin örtülünce:** Soru cevaplanamıyor, çünkü seçeneklerin hepsi metindeki bilgilere dayanıyor.\n- **Çeldiriciler:** Üçü de metinle açıkça çelişiyor. Aynı neden zincirinin ara halkası olan bir seçenek bırakmadım.\n- **Seçenek uzunlukları:** 4-6 kelime arasında. Doğru cevap en uzun değil.\n\n**Sonraki adım için seçenekler:**\n1. Bağlamı değiştireyim (okul, bahçe, oyun vb.).\n2. Daha kolay yapayım (nedeni metinde \"çünkü\" ile vereyim).\n3. Daha zor yapayım (iki olaylı bir zincir kurayım).\n4. Aynı çıktıdan başka bir soru yazayım. Bu soru \"neden\" soruyordu. İstersen sonuç soran bir soru yazabilirim."
+              }
+            ]
+          }
+        ]
+      },
+      "aggregates": {
+        "score": 1,
+        "passRate": 1
+      }
+    },
+    {
+      "name": "outcome-direction-title-visual",
+      "dir": "evals/item-writing/outcome-direction-title-visual",
+      "source": "mixed",
+      "promptMarkdown": "3. sınıf için şu öğrenme çıktısına bir soru yaz. Ayar klasörü yok, varsayılanlarla devam et.\n\nT.O.3.2.b) Metnin başlığı ve görsellerinden hareketle metinde geçen bilgiler/olaylar hakkında tahminde bulunur.",
+      "runsPerCase": 3,
+      "timeoutSeconds": 300,
+      "maxTurns": 6,
+      "graders": [
+        {
+          "name": "01-skill-fired",
+          "type": "tool_used",
+          "weight": 1,
+          "config": {
+            "tool": "Skill",
+            "input_match": "\"skill\"\\s*:\\s*\"(?:[\\w-]+:)?item-writing\""
+          }
+        },
+        {
+          "name": "02-direction",
+          "type": "llm",
+          "weight": 1,
+          "graderMarkdown": "The outcome is \"T.O.3.2.b) Metnin başlığı ve görsellerinden hareketle metinde geçen bilgiler/olaylar hakkında tahminde bulunur\": the student starts from a title and a picture and predicts what happens or what is told in the text.\n\nThe writer marks the answer key as the correct letter written three times on its own line under the stem (for example \"CCC\").\n\nPASS only if all of these hold:\n- The stimulus is a title together with a picture (a picture placeholder or description counts), and no full story text is given.\n- The options are written predictions about the text's events or information (sentences), not pictures.\n- The picture adds information the title alone does not give, so the answer needs both.\n- There are exactly 3 options (A-C).\n\nFAIL if the item gives a text and asks which picture or title fits it, if the options are pictures, or if the title alone gives the answer away.",
+          "config": {
+            "criteria": "The outcome is \"T.O.3.2.b) Metnin başlığı ve görsellerinden hareketle metinde geçen bilgiler/olaylar hakkında tahminde bulunur\": the student starts from a title and a picture and predicts what happens or what is told in the text.\n\nThe writer marks the answer key as the correct letter written three times on its own line under the stem (for example \"CCC\").\n\nPASS only if all of these hold:\n- The stimulus is a title together with a picture (a picture placeholder or description counts), and no full story text is given.\n- The options are written predictions about the text's events or information (sentences), not pictures.\n- The picture adds information the title alone does not give, so the answer needs both.\n- There are exactly 3 options (A-C).\n\nFAIL if the item gives a text and asks which picture or title fits it, if the options are pictures, or if the title alone gives the answer away.",
+            "focus": "last_message"
+          }
+        }
+      ],
+      "arms": {
+        "with": [
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 8,
+            "costUsd": 0.09143380000000001,
+            "judgeCostUsd": 0.0008313000000000001,
+            "durationSeconds": 29,
+            "startedAt": "2026-11-16T12:41:10.532Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-nbpPgU/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "02-direction",
+                "passed": true,
+                "weight": 1,
+                "explanation": "judge votes: PASS PASS PASS",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  true,
+                  true,
+                  true
+                ],
+                "evidence": "**Uyarıcı:**\n\n**Bahçedeki Küçük Misafir**\n\n[GÖRSEL: Akşamüstü bir bahçede, çalının dibinde küçük bir kirpi duruyor. Yanında çömelmiş bir kız çocuğu, elindeki küçük kaptan kirpiye elma dilimleri uzatıyor.\n Aranacak: \"çocuk kirpiye yiyecek veriyor\", \"bahçede kirpi ve çocuk\"\n Yayınevi için: Görselde yazı olmasın. Çocuk tek başına olsun, çevrede arkadaş, ağaç fidanı veya kürek görünmesin. Kirpi ve elma dilimleri net seçilsin. Çocuk ve kirpi gülümseyen, sakin bir hâlde çizilsin.]\n\n1. **Başlığa ve görsele göre bu metinde ne anlatılmış olabilir?**\nBBB\nA) Ece, bahçesine yeni bir ağaç dikmeye başlar.\nB) Ece, bahçesine gelen kirpiye yiyecek verir.\nC) Ece, bahçede arkadaşlarıyla saklambaç oynar.\n\nT.O.3.2.b) Metnin başlığı ve görsellerinden hareketle metinde geçen bilgiler/olaylar hakkında tahminde bulunur.\n\n---\n\n**Çeldiriciler:**\n- **A:** Çocuk bahçede bir şey yapıyor diye görseldeki kirpiyi ve yiyeceği yok sayıp \"bahçe işi\" tahmin eder. Görselde fidan ya da kürek yoktur.\n- **C:** \"Misafir\" sözcüğünü \"birlikte oynayacak arkadaşlar\" diye anlar, görseldeki kirpiyi dikkate almaz. Görselde tek bir çocuk vardır.\n\n**Ölçtüğü beceri:** Öğrenci başlıktaki ipucunu (\"küçük misafir\") görseldeki bilgiyle (kirpi, elma dilimleri) birleştirip metnin olayını tahmin eder. Başlık tek başına \"misafir\"in kim olduğunu söylemez, görsel tek başına olayın ne olduğunu kesinleştirmez. İkisi birlikte gerekir.\n\n**Kontroller:**\n- Başlık ve görsel kapatılınca üç seçenek de olabilir görünür, yani soru uyarıcısız cevaplanamaz.\n- Seçenekler 6-7 sözcük uzunluğunda, aynı kalıptadır.\n- Soruda olumsuzluk yoktur.\n- Yön doğru: öğrenci başlık ve görselden yola çıkıp içeriği tahmin eder.\n\n**Sonraki adım için seçenekler:**\n1. Bağlamı değiştireyim (ör. okul bahçesi, deniz kenarı).\n2. Daha kolay ya da daha zor yapayım. Daha zorunda başlık daha belirsiz olur, görsel daha çok iş görür.\n3. Aynı çıktıya ikinci bir soru yazayım (ör. görsel seçeneklerden oluşsun).\n4. Çizer için tam görsel tarifi hazırlayayım."
+              }
+            ]
+          },
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 6,
+            "costUsd": 0.0797195,
+            "judgeCostUsd": 0.0009422000000000007,
+            "durationSeconds": 28,
+            "startedAt": "2026-11-16T12:41:39.789Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-cQgltU/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "02-direction",
+                "passed": true,
+                "weight": 1,
+                "explanation": "judge votes: PASS PASS PASS",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  true,
+                  true,
+                  true
+                ],
+                "evidence": "**Görsel (çizer için kısa tarif):** Karlı bir günün başlangıcı. Gökyüzünden iri kar taneleri yağıyor. Yerde üç karınca, sırtlarında buğday taneleriyle, toprak yuvalarının girişine doğru yürüyor. Yuvanın kapısında bir karınca daha, elindeki taneyi içeri taşıyor. Arka planda yalnızca ağaç ve çalılar var. Yazı yok, çocuk yok.\n\n**Başlık:** Küçük Çalışkanlar\n\n---\n\n1. Başlığa ve görsele bakan bir öğrenci bu metinde en çok hangisinden söz edileceğini tahmin ediyor.\n\n   Bu öğrencinin tahmini hangisi olabilir?\n   \n   BBB\n\n   A) Çalışkan çocukların ödevlerini yapmasından\n   B) Karıncaların kışlık yiyecek taşımasından\n   C) Karıncaların karda oyun oynamasından\n\nT.O.3.2.b) Metnin başlığı ve görsellerinden hareketle metinde geçen bilgiler/olaylar hakkında tahminde bulunur.\n\n---\n\n**Çeldiriciler**\n- **A:** Çocuk yalnızca başlığa bakıyor. \"Çalışkanlar\" sözcüğünü görünce görseli yok sayıp öğrenci düşünüyor. Görselde çocuk yok, karıncalar var.\n- **C:** Çocuk yalnızca görseldeki kar ayrıntısına bakıyor ve \"Çalışkanlar\" başlığını hiç hesaba katmıyor. Görselde karıncalar oyun oynamıyor, tane taşıyor.\n\n**Ölçtüğü beceri:** Çocuk başlıktaki ipucuyla (çalışkan) görseldeki ipuçlarını (kar, buğday taneleri, yuva) birleştirip metnin konusunu tahmin ediyor. Başlık ya da görselden biri kapatılınca doğru cevap kesinleşmiyor.\n\n**Not:** Bu soru görsel olmadan yayımlanamaz. Görseli çizere iletirken yukarıdaki tarifi kullanabilirsin.\n\n**Sırada ne yapalım?**\n1. Bağlamı değiştirelim (hayvan yerine bir çocuk ya da mevsim konusu).\n2. Daha kolay ya da daha zor yapalım.\n3. Aynı çıktıya ikinci bir soru yazalım. Bu sefer görsel seçenekli olsun: \"Hangi görsel bu metne ait olabilir?\""
+              }
+            ]
+          },
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 6,
+            "costUsd": 0.0802612,
+            "judgeCostUsd": 0.0007473000000000011,
+            "durationSeconds": 27,
+            "startedAt": "2026-11-16T12:42:08.114Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-X0fVLb/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "02-direction",
+                "passed": true,
+                "weight": 1,
+                "explanation": "judge votes: PASS PASS PASS",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  true,
+                  true,
+                  true
+                ],
+                "evidence": "**Uyarıcı (başlık ve görsel):**\n\n**Pazar Günü Büyük Hazırlık**\n\n*[Görsel: Güneşli bir okul bahçesi. Duvarın önünde üç çocuk var. Biri elinde fırçayla duvarın bir kısmını sarıya boyamış. Biri boya kutusunu açıyor. Biri merdivenin yanında duruyor. Yerde boya kutuları ve fırçalar var. Çiçek, balon ve pasta yok. Çocuklar gülümsüyor.]*\n\n**1.** Başlığa ve görsele göre bu metinde ne anlatılması beklenir?\nBBB\nA) Çocuklar doğum günü kutlayacak.\nB) Çocuklar bahçe duvarını boyayacak.\nC) Çocuklar bahçeye çiçek dikecek.\n\nT.O.3.2.b) Metnin başlığı ve görsellerinden hareketle metinde geçen bilgiler/olaylar hakkında tahminde bulunur.\n\n---\n\n**Çeldiriciler:**\n- **A:** Çocuk yalnızca başlığa bakıyor. \"Hazırlık\" sözünü görünce doğum günü aklına geliyor ve görseli yok sayıyor. Görselde balon, pasta ve masa yok.\n- **C:** Çocuk yalnızca bahçe ortamına bakıyor. Boya ve fırçaları görmüyor. Görselde kürek, tohum ve fidan yok.\n\n**Ölçtüğü beceri:** Başlıktaki ipucuyla görseldeki ipuçlarını birleştirip metnin ne anlatacağını tahmin etmek. Başlık tek başına yetmiyor, çünkü A da başlığa uyuyor. Görsele bakmayan çocuk doğru cevabı bulamaz.\n\n**Notlar:**\n- Seçenekler 4 sözcük, uzunlukları eşit. Anahtar en uzun seçenek değil.\n- Görselin tarifi çizer için yazıldı. Çizerin boya kutularını, fırçaları ve yarı boyanmış duvarı mutlaka göstermesi gerekiyor, çünkü cevap bunlara dayanıyor.\n\n**Sırada ne yapalım?**\n1. Konuyu değiştireyim (hayvan, mutfak, spor gibi).\n2. Daha kolay ya da daha zor yapayım.\n3. Aynı çıktıya başka bir soru yazayım. Bu kez cevap A ya da C olur, böylece anahtarlar dengelenir.\n4. Çizer için ayrıntılı bir görsel tarifi hazırlayayım."
+              }
+            ]
+          }
+        ]
+      },
+      "aggregates": {
+        "score": 1,
+        "passRate": 1
+      }
+    },
+    {
+      "name": "tr-single-item-trigger",
+      "dir": "evals/item-writing/tr-single-item-trigger",
+      "source": "mixed",
+      "promptMarkdown": "2. sınıf için şu öğrenme çıktısına tek bir soru yazar mısın: T.O.2.4. Okuduğu metindeki olayların oluş sırasını belirleyebilme.",
+      "runsPerCase": 3,
+      "timeoutSeconds": 180,
+      "maxTurns": 4,
+      "graders": [
+        {
+          "name": "01-skill-fired",
+          "type": "tool_used",
+          "weight": 1,
+          "config": {
+            "tool": "Skill",
+            "input_match": "\"skill\"\\s*:\\s*\"(?:[\\w-]+:)?item-writing\""
+          }
+        }
+      ],
+      "arms": {
+        "with": [
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 7,
+            "costUsd": 0.0609017,
+            "judgeCostUsd": 0,
+            "durationSeconds": 16,
+            "startedAt": "2026-11-16T12:42:35.209Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-ocyJDN/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              }
+            ]
+          },
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 7,
+            "costUsd": 0.0632843,
+            "judgeCostUsd": 0,
+            "durationSeconds": 18,
+            "startedAt": "2026-11-16T12:42:51.677Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-ZwDdMy/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              }
+            ]
+          },
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 6,
+            "costUsd": 0.0627273,
+            "judgeCostUsd": 0,
+            "durationSeconds": 19,
+            "startedAt": "2026-11-16T12:43:10.075Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-CK3UiS/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              }
+            ]
+          }
+        ]
+      },
+      "aggregates": {
+        "score": 1,
+        "passRate": 1
+      }
+    },
+    {
+      "name": "asks-for-outcomes",
+      "dir": "evals/question-set/asks-for-outcomes",
+      "source": "mixed",
+      "promptMarkdown": "4. sınıf Türkçe için 15 soruluk bir set hazırlayalım. Klasör işini sonra hallederiz, şimdilik klasörsüz devam edelim.",
+      "runsPerCase": 3,
+      "timeoutSeconds": 300,
+      "maxTurns": 6,
+      "graders": [
+        {
+          "name": "01-skill-fired",
+          "type": "tool_used",
+          "weight": 1,
+          "config": {
+            "tool": "Skill",
+            "input_match": "\"skill\"\\s*:\\s*\"(?:[\\w-]+:)?question-set\""
+          }
+        },
+        {
+          "name": "02-no-reviewer-dispatched",
+          "type": "tool_used",
+          "weight": 1,
+          "config": {
+            "tool": "Agent",
+            "min": 0,
+            "max": 0
+          }
+        },
+        {
+          "name": "03-asks-not-invents",
+          "type": "llm",
+          "weight": 1,
+          "graderMarkdown": "The user asked for a 15-question grade 4 Turkish set and said to continue without a folder, but gave no learning outcomes.\n\nPASS only if the message asks the user for the set's learning outcomes (\"öğrenme çıktıları\"), offering choices such as pasting them or having them looked up from the MEB Turkish program, with one choice recommended, and explains briefly why they are needed.\nFAIL if it invents a list of learning outcomes or outcome codes on its own, writes a set plan, or writes any question.",
+          "config": {
+            "criteria": "The user asked for a 15-question grade 4 Turkish set and said to continue without a folder, but gave no learning outcomes.\n\nPASS only if the message asks the user for the set's learning outcomes (\"öğrenme çıktıları\"), offering choices such as pasting them or having them looked up from the MEB Turkish program, with one choice recommended, and explains briefly why they are needed.\nFAIL if it invents a list of learning outcomes or outcome codes on its own, writes a set plan, or writes any question.",
+            "focus": "last_message"
+          }
+        }
+      ],
+      "arms": {
+        "with": [
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 3,
+            "costUsd": 0.049756499999999995,
+            "judgeCostUsd": 0.0009152999999999974,
+            "durationSeconds": 17,
+            "startedAt": "2026-11-16T12:43:28.898Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-DXeFbP/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "02-no-reviewer-dispatched",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Agent called 0x (expected 0..0)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "03-asks-not-invents",
+                "passed": true,
+                "weight": 1,
+                "explanation": "judge votes: PASS PASS PASS",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  true,
+                  true,
+                  true
+                ],
+                "evidence": "Tamam, klasörsüz devam ediyoruz. Seti burada, sohbetin içinde hazırlayacağız. 4. sınıf ve 15 soru olduğunu not ettim. Planı yapabilmem için dört şeyi öğrenmem gerekiyor. Kazanımlar planı en çok etkilediği için onu başa koydum.\n\n**1. Kazanımlar:** Her soru ayrı bir kazanımı ölçsün istiyorum. Kazanım listesini nasıl alalım?\n- a) Yayınevinin verdiği listeyi buraya yapıştırırsınız (önerilen)\n- b) MEB Türkçe programından ben kodlarıyla birlikte adayları çıkarırım, siz seçersiniz\n\n**2. Set ne için?**\n- a) Kazanım değerlendirme deneme kitapçığı (önerilen)\n- b) Soru bankası\n\n**3. Görsel soru kaç tane olsun?** Görsel soru resim, tablo ya da grafik içerir.\n- a) 2 tane, örneğin biri tablo, biri resim (önerilen)\n- b) Hiç olmasın\n- c) 3-4 tane\n\n**4. Yayınevi bir tema ya da mevsim istedi mi?**\n- a) Tema yok, konular çeşitli olsun (önerilen)\n- b) Var, yazarsanız ona göre kurarım\n\n4. sınıf olduğu için sorular 4 seçenekli (A-D) olacak. Cevaplarınızı kendi cümlelerinizle de yazabilirsiniz, örneğin \"1-a, 2-a, 3-a, 4-a\" demeniz yeterli."
+              }
+            ]
+          },
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 3,
+            "costUsd": 0.0491604,
+            "judgeCostUsd": 0.0008992000000000028,
+            "durationSeconds": 17,
+            "startedAt": "2026-11-16T12:43:46.178Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-R3G5rz/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "02-no-reviewer-dispatched",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Agent called 0x (expected 0..0)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "03-asks-not-invents",
+                "passed": true,
+                "weight": 1,
+                "explanation": "judge votes: PASS FAIL PASS",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  true,
+                  false,
+                  true
+                ],
+                "evidence": "Tamam, klasörsüz devam ediyoruz. 4. sınıf Türkçe için 15 soruluk bir set hazırlayacağız. 4. sınıfta her soruda 4 şık olacak.\n\nPlanı yapabilmem için şu dört şeyi bilmem gerekiyor. Kendi cümlelerinle de cevap verebilirsin.\n\n**1. Kazanımlar nereden gelsin?** Her soru ayrı bir kazanımı ölçsün istiyorum.\n- a) Yayınevinin verdiği kazanım listesini buraya yapıştırırsın (önerilen)\n- b) MEB Türkçe programından ben adaylarını kodlarıyla çıkarırım, sen seçersin\n\n**2. Set ne için?**\n- a) Kazanım değerlendirme deneme kitapçığı (önerilen)\n- b) Soru bankası\n\n**3. Kaç tanesi görsel soru olsun?** (resim, tablo veya grafik)\n- a) 2-3 tane (önerilen)\n- b) Hiç olmasın\n- c) 4 veya daha fazla\n\n**4. Yayınevi bir tema ya da mevsim istiyor mu?**\n- a) Yok, konular serbest (önerilen)\n- b) Var, yazarım"
+              }
+            ]
+          },
+          {
+            "score": 0.6666666666666666,
+            "passed": false,
+            "turns": 3,
+            "costUsd": 0.0471708,
+            "judgeCostUsd": 0.00044189999999999854,
+            "durationSeconds": 12,
+            "startedAt": "2026-11-16T12:44:03.343Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-AMXon3/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "02-no-reviewer-dispatched",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Agent called 0x (expected 0..0)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "03-asks-not-invents",
+                "passed": false,
+                "weight": 1,
+                "explanation": "judge votes: FAIL FAIL PASS",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  false,
+                  false,
+                  true
+                ],
+                "evidence": "Tamamdir, klasörsüz devam ediyoruz. Seti bu konuşmada hazırlarız, dosyaları sonra düzenleriz.\n\nŞimdiye kadar bildiklerim: **4. sınıf Türkçe, 15 soru**. Plan için dört şeyi öğrenmem gerekiyor. Her birinde istediğin seçeneği yazman yeter, kendi sözlerinle de cevaplayabilirsin.\n\n**1. Kazanımlar (en önemlisi, plan buna göre şekilleniyor).** Her soru ayrı bir kazanımı ölçsün istiyorum.\n- a) Yayınevinin verdiği kazanım listesini buraya yapıştırırsın (önerilen)\n- b) Ben MEB Türkçe programından 4. sınıf kazanımlarını kodlarıyla listelerim, sen seçersin\n\n**2. Set ne için?**\n- a) Kazanım değerlendirme deneme kitapçığı (önerilen)\n- b) Türkçe soru bankası\n\n**3. Kaç görsel soru olsun? (resim, tablo veya grafik)**\n- a) 3 görsel soru (önerilen)\n- b) Hiç olmasın, hepsi metin tabanlı\n- c) Başka bir sayı\n\n**4. Yayınevi bir tema ya da mevsim istedi mi?**\n- a) Yok, konular serbest (önerilen)\n- b) Var, yazarsın"
+              }
+            ]
+          }
+        ]
+      },
+      "aggregates": {
+        "score": 0.8888888888888888,
+        "passRate": 0.6666666666666666
+      }
+    },
+    {
+      "name": "guides-first-setup",
+      "dir": "evals/question-set/guides-first-setup",
+      "source": "mixed",
+      "promptMarkdown": "Merhaba. Yayınevi benden 2. sınıf Türkçe için 15 soruluk bir deneme hazırlamamı istedi. Bilgisayardan pek anlamam, ne yapmam gerekiyor?",
+      "runsPerCase": 3,
+      "timeoutSeconds": 300,
+      "maxTurns": 6,
+      "graders": [
+        {
+          "name": "01-skill-fired",
+          "type": "tool_used",
+          "weight": 1,
+          "config": {
+            "tool": "Skill",
+            "input_match": "\"skill\"\\s*:\\s*\"(?:[\\w-]+:)?question-set\""
+          }
+        },
+        {
+          "name": "02-no-reviewer-dispatched",
+          "type": "tool_used",
+          "weight": 1,
+          "config": {
+            "tool": "Agent",
+            "min": 0,
+            "max": 0
+          }
+        },
+        {
+          "name": "03-guides-plainly",
+          "type": "llm",
+          "weight": 1,
+          "graderMarkdown": "The user is a question writer with little computer or AI experience, using the plugin for the first time. No work folder is set up.\n\nPASS only if all of these hold:\n- The message is in Turkish and leads with one clear next step (for example: set up or connect a work folder, or continue without a folder for now), offering choices with one marked as recommended.\n- It explains what it needs and why in plain words, without the terms \"skill\", \"agent\", \"subagent\", \"prompt\", \"eval\", \"plugin\", \"MCP\" or \"markdown\".\n- It does not write any question, options or answer key yet.\n- It does not ask more than 4 questions in this message.\n\nFAIL if it writes questions, uses any of the listed jargon terms, gives an error without a way forward, or asks the user to already know how the tool works.",
+          "config": {
+            "criteria": "The user is a question writer with little computer or AI experience, using the plugin for the first time. No work folder is set up.\n\nPASS only if all of these hold:\n- The message is in Turkish and leads with one clear next step (for example: set up or connect a work folder, or continue without a folder for now), offering choices with one marked as recommended.\n- It explains what it needs and why in plain words, without the terms \"skill\", \"agent\", \"subagent\", \"prompt\", \"eval\", \"plugin\", \"MCP\" or \"markdown\".\n- It does not write any question, options or answer key yet.\n- It does not ask more than 4 questions in this message.\n\nFAIL if it writes questions, uses any of the listed jargon terms, gives an error without a way forward, or asks the user to already know how the tool works.",
+            "focus": "last_message"
+          }
+        }
+      ],
+      "arms": {
+        "with": [
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 5,
+            "costUsd": 0.060605900000000004,
+            "judgeCostUsd": 0.0011309000000000007,
+            "durationSeconds": 20,
+            "startedAt": "2026-11-16T12:44:15.440Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-OMNeyt/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "02-no-reviewer-dispatched",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Agent called 0x (expected 0..0)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "03-guides-plainly",
+                "passed": true,
+                "weight": 1,
+                "explanation": "judge votes: PASS PASS PASS",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  true,
+                  true,
+                  true
+                ],
+                "evidence": "Merhaba! Sorun değil, adım adım ilerleyeceğiz. Hazırlık, planı onaylamanız ve soruların yazılması benden, kararlar sizden olacak. Soruları bitirince ayrı bir kontrol de yaptıracağım, sonunda yayınevine gönderebileceğiniz bir Word dosyası olacak.\n\n**Şu an hangi adımdayız?** İlk adım çalışma klasörü. Bilgisayarda bir \"Soru Yazarlığı\" klasörü bulamadım. Ayarlarınızı, eski deneme örneklerinizi ve bitmiş setleri tek klasörde tutarsak bir sonraki sefer baştan anlatmanız gerekmez.\n\n**Nasıl devam edelim?**\n\n1. **Klasörü şimdi kuralım (önerilen).** Masaüstünde \"Soru Yazarlığı\" adında bir klasör açın ve program içinde klasör seçme düğmesiyle bu klasörü çalışma klasörü olarak seçin. Düğme mesaj kutusunun yanında olmalı. Bulamazsanız söyleyin, birlikte bakarız. Gerisini (ayar dosyası, alt klasörler) ben hazırlarım.\n2. **Şimdilik klasör olmadan devam edelim.** Sorular burada, sohbetin içinde görünür. Word dosyasını da kaydedebildiğim bir yere kaydederim.\n\nHangisini istersiniz? Bir sonraki adımda 2. sınıf, 15 soru için kazanımları ve birkaç ayrıntıyı soracağım."
+              }
+            ]
+          },
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 6,
+            "costUsd": 0.0603975,
+            "judgeCostUsd": 0.0008085999999999996,
+            "durationSeconds": 15,
+            "startedAt": "2026-11-16T12:44:35.536Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-a0u3sm/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "02-no-reviewer-dispatched",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Agent called 0x (expected 0..0)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "03-guides-plainly",
+                "passed": true,
+                "weight": 1,
+                "explanation": "judge votes: PASS PASS PASS",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  true,
+                  true,
+                  true
+                ],
+                "evidence": "Merhaba! Merak etmeyin, işi adım adım ben yürüteceğim. Siz sadece sorularıma cevap verin, soruları ben hazırlayıp size göstereceğim. Her adımda son sözü siz söyleyeceksiniz.\n\n**Önce bir çalışma klasörü gerekiyor.** Ayarlarınızı, eski kitapçıklarınızı ve hazırladığımız setleri tek bir klasörde tutarsam, bir dahaki sefere her şeyi yeniden anlatmanız gerekmez. Şu an böyle bir klasör görmüyorum.\n\n**Nasıl devam edelim?**\n\n1. **Klasörü şimdi kuralım (önerilen).** Bilgisayarınızda, örneğin masaüstünde, \"Soru Yazarlığı\" adında yeni bir klasör açın. Sonra mesaj kutusunun yanındaki klasör seçme düğmesiyle bu klasörü çalışma klasörü olarak seçin. Düğmeyi bulamazsanız bana söyleyin, birlikte bakarız. İçindeki dosyaları ben hazırlarım.\n2. **Şimdilik klasörsüz devam edelim.** Sorular sohbet içinde görünür. Word dosyasını da kaydedilebilen bir yere kaydederim.\n\nHangisini tercih edersiniz? Kendi cümlenizle de yazabilirsiniz."
+              }
+            ]
+          },
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 5,
+            "costUsd": 0.059334,
+            "judgeCostUsd": 0.0010844000000000027,
+            "durationSeconds": 18,
+            "startedAt": "2026-11-16T12:44:51.014Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-ecI7iZ/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "02-no-reviewer-dispatched",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Agent called 0x (expected 0..0)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "03-guides-plainly",
+                "passed": true,
+                "weight": 1,
+                "explanation": "judge votes: PASS PASS PASS",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  true,
+                  true,
+                  true
+                ],
+                "evidence": "Merhaba! Size adım adım yol göstereceğim. Bilgisayar bilgisi gerekmiyor, ben sorular soracağım, siz seçenekleri işaretleyin ya da kendi sözlerinizle yanıtlayın.\n\n**Şu an: çalışma klasörü.** Bilgisayarınızda \"Soru Yazarlığı\" adında bir klasör olursa ayarlarınızı, eski deneme kitapçıklarınızı ve hazırladığımız setleri orada saklarım. Bir dahaki sefere de hatırlarım. Şu an böyle bir klasör görmüyorum.\n\n**1. Klasörü nasıl yapalım?**\n- **Şimdi kuralım (önerilen).** Masaüstünde \"Soru Yazarlığı\" adında yeni bir klasör açın. Sonra mesaj kutusunun yanındaki klasör seçme düğmesiyle bu klasörü çalışma klasörü olarak seçin. Düğmeyi bulamazsanız yazın, birlikte bakarız. İçindeki ayar dosyasını ve alt klasörleri ben hazırlarım.\n- **Şimdilik klasörsüz devam edelim.** Sorular burada, sohbetin içinde görünür. Word dosyasını da kaydedilebilen bir yere koyarım.\n\nHangisini istersiniz?"
+              }
+            ]
+          }
+        ]
+      },
+      "aggregates": {
+        "score": 1,
+        "passRate": 1
+      }
+    },
+    {
+      "name": "not-math-homework",
+      "dir": "evals/question-set/not-math-homework",
+      "source": "mixed",
+      "promptMarkdown": "Oğlum 3. sınıfta, çarpma işlemini ona nasıl anlatabilirim?",
+      "runsPerCase": 3,
+      "timeoutSeconds": 180,
+      "maxTurns": 4,
+      "graders": [
+        {
+          "name": "01-skill-not-fired",
+          "type": "tool_used",
+          "weight": 1,
+          "config": {
+            "tool": "Skill",
+            "input_match": "\"skill\"\\s*:\\s*\"(?:[\\w-]+:)?(?:question-set|item-writing|visual-item)\"",
+            "min": 0,
+            "max": 0,
+            "arm": "both"
+          }
+        }
+      ],
+      "arms": {
+        "with": [
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 1,
+            "costUsd": 0.041415400000000005,
+            "judgeCostUsd": 0,
+            "durationSeconds": 16,
+            "startedAt": "2026-11-16T12:45:09.357Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-TDmjxp/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-not-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 0x (expected 0..0)",
+                "withOnly": false,
+                "scored": true
+              }
+            ]
+          },
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 1,
+            "costUsd": 0.0405254,
+            "judgeCostUsd": 0,
+            "durationSeconds": 15,
+            "startedAt": "2026-11-16T12:45:25.206Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-78YAoQ/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-not-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 0x (expected 0..0)",
+                "withOnly": false,
+                "scored": true
+              }
+            ]
+          },
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 1,
+            "costUsd": 0.038805400000000004,
+            "judgeCostUsd": 0,
+            "durationSeconds": 14,
+            "startedAt": "2026-11-16T12:45:40.006Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-OIvwbh/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-not-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 0x (expected 0..0)",
+                "withOnly": false,
+                "scored": true
+              }
+            ]
+          }
+        ]
+      },
+      "aggregates": {
+        "score": 1,
+        "passRate": 1
+      }
+    },
+    {
+      "name": "not-summarize-story",
+      "dir": "evals/question-set/not-summarize-story",
+      "source": "mixed",
+      "promptMarkdown": "Şu masalı iki cümleyle özetler misin: Bir varmış bir yokmuş, ormanda yaşayan küçük bir tavşan varmış. Tavşan her gün havuç toplarmış. Bir gün yolunu kaybetmiş ve bir baykuş ona evinin yolunu göstermiş.",
+      "runsPerCase": 3,
+      "timeoutSeconds": 180,
+      "maxTurns": 4,
+      "graders": [
+        {
+          "name": "01-skill-not-fired",
+          "type": "tool_used",
+          "weight": 1,
+          "config": {
+            "tool": "Skill",
+            "input_match": "\"skill\"\\s*:\\s*\"(?:[\\w-]+:)?(?:question-set|item-writing|visual-item)\"",
+            "min": 0,
+            "max": 0,
+            "arm": "both"
+          }
+        }
+      ],
+      "arms": {
+        "with": [
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 1,
+            "costUsd": 0.0279134,
+            "judgeCostUsd": 0,
+            "durationSeconds": 2,
+            "startedAt": "2026-11-16T12:45:54.001Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-DxD47B/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-not-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 0x (expected 0..0)",
+                "withOnly": false,
+                "scored": true
+              }
+            ]
+          },
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 1,
+            "costUsd": 0.027935400000000003,
+            "judgeCostUsd": 0,
+            "durationSeconds": 2,
+            "startedAt": "2026-11-16T12:45:56.239Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-e2VWk4/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-not-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 0x (expected 0..0)",
+                "withOnly": false,
+                "scored": true
+              }
+            ]
+          },
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 1,
+            "costUsd": 0.0279234,
+            "judgeCostUsd": 0,
+            "durationSeconds": 2,
+            "startedAt": "2026-11-16T12:45:58.548Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-CWt49g/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-not-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 0x (expected 0..0)",
+                "withOnly": false,
+                "scored": true
+              }
+            ]
+          }
+        ]
+      },
+      "aggregates": {
+        "score": 1,
+        "passRate": 1
+      }
+    },
+    {
+      "name": "plan-before-items",
+      "dir": "evals/question-set/plan-before-items",
+      "source": "mixed",
+      "promptMarkdown": "3. sınıf Türkçe için 15 soruluk kazanım değerlendirme seti hazırlayalım. Klasörsüz devam edelim. Görselli soru 3 tane olsun, tema serbest. Öğrenme çıktıları şunlar:\n\nT.O.3.1. Okuduğu metindeki olayların oluş sırasını belirleyebilme\nT.O.3.2. Okuduğu ile ilgili anlam oluşturabilme\nT.O.3.3. Metnin konusunu belirleyebilme\nT.O.3.4. Metnin ana fikrini belirleyebilme\nT.O.3.5. Okuduğu metindeki neden-sonuç ilişkilerini belirleyebilme\nT.O.3.6. Görsellerden hareketle metin hakkında tahminde bulunabilme\nT.O.3.7. Tablo ve grafiklerdeki bilgileri yorumlayabilme\nT.O.3.8. Kelimenin metindeki anlamını bağlamdan çıkarabilme\nT.O.3.9. Eş ve zıt anlamlı kelimeleri metin içinde kullanabilme\nT.O.3.10. Metindeki karakterlerin duygularını belirleyebilme\nT.O.3.11. Okuduğu metindeki gerçek ve hayal ürünü ögeleri ayırt edebilme\nT.O.3.12. Talimatları izleyerek bir işi tamamlayabilme\nT.D.3.1. Dinlediği metindeki önemli bilgileri belirleyebilme\nT.Y.3.1. Yazım kurallarını uygulayabilme\nT.Y.3.2. Noktalama işaretlerini yerinde kullanabilme",
+      "runsPerCase": 3,
+      "timeoutSeconds": 420,
+      "maxTurns": 8,
+      "graders": [
+        {
+          "name": "01-skill-fired",
+          "type": "tool_used",
+          "weight": 1,
+          "config": {
+            "tool": "Skill",
+            "input_match": "\"skill\"\\s*:\\s*\"(?:[\\w-]+:)?question-set\""
+          }
+        },
+        {
+          "name": "02-no-reviewer-dispatched",
+          "type": "tool_used",
+          "weight": 1,
+          "config": {
+            "tool": "Agent",
+            "min": 0,
+            "max": 0
+          }
+        },
+        {
+          "name": "03-plan-has-codes",
+          "type": "regex",
+          "weight": 1,
+          "config": {
+            "target": "last_message",
+            "pattern": "T\\.O\\.3\\.12[\\s\\S]*T\\.Y\\.3\\.2|T\\.Y\\.3\\.2[\\s\\S]*T\\.O\\.3\\.12",
+            "flags": "",
+            "match": "contains"
+          }
+        },
+        {
+          "name": "04-plan-then-stop",
+          "type": "llm",
+          "weight": 1,
+          "graderMarkdown": "The user gave 15 learning outcomes for a grade 3 set and asked for 3 visual items.\n\nPASS only if all of these hold:\n- The message shows a plan of 15 items (a table or a numbered list), each tied to one of the given outcomes, with no outcome used twice.\n- Each item has a short context idea, and exactly 3 items are marked as visual (any visual kind counts: picture, picture sequence, table, graph, map, sketch, poster).\n- Small extras are fine: questions about process components, notes on listening items, or optional alternatives offered to the user.\n- It asks the user, in Turkish, to approve or change the plan before the questions are written.\n- No full question is written yet: no question stems followed by written-out options. A plan column with the intended answer letter per row is part of the plan (it spreads the keys) and is allowed.\n\nFAIL if any outcome is repeated or missing, if questions with options are already written, or if it does not stop for approval.",
+          "config": {
+            "criteria": "The user gave 15 learning outcomes for a grade 3 set and asked for 3 visual items.\n\nPASS only if all of these hold:\n- The message shows a plan of 15 items (a table or a numbered list), each tied to one of the given outcomes, with no outcome used twice.\n- Each item has a short context idea, and exactly 3 items are marked as visual (any visual kind counts: picture, picture sequence, table, graph, map, sketch, poster).\n- Small extras are fine: questions about process components, notes on listening items, or optional alternatives offered to the user.\n- It asks the user, in Turkish, to approve or change the plan before the questions are written.\n- No full question is written yet: no question stems followed by written-out options. A plan column with the intended answer letter per row is part of the plan (it spreads the keys) and is allowed.\n\nFAIL if any outcome is repeated or missing, if questions with options are already written, or if it does not stop for approval.",
+            "focus": "last_message"
+          }
+        }
+      ],
+      "arms": {
+        "with": [
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 3,
+            "costUsd": 0.0787031,
+            "judgeCostUsd": 0.0014371000000000002,
+            "durationSeconds": 40,
+            "startedAt": "2026-11-16T12:46:00.938Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-GpCYFp/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "02-no-reviewer-dispatched",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Agent called 0x (expected 0..0)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "03-plan-has-codes",
+                "passed": true,
+                "weight": 1,
+                "explanation": "matched T\\.O\\.3\\.12[\\s\\S]*T\\.Y\\.3\\.2|T\\.Y\\.3\\.2[\\s\\S]*T\\.O\\.3\\.12",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "04-plan-then-stop",
+                "passed": true,
+                "weight": 1,
+                "explanation": "judge votes: PASS PASS PASS",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  true,
+                  true,
+                  true
+                ],
+                "evidence": "Klasörsüz devam ediyoruz, o yüzden her şeyi burada tutacağım. Bilmem gerekenleri sizden aldım: 3. sınıf, 15 soru, 3 görselli, tema serbest. 15 kazanımın hepsini birer kez kullandım, böylece her soru farklı bir kazanımı ölçüyor. 3. sınıfta üç seçenek olacak (A, B, C).\n\n**Tema önerim: \"Okul bahçesi ve doğa\".** Bu temayı yalnızca ortak bir çatı olarak kullandım. Her sorunun durumu birbirinden farklı (hikâye, diyalog, tablo, duyuru, talimat kartı, mektup vb.).\n\n## Soru planı\n\n| No | Kazanım | Fikir (durum ve metin türü) | Tür | Cevap |\n|---|---|---|---|---|\n| 1 | T.O.3.1 olay sırası | Pınar'ın fasulye tohumunu ekip filizlenmesini beklemesi (hikâye) | Metin | B |\n| 2 | T.O.3.2 anlam oluşturma | Yağmurda kalan kedi yavrusunu bir çocuğun eve götürmesi (kısa hikâye, çıkarım) | Metin | A |\n| 3 | T.O.3.3 konu | Kanadı kırılan serçeye bakan çocuk (hikâye, **3. ve 4. soru ortak metin**) | Metin | C |\n| 4 | T.O.3.4 ana fikir | Aynı serçe hikâyesi | Metin | A |\n| 5 | T.O.3.5 neden-sonuç | Bahçe çiçeklerinin solması ve nedeni (diyalog) | Metin | B |\n| 6 | T.O.3.6 görselden tahmin | Üç resimle bir kitabın konusunu tahmin etme (kitap kapağı ve iç resimler) | **Görsel 1** | C |\n| 7 | T.O.3.7 tablo yorumlama | 3/A sınıfının bahçeye diktiği fidan sayıları (tablo) | **Görsel 2** | A |\n| 8 | T.O.3.8 bağlamdan anlam | \"Yüz\" gibi çok anlamlı bir sözcüğün bahçe etkinliği duyurusundaki anlamı | Metin | B |\n| 9 | T.O.3.9 eş/zıt anlam | Cümledeki boşluğa uygun eş ya da zıt anlamlı sözcüğü yerleştirme | Dil | C |\n| 10 | T.O.3.10 duygu | Büyükannesine bahçeden yazdığı mektup (karakterin duygusu) | Metin | A |\n| 11 | T.O.3.11 gerçek / hayal | Konuşan ağacın olduğu bir masal parçası | Metin | B |\n| 12 | T.O.3.12 talimat izleme | Saksıya fidan dikme adımları (resimli talimat kartı) | **Görsel 3** | C |\n| 13 | T.D.3.1 dinleme | Okul bahçesi temizlik günü duyurusu (öğretmenin okuduğu metin) | Dinleme | A |\n| 14 | T.Y.3.1 yazım kuralı | Kısa notta yazım yanlışı bulma (de/da, büyük harf) | Dil | B |\n| 15 | T.Y.3.2 noktalama | Diyalogda soru işareti, virgül ve ünlem yerleştirme | Dil | C |\n\nCevap harfleri A, B ve C için 5'er kez dağılıyor.\n\n**Görsellerle ilgili:** 6. ve 12. sorunun resimleri için çizere yazılacak tarifleri ben hazırlarım. 7. sorudaki tabloyu doğrudan kendim kurarım.\n\n**13. soru:** Dinleme sorusunda metin, \"Öğretmen okuyacaktır\" kutusu içinde yer alır. Öğrenci metni görmez, yalnızca soruyu ve seçenekleri görür.\n\n## Onayınız için\n\n1. **Planı olduğu gibi onaylıyor musunuz?** Değiştirmek istediğiniz soru ya da kazanım eşleşmesi varsa söyleyin. (Örneğin görselli üçüncü soru olarak 12 yerine T.O.3.1'i seçebiliriz.)\n2. **3. ve 4. sorunun ortak metin kullanması uygun mu?** Önerim evet. Konu ve ana fikir doğal bir çift oluşturuyor. İsterseniz her biri için ayrı metin yazarım.\n3. **Set neyin için?** (deneme kitapçığı / soru bankası) Bu bilgi sorulara etki etmez, yalnızca Word dosyasının düzenini belirler.\n\nOnayınızı alınca soruları beşer beşer yazacağım."
+              }
+            ]
+          },
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 3,
+            "costUsd": 0.0800254,
+            "judgeCostUsd": 0.0013793999999999994,
+            "durationSeconds": 40,
+            "startedAt": "2026-11-16T12:46:41.177Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-rpgYTR/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "02-no-reviewer-dispatched",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Agent called 0x (expected 0..0)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "03-plan-has-codes",
+                "passed": true,
+                "weight": 1,
+                "explanation": "matched T\\.O\\.3\\.12[\\s\\S]*T\\.Y\\.3\\.2|T\\.Y\\.3\\.2[\\s\\S]*T\\.O\\.3\\.12",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "04-plan-then-stop",
+                "passed": true,
+                "weight": 1,
+                "explanation": "judge votes: PASS PASS PASS",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  true,
+                  true,
+                  true
+                ],
+                "evidence": "Klasörsüz ilerliyoruz. Soruları şimdilik sohbette tutacağız. Dosya gerekirse bulunduğumuz çalışma klasörüne yazarız.\n\nSınıf (3), soru sayısı (15), görselli soru sayısı (3) ve tema (serbest) belli. Verdiğiniz 15 kazanımın her biri için bir soru yazacağım, böylece hiçbir kazanım tekrar etmiyor. 3. sınıf olduğu için her soruda 3 seçenek (A, B, C) olacak. Önce planı hazırladım.\n\n## Soru seti planı: 3. sınıf Türkçe kazanım değerlendirme\n\n| No | Kazanım | Ölçülen beceri | Bağlam fikri | Tür | Cevap |\n|---|---|---|---|---|---|\n| 1 | T.O.3.1 | Olayların sırası | Okul bahçesinde bulunan kedi yavrusu (hikâye) | Metin | A |\n| 2 | T.O.3.2 | Anlam oluşturma | Büyükannenin bahçesinde bir gün (anı) | Metin | B |\n| 3 | T.O.3.3 | Metnin konusu | Arıların çalışkanlığı (bilgilendirici metin) | Metin | C |\n| 4 | T.O.3.4 | Ana fikir | Sonbaharda tedbirli karınca (kısa hikâye) | Metin | A |\n| 5 | T.O.3.5 | Neden-sonuç | Yağmur yüzünden ertelenen maç (hikâye) | Metin | B |\n| 6 | T.O.3.6 | Görselden tahmin | Üç resimli kitap kapağı, metin neyle ilgili olabilir? | **Görsel 1 (resim)** | C |\n| 7 | T.O.3.7 | Tablo/grafik yorumu | Sınıfta okunan kitap sayıları (sütun grafiği) | **Görsel 2 (grafik)** | A |\n| 8 | T.O.3.8 | Bağlamdan kelime anlamı | Sessiz sokakta yürüyüş (kısa metin) | Metin | B |\n| 9 | T.O.3.9 | Zıt/eş anlam kullanımı | Cümlede boşluk tamamlama (pazar yeri) | Dil bilgisi | C |\n| 10 | T.O.3.10 | Karakterin duygusu | Yarışma sonucunu bekleyen çocuk (diyalog) | Metin | A |\n| 11 | T.O.3.11 | Gerçek / hayal ürünü | Bulutla konuşan çocuk (kısa hikâye) | Metin | B |\n| 12 | T.O.3.12 | Talimat izleme | Saksıda fasulye çimlendirme adımları | **Görsel 3 (tarif kartı)** | C |\n| 13 | T.D.3.1 | Dinleme: önemli bilgi | Öğretmen okul gezisi duyurusunu okur | Dinleme metni | A |\n| 14 | T.Y.3.1 | Yazım kuralları | Davetiye metni (büyük harf, özel adlar) | Dil bilgisi | B |\n| 15 | T.Y.3.2 | Noktalama | İki arkadaşın diyaloğu (soru, ünlem, virgül, kesme işareti) | Dil bilgisi | C |\n\n**Notlar**\n- **Cevap dağılımı:** A, B ve C beşer kez geliyor.\n- **Tür karışımı:** Okuma soruları, dil bilgisi soruları (9, 14, 15) ve bir dinleme sorusu (13) bir arada.\n- **Dinleme sorusu:** 13. soru için öğretmenin okuyacağı kısa metni de ayrıca yazacağım.\n- **Görseller:** 6. soru için çizer notu hazırlayacağım. 7. soruda grafiği doğrudan tablo olarak kuracağım. 12. soru için tarif kartı çizer notu olacak.\n- **Bağlamlar:** Her soru farklı bir durumda geçiyor. İsterseniz 2-3 soruyu ortak bir metne bağlayabiliriz.\n\nİki sorum var:\n\n1. **Plan için ne yapalım?**\n   - Olduğu gibi onaylıyorum, 1-5. soruları yazın (önerilen)\n   - Bazı satırları değiştirelim (hangilerini yazın)\n   - Bazı soruları ortak metne bağlayalım\n\n2. **Setin amacı nedir?**\n   - Deneme kitapçığı (önerilen)\n   - Soru bankası\n\nOnayınızı almadan soru yazmayacağım. Onaylarsanız soruları beşer beşer yazıp her grup sonunda size göstereceğim."
+              }
+            ]
+          },
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 3,
+            "costUsd": 0.0759316,
+            "judgeCostUsd": 0.0012519000000000002,
+            "durationSeconds": 35,
+            "startedAt": "2026-11-16T12:47:20.748Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-THrT6D/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "02-no-reviewer-dispatched",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Agent called 0x (expected 0..0)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "03-plan-has-codes",
+                "passed": true,
+                "weight": 1,
+                "explanation": "matched T\\.O\\.3\\.12[\\s\\S]*T\\.Y\\.3\\.2|T\\.Y\\.3\\.2[\\s\\S]*T\\.O\\.3\\.12",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "04-plan-then-stop",
+                "passed": true,
+                "weight": 1,
+                "explanation": "judge votes: PASS PASS PASS",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  true,
+                  true,
+                  true
+                ],
+                "evidence": "Klasörsüz devam ediyoruz, o yüzden set sohbette kalacak. Bu kitapçığın deneme kitapçığı mı soru bankası mı olduğunu bilmiyorum. Plan ikisinde de aynı, bu yüzden deneme kitapçığı varsaydım. Farklıysa söyle, uyarlarım.\n\nSınıf 3 olduğu için her soruda 3 şık (A-B-C) var. Temayı serbest bıraktığın için \"doğa, okul ve günlük yaşam\" çerçevesinde, her soruda ayrı bir durum seçtim.\n\n## Set planı: 3. sınıf Türkçe, 15 soru\n\n| No | Kazanım | Bağlam fikri ve metin türü | Soru türü | Cevap |\n|---|---|---|---|---|\n| 1 | T.O.3.1 | Kayıp kedi Pamuk'un bulunuşu (hikâye) | Metin | B |\n| 2 | T.O.3.2 | Dedenin torununa yazdığı mektup | Metin | C |\n| 3 | T.O.3.3 | Arıların yaşamı (bilgilendirici metin) | Metin | A |\n| 4 | T.O.3.4 | Karıncayla ağustos böceği benzeri kısa hikâye | Metin | B |\n| 5 | T.O.3.5 | Yağmurda ıslanan çocuk (hikâye) | Metin | C |\n| 6 | T.O.3.6 | Bir kitabın kapak resmi ve iç sayfa resimleri | **Görsel (resim)** | A |\n| 7 | T.O.3.7 | Sınıf kitaplığında okunan kitap sayıları | **Görsel (sütun grafiği)** | B |\n| 8 | T.O.3.8 | \"Göz\", \"yüz\" gibi çok anlamlı bir kelime, cümle içinde | Metin | C |\n| 9 | T.O.3.9 | Eş ve zıt anlamlı kelimeyle cümle tamamlama | Dil bilgisi | A |\n| 10 | T.O.3.10 | Okul bahçesinde iki arkadaşın diyaloğu | Metin | B |\n| 11 | T.O.3.11 | Konuşan ağaçlı bir masal parçası | Metin | C |\n| 12 | T.O.3.12 | Fasulye ekme kartı (adım adım resimli talimat) | **Görsel (resimli talimat)** | A |\n| 13 | T.D.3.1 | Öğretmenin okuduğu hayvan barınağı ziyareti metni | Dinleme | B |\n| 14 | T.Y.3.1 | Büyük harf, \"de/ki\" ve yazım yanlışı | Dil bilgisi | C |\n| 15 | T.Y.3.2 | Diyalogda nokta, virgül, soru ve ünlem işareti | Dil bilgisi | A |\n\n**Plana dair notlar**\n- Her soru ayrı bir kazanımı ölçüyor, tekrar eden kazanım yok.\n- Görsel sorular 6, 7 ve 12. numaralar. Üçünde de bilgi görselin içinde, görsel olmadan cevaplanamıyor.\n- Soru 7'yi (grafik) ben kendim hazırlarım. Soru 6 ve 12 için yayınevinin çizerine resim tarifi yazarım.\n- Cevaplar A, B ve C'ye 5'er kez dağıldı.\n- Ortak metin kullanmadım, her soru kendi metniyle bağımsız.\n- Soru 13 dinleme sorusu. Metni öğretmen okuyacak. Kitapçıkta \"Öğretmenin okuyacağı metin\" kutusu olarak verip soruyu ayrıca yazarım.\n\n## Senin kararın\n\n1. **Planı onaylıyor musun?** (önerilen: onay, ben de 1-5. soruları yazmaya geçeyim)\n2. **Görsel sorular farklı yerlerde mi olsun?** Örneğin 12. soru yerine duyguyu resimden okutan bir soru olabilir. (önerilen: şimdiki hâli)\n3. **Dinleme sorusu kitapçıkta kalsın mı?** Kalırsa metni öğretmen kutusunda verilir. (önerilen: kalsın)\n\nOnay verirsen sorulara beşerli gruplar hâlinde başlarım. Değiştirmek istediğin satır varsa numarasını yaz."
+              }
+            ]
+          }
+        ]
+      },
+      "aggregates": {
+        "score": 1,
+        "passRate": 1
+      }
+    },
+    {
+      "name": "tr-novice-trigger",
+      "dir": "evals/question-set/tr-novice-trigger",
+      "source": "mixed",
+      "promptMarkdown": "Merhaba, ben kitaplar için soru yazıyorum. Yeni bir Türkçe deneme kitapçığı için soru hazırlamam gerekiyor. Bana nasıl yardımcı olabilirsin?",
+      "runsPerCase": 3,
+      "timeoutSeconds": 180,
+      "maxTurns": 4,
+      "graders": [
+        {
+          "name": "01-skill-fired",
+          "type": "tool_used",
+          "weight": 1,
+          "config": {
+            "tool": "Skill",
+            "input_match": "\"skill\"\\s*:\\s*\"(?:[\\w-]+:)?question-set\""
+          }
+        }
+      ],
+      "arms": {
+        "with": [
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 5,
+            "costUsd": 0.0554451,
+            "judgeCostUsd": 0,
+            "durationSeconds": 11,
+            "startedAt": "2026-11-16T12:47:55.424Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-UGUT3u/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              }
+            ]
+          },
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 4,
+            "costUsd": 0.0534302,
+            "judgeCostUsd": 0,
+            "durationSeconds": 11,
+            "startedAt": "2026-11-16T12:48:06.671Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-9FUNQf/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              }
+            ]
+          },
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 5,
+            "costUsd": 0.0568796,
+            "judgeCostUsd": 0,
+            "durationSeconds": 14,
+            "startedAt": "2026-11-16T12:48:18.150Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-73tVoG/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              }
+            ]
+          }
+        ]
+      },
+      "aggregates": {
+        "score": 1,
+        "passRate": 1
+      }
+    },
+    {
+      "name": "tr-set-trigger",
+      "dir": "evals/question-set/tr-set-trigger",
+      "source": "mixed",
+      "promptMarkdown": "3. sınıf Türkçe için 15 soruluk kazanım değerlendirme seti hazırlamam lazım.",
+      "runsPerCase": 3,
+      "timeoutSeconds": 180,
+      "maxTurns": 4,
+      "graders": [
+        {
+          "name": "01-skill-fired",
+          "type": "tool_used",
+          "weight": 1,
+          "config": {
+            "tool": "Skill",
+            "input_match": "\"skill\"\\s*:\\s*\"(?:[\\w-]+:)?question-set\""
+          }
+        }
+      ],
+      "arms": {
+        "with": [
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 5,
+            "costUsd": 0.0545422,
+            "judgeCostUsd": 0,
+            "durationSeconds": 11,
+            "startedAt": "2026-11-16T12:48:32.267Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-yytmwo/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              }
+            ]
+          },
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 5,
+            "costUsd": 0.0552088,
+            "judgeCostUsd": 0,
+            "durationSeconds": 11,
+            "startedAt": "2026-11-16T12:48:43.384Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-xyJsqe/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              }
+            ]
+          },
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 5,
+            "costUsd": 0.0560846,
+            "judgeCostUsd": 0,
+            "durationSeconds": 12,
+            "startedAt": "2026-11-16T12:48:53.938Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-UbLTff/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              }
+            ]
+          }
+        ]
+      },
+      "aggregates": {
+        "score": 1,
+        "passRate": 1
+      }
+    },
+    {
+      "name": "picture-placeholder",
+      "dir": "evals/visual-item/picture-placeholder",
+      "source": "mixed",
+      "promptMarkdown": "2. sınıf için resimli bir soru yaz. Ayar klasörü yok, varsayılanlarla devam et.\n\nT.O.2.2.c) Metnin başlığı ve görsellerinden hareketle metinde geçen bilgiler/olaylar hakkında tahminde bulunur.",
+      "runsPerCase": 3,
+      "timeoutSeconds": 300,
+      "maxTurns": 6,
+      "graders": [
+        {
+          "name": "01-skill-fired",
+          "type": "tool_used",
+          "weight": 1,
+          "config": {
+            "tool": "Skill",
+            "input_match": "\"skill\"\\s*:\\s*\"(?:[\\w-]+:)?visual-item\""
+          }
+        },
+        {
+          "name": "02-placeholder-parts",
+          "type": "regex",
+          "weight": 1,
+          "config": {
+            "target": "last_message",
+            "pattern": "GÖRSEL[\\s\\S]*Aranacak[\\s\\S]*Yayınevi için",
+            "flags": "",
+            "match": "contains"
+          }
+        }
+      ],
+      "arms": {
+        "with": [
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 3,
+            "costUsd": 0.0545171,
+            "judgeCostUsd": 0,
+            "durationSeconds": 19,
+            "startedAt": "2026-11-16T12:49:05.553Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-nRVq4c/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "02-placeholder-parts",
+                "passed": true,
+                "weight": 1,
+                "explanation": "matched GÖRSEL[\\s\\S]*Aranacak[\\s\\S]*Yayınevi için",
+                "withOnly": false,
+                "scored": true
+              }
+            ]
+          },
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 3,
+            "costUsd": 0.0488431,
+            "judgeCostUsd": 0,
+            "durationSeconds": 15,
+            "startedAt": "2026-11-16T12:49:24.296Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-SMjFkn/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "02-placeholder-parts",
+                "passed": true,
+                "weight": 1,
+                "explanation": "matched GÖRSEL[\\s\\S]*Aranacak[\\s\\S]*Yayınevi için",
+                "withOnly": false,
+                "scored": true
+              }
+            ]
+          },
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 3,
+            "costUsd": 0.0517951,
+            "judgeCostUsd": 0,
+            "durationSeconds": 17,
+            "startedAt": "2026-11-16T12:49:39.305Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-vqRNLF/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "02-placeholder-parts",
+                "passed": true,
+                "weight": 1,
+                "explanation": "matched GÖRSEL[\\s\\S]*Aranacak[\\s\\S]*Yayınevi için",
+                "withOnly": false,
+                "scored": true
+              }
+            ]
+          }
+        ]
+      },
+      "aggregates": {
+        "score": 1,
+        "passRate": 1
+      }
+    },
+    {
+      "name": "tr-visual-trigger",
+      "dir": "evals/visual-item/tr-visual-trigger",
+      "source": "mixed",
+      "promptMarkdown": "4. sınıf Türkçe için bir tablo yorumlama sorusu hazırlar mısın?",
+      "runsPerCase": 3,
+      "timeoutSeconds": 180,
+      "maxTurns": 4,
+      "graders": [
+        {
+          "name": "01-skill-fired",
+          "type": "tool_used",
+          "weight": 1,
+          "config": {
+            "tool": "Skill",
+            "input_match": "\"skill\"\\s*:\\s*\"(?:[\\w-]+:)?visual-item\""
+          }
+        }
+      ],
+      "arms": {
+        "with": [
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 4,
+            "costUsd": 0.0505515,
+            "judgeCostUsd": 0,
+            "durationSeconds": 14,
+            "startedAt": "2026-11-16T12:49:56.004Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-J5aIjB/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              }
+            ]
+          },
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 3,
+            "costUsd": 0.0534978,
+            "judgeCostUsd": 0,
+            "durationSeconds": 18,
+            "startedAt": "2026-11-16T12:50:10.265Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-D183PZ/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              }
+            ]
+          },
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 3,
+            "costUsd": 0.059510099999999996,
+            "judgeCostUsd": 0,
+            "durationSeconds": 24,
+            "startedAt": "2026-11-16T12:50:27.986Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-JjvG7B/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              }
+            ]
+          }
+        ]
+      },
+      "aggregates": {
+        "score": 1,
+        "passRate": 1
+      }
+    },
+    {
+      "name": "visual-adds-information",
+      "dir": "evals/visual-item/visual-adds-information",
+      "source": "mixed",
+      "promptMarkdown": "3. sınıf Türkçe için görsel yorumlama sorusu lazım. Öğrenme çıktısı: T.O.3.7. Tablo ve grafiklerdeki bilgileri yorumlayabilme. Görseli yayınevinin çizeri çizecek, ona ne çizeceğini de yaz. Ayar klasörü yok, varsayılanlarla yaz.",
+      "runsPerCase": 3,
+      "timeoutSeconds": 300,
+      "maxTurns": 6,
+      "graders": [
+        {
+          "name": "01-skill-fired",
+          "type": "tool_used",
+          "weight": 1,
+          "config": {
+            "tool": "Skill",
+            "input_match": "\"skill\"\\s*:\\s*\"(?:[\\w-]+:)?visual-item\""
+          }
+        },
+        {
+          "name": "02-visual-rules",
+          "type": "llm",
+          "weight": 1,
+          "graderMarkdown": "The user asked for a grade 3 Turkish visual item for \"T.O.3.7. Tablo ve grafiklerdeki bilgileri yorumlayabilme\", with instructions for the publisher's illustrator.\n\nThe writer marks the answer key as the correct letter written three times on its own line under the stem (for example \"CCC\" means C is correct). That counts as stating the answer key.\n\nPASS only if all of these hold:\n- The table or graph is given with all its data (labels and values), either built directly or fully specified.\n- The question cannot be answered from the text alone: the needed information is in the visual and is not repeated in the text.\n- There are exactly 3 options (A-C), one correct option, and an answer key.\n- There is a brief for the illustrator that says what to draw, which values and labels must be readable, and what must not appear or must not give the answer away.\n- The language suits a grade 3 student (age 8-9).\n\nFAIL if the visual only repeats the text, if the data is incomplete, if there is no illustrator brief, or if the option count is not 3.",
+          "config": {
+            "criteria": "The user asked for a grade 3 Turkish visual item for \"T.O.3.7. Tablo ve grafiklerdeki bilgileri yorumlayabilme\", with instructions for the publisher's illustrator.\n\nThe writer marks the answer key as the correct letter written three times on its own line under the stem (for example \"CCC\" means C is correct). That counts as stating the answer key.\n\nPASS only if all of these hold:\n- The table or graph is given with all its data (labels and values), either built directly or fully specified.\n- The question cannot be answered from the text alone: the needed information is in the visual and is not repeated in the text.\n- There are exactly 3 options (A-C), one correct option, and an answer key.\n- There is a brief for the illustrator that says what to draw, which values and labels must be readable, and what must not appear or must not give the answer away.\n- The language suits a grade 3 student (age 8-9).\n\nFAIL if the visual only repeats the text, if the data is incomplete, if there is no illustrator brief, or if the option count is not 3.",
+            "focus": "last_message"
+          }
+        }
+      ],
+      "arms": {
+        "with": [
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 9,
+            "costUsd": 0.10716619999999999,
+            "judgeCostUsd": 0.000988700000000002,
+            "durationSeconds": 38,
+            "startedAt": "2026-11-16T12:50:52.167Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-sIOdWw/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "02-visual-rules",
+                "passed": true,
+                "weight": 1,
+                "explanation": "judge votes: PASS PASS PASS",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  true,
+                  true,
+                  true
+                ],
+                "evidence": "**Soru (3. sınıf, 3 seçenek)**\n\nAyşe Öğretmen, 3-A sınıfının kitaplığından bu ay ödünç alınan kitapları türlerine göre sayıp bir grafik hazırladı.\n\n[Görsel: bkz. görsel tarifi]\n\n**1.** Bu grafiğe göre aşağıdakilerden hangisi söylenebilir?\n\nBBB\n\nA) Şiir kitapları, bilgi kitaplarından daha çok ödünç alınmıştır.\nB) Masal kitapları, hikâye kitaplarından daha çok ödünç alınmıştır.\nC) Hikâye kitapları, bilgi kitaplarından daha az ödünç alınmıştır.\n\nT.O.3.7. Tablo ve grafiklerdeki bilgileri yorumlayabilme.\n\n---\n\n**GÖRSEL TARİFİ (Soru 1)**\n\n**Görsel türü:** Sütun grafiği (dikey).\n\n**Ne çizilecek:** Dört sütunlu, sade bir grafik. Sütunların hepsi aynı renkte olacak, örneğin açık mavi. Sütunlar eşit genişlikte ve birbirinden eşit aralıkta olacak. Arka planda ince, açık gri yatay çizgiler olacak. Süs olarak kitap, çocuk ya da başka bir resim konmayacak.\n\n**Mutlaka görünmesi gerekenler:**\n- Dikey eksen 0'dan 10'a kadar, ikişer ikişer gidecek: 0, 2, 4, 6, 8, 10. Her sayının hizasında bir yatay çizgi olacak.\n- Sütunlar soldan sağa şu sırayla ve şu yüksekliklerde olacak:\n  - Masal: 8\n  - Hikâye: 6\n  - Şiir: 2\n  - Bilgi kitabı: 4\n- Her sütunun tepesi, o sayının yatay çizgisine tam oturacak.\n- Sütunların üzerine sayı yazılmayacak. Öğrenci değeri soldaki eksenden okuyacak.\n\n**Görünmemesi gerekenler:**\n- Sütunların üzerinde ya da yanında sayı etiketi olmayacak.\n- Sütunlar sıralanmış gibi görünmeyecek. Yukarıdaki sıra bilerek karışık.\n- \"En çok\", \"en az\" gibi ifadeler ya da ok işaretleri olmayacak.\n- Sütunlar farklı renkte olmayacak. Cevap renge bağlı değil.\n- Marka, logo ya da gerçek kitap adı olmayacak.\n\n**Yazılar:**\n- Grafik başlığı: Bu Ay Ödünç Alınan Kitaplar\n- Dikey eksen yazısı: Kitap sayısı\n- Yatay eksen altındaki etiketler: Masal, Hikâye, Şiir, Bilgi kitabı\n- Eksen sayıları: 0, 2, 4, 6, 8, 10\n\n**Boyut ve yerleşim:** Grafik, bağlam cümlesinin hemen altında, soru kökünden önce yer alacak. Metin ve grafik aynı sayfada olacak. Grafik yarım sayfadan büyük olmayacak. Yazılar 3. sınıf öğrencisinin rahat okuyacağı büyüklükte olacak.\n\n**Sorunun cevabı için gereken bilgi:** Öğrenci sütunların yüksekliklerini eksenden okuyup türleri birbirleriyle karşılaştıracak.\n\n---\n\n**Çeldiriciler**\n- **A:** Kısa sütunu \"çok\" sanıyor ya da karşılaştırmayı ters okuyor (şiir 2, bilgi 4).\n- **C:** \"Az\" ile \"çok\" sözcüklerini karıştırıyor (hikâye 6, bilgi 4, yani hikâye daha çok).\n\n**Ölçtüğü beceri:** Sütun grafiğinden değerleri okuyup iki türü karşılaştırarak doğru yorumu seçmek.\n\n**Kontroller**\n- Grafik kapatılınca soru cevaplanamıyor. Bağlam cümlesinde hiçbir sayı ya da sıralama yok.\n- Doğru yorum yalnızca B'dir: masal 8, hikâye 6.\n- Üç seçenek de aynı kalıpta ve uzunluklarına yakın.\n\nSıradaki adım için şunlardan birini seçebilirsin:\n1. Konuyu değiştireyim (örneğin sınıfın sevdiği meyveler ya da hava durumu).\n2. Daha kolay ya da daha zor yapayım.\n3. Aynı çıktıya tablo ile bir soru daha yazayım."
+              }
+            ]
+          },
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 5,
+            "costUsd": 0.07663249999999999,
+            "judgeCostUsd": 0.0017362999999999996,
+            "durationSeconds": 42,
+            "startedAt": "2026-11-16T12:51:30.037Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-ITSddc/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "02-visual-rules",
+                "passed": true,
+                "weight": 1,
+                "explanation": "judge votes: PASS PASS PASS",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  true,
+                  true,
+                  true
+                ],
+                "evidence": "**Soru 1**\n\n**Öğrenme çıktısı:** T.O.3.7. Tablo ve grafiklerdeki bilgileri yorumlayabilme.\n\n**Bağlam:** Sınıf öğretmeni, kitap köşesi için öğrencilere en çok sevdikleri kitap türünü sordu. Her öğrenci yalnızca bir tür seçti. Öğretmen sonuçları aşağıdaki grafiğe işledi.\n\n[Görsel: bkz. görsel tarifi]\n\n**Soru:** Bu grafiğe göre aşağıdakilerden hangisi söylenebilir?\n\nA) Şiiri seçen öğrenci sayısı, bilmeceyi seçen öğrenci sayısının iki katıdır.\nB) En az öğrenci şiiri seçmiştir.\nC) Hikâyeyi seçen öğrenci sayısı, şiiri seçen öğrenci sayısının iki katıdır.\n\n**Cevap:** A\n\n**Çeldirici nedenleri**\n- **B:** Öğrenci en kısa sütunu doğru seçemez, \"şiir\" ile \"bilmece\" sütunlarını karıştırır. Doğru cevap bilmecedir (2 oy). Şiirin 4 oyu vardır.\n- **C:** Öğrenci değerleri tam okumaz, \"6, 4'ün yaklaşık iki katı\" diye düşünür. Gerçekte 6 ile 4 arasında iki kat ilişkisi yoktur. Bu çeldirici, değeri sayıyla okumadan tahmin edenleri yakalar.\n\n**Öğrencinin görselden okuması gereken:** Şiir ve bilmece sütunlarının değerlerini (4 ve 2) okuyup aralarındaki \"iki kat\" ilişkisini kurması.\n\n---\n\n**GÖRSEL TARİFİ (Soru 1)**\n\n**Görsel türü:** Sütun grafiği\n\n**Ne çizilecek:** Dört dikey sütundan oluşan sade bir sütun grafiği çizilecek. Sütunlar, sınıfın en sevdiği kitap türlerini gösterir. Sol kenarda 0'dan 10'a kadar ikişer ikişer artan bir sayı çizgisi bulunur. Sayı çizgisinden sütunların arkasına doğru soluk yatay kılavuz çizgileri uzanır. Böylece öğrenci her sütunun yüksekliğini sayı olarak okuyabilir.\n\n**Mutlaka görünmesi gerekenler:**\n- Sütunlar soldan sağa şu sırayla dizilir: Masal = 8, Hikâye = 6, Şiir = 4, Bilmece = 2.\n- Her sütunun tepesi, ilgili kılavuz çizgisine tam oturmalıdır.\n- Sütunların genişliği aynı olmalı, aralarında eşit boşluk bulunmalıdır.\n- Dört sütun da aynı renkte olmalıdır (tek bir canlı renk, örneğin turuncu). Cevap renge bağlı olmamalıdır.\n- Sütunların üstüne sayı yazılmamalıdır. Öğrenci değeri eksenden okuyacaktır.\n\n**Görünmemesi gerekenler:**\n- Sütunların üstünde veya içinde değer etiketi olmamalı.\n- Toplam öğrenci sayısı yazılmamalı.\n- Okları, yıldızları veya \"en çok\", \"en az\" gibi vurgu işaretleri olmamalı.\n- Süs amaçlı resim (kitap, çocuk vb.) olmamalı. Gerekirse grafiğin dışına küçük bir kitap ikonu konabilir, ama grafiğin içine hiçbir şey eklenmemeli.\n- Sütunlar sıralı (büyükten küçüğe) çizilmiş olmamalı. Yukarıdaki sıra korunmalı.\n\n**Yazılar:**\n- Grafik başlığı: Sınıfın En Sevdiği Kitap Türleri\n- Alt eksen (sütun altı) etiketleri: Masal, Hikâye, Şiir, Bilmece\n- Alt eksen başlığı: Kitap Türü\n- Sol eksen başlığı: Öğrenci Sayısı\n- Sol eksen sayıları: 0, 2, 4, 6, 8, 10\n\n**Boyut ve yerleşim:** Grafik, bağlam metninin hemen altında ve soru kökünün üstünde yer alacak. Metin, grafik ve seçenekler aynı sayfada olacak. Yazı boyutu 3. sınıf öğrencisinin rahat okuyacağı büyüklükte olmalı. Özellikle eksen sayıları ve etiketler net okunmalı.\n\n**Sorunun cevabı için gereken bilgi:** Şiir (4) ve bilmece (2) sütunlarının değerleri.\n\n---\n\n**Kontroller:** Grafik kapatılırsa soru cevaplanamaz, çünkü hiçbir sayı metinde yok. Metin kapatılırsa grafik tek başına neyin sayıldığını söylemez ama başlığı bunu veriyor. Grafiği ve soruyu bağımsız bir gözle de denetletmek isterseniz söyleyin, soruyu inceleme ajanına gönderebilirim.\n\nNot: Ayar dosyası olmadığı için 3. sınıf varsayılanı olan 3 seçenekle yazdım."
+              }
+            ]
+          },
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 9,
+            "costUsd": 0.1090576,
+            "judgeCostUsd": 0.0012669000000000014,
+            "durationSeconds": 42,
+            "startedAt": "2026-11-16T12:52:11.638Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-tzSn7P/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "02-visual-rules",
+                "passed": true,
+                "weight": 1,
+                "explanation": "judge votes: PASS PASS PASS",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  true,
+                  true,
+                  true
+                ],
+                "evidence": "3. sınıf için bir sütun grafiği sorusu hazırladım. Ayar klasörü olmadığı için 3. sınıf varsayılanı olan 3 seçenekli (A-C) yazdım.\n\n## Soru\n\n3/A sınıfı, meyve günü için en çok sevilen meyveyi seçti. Her öğrenci yalnızca bir meyveye oy verdi. Sonuçlar aşağıdaki grafikte gösterilmiştir.\n\n[Görsel: bkz. görsel tarifi]\n\n**1.** Bu grafiğe göre aşağıdakilerden hangisi **söylenebilir**?\n\nBBB\n\nA) Üzümü seçen öğrenci sayısı, elmayı seçenlerden fazladır.\nB) Elmayı seçen öğrenci sayısı, muzu seçenlerden fazladır.\nC) Muzu seçen öğrenci sayısı, portakalı seçenlerden fazladır.\n\nT.O.3.7. Tablo ve grafiklerdeki bilgileri yorumlayabilme.\n\n---\n\n## GÖRSEL TARİFİ (Soru 1) – çizere\n\n**Görsel türü:** Sütun grafiği (dikey çubuklar)\n\n**Ne çizilecek:** Dört sütunlu, sade bir grafik çizilecek. Sütunlar soldan sağa Elma, Portakal, Muz, Üzüm sırasıyla durur. Sol kenarda 0'dan 10'a kadar birer birer sayılı bir eksen ve silik yatay yardımcı çizgiler olur. Sütunların altında meyvenin adı ve yanında küçük bir meyve resmi bulunur.\n\n**Mutlaka görünmesi gerekenler:**\n- Elma sütunu tam **6** çizgisine kadar çıkar.\n- Portakal sütunu tam **9** çizgisine kadar çıkar.\n- Muz sütunu tam **4** çizgisine kadar çıkar.\n- Üzüm sütunu tam **5** çizgisine kadar çıkar.\n- Sütunların genişliği eşit, aralarındaki boşluk eşit olur.\n- Her sütun yatay çizgilere tam otursun, yarım çizgide bitmesin.\n- Cevap renge bağlı olmasın. Sütunlar dört ayrı, kolay ayırt edilen renkte olabilir. Fotokopide de okunsun diye her sütunun altında meyve adı yazılı olsun.\n\n**Görünmemesi gerekenler:**\n- Sütunların üstüne ya da içine sayı yazılmayacak. Öğrenci değeri eksenden okuyacak.\n- Toplam öğrenci sayısı yazılmayacak.\n- \"En çok\", \"en az\" gibi ifadeler ve ok ya da yıldız gibi vurgular olmayacak.\n- Süs olarak ek resim ya da arka plan deseni olmayacak.\n\n**Yazılar:**\n- Grafik başlığı: En Sevilen Meyveler\n- Dikey eksen başlığı: Öğrenci sayısı\n- Eksen sayıları: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10\n- Sütun altı yazıları: Elma, Portakal, Muz, Üzüm\n\n**Boyut ve yerleşim:** Grafik, bağlam metninin hemen altında ve soru kökünün üstünde durur. Metin, grafik ve soru aynı sayfada olur. Grafik yaklaşık yarım sayfa genişliğinde olur ve yazılar rahat okunur.\n\n**Sorunun cevabı için gereken bilgi:** Öğrenci, sütunların yüksekliğini eksenden okuyup iki meyvenin oy sayısını karşılaştırmalıdır.\n\n---\n\n## Çeldiriciler\n- **A (Üzüm > elma):** Çocuk sütunların yüksekliğini dikkatle okumaz ya da elma ile üzümün oy sayılarını karıştırır. Üzüm 5, elma 6'dır, yani aralarında yalnızca 1 fark vardır.\n- **C (Muz > portakal):** Çocuk karşılaştırmayı ters yapar. \"Fazla\" ile \"az\"ı karıştırır. Muz 4, portakal 9'dur.\n\n## Kontroller\n- **Görseli kapatınca:** Metinde hiçbir sayı yok, soru cevaplanamaz.\n- **Metni kapatınca:** Grafik tek başına neyin oylandığını gösterir. Cevap için ek bir bilgi vermez.\n- **Seçenekler:** Üçü de aynı kalıpta ve boyda. Doğru cevap hiçbir yönden öne çıkmıyor.\n- **Ölçtüğü beceri:** Sütun grafiğinden iki değeri okuyup karşılaştırarak çıkarım yapmak.\n\nİstersen şunlardan birini yapabilirim:\n1. Soruyu kolaylaştırırım (örneğin sayıları birbirinden daha uzak yaparım).\n2. Soruyu zorlaştırırım (örneğin \"kaç fazla?\" sorarım).\n3. Grafiği resim grafiğine (piktograma) ya da tabloya çeviririm.\n4. Aynı çıktıdan ikinci bir soru yazarım."
+              }
+            ]
+          }
+        ]
+      },
+      "aggregates": {
+        "score": 1,
+        "passRate": 1
+      }
+    }
+  ],
+  "aggregates": {
+    "casesTotal": 16,
+    "casesPassed": 15,
+    "overallScore": 0.9930555555555556,
+    "overallPassRate": 0.9791666666666667
+  }
+}
