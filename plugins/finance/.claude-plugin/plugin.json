@@ -1,0 +1,6 @@
+{
+  "name": "finance",
+  "description": "Personal finance assistant for Turkey: budgeting, emergency fund, debt, and fund investing. Compares the user's own options with a clear verdict against their investment policy, screens funds by their criteria, reviews the portfolio, fetches every rate and price live through research:web-researcher, and computes scenarios with a script. Reads the profile from a private finance vault. Requires the research plugin.",
+  "version": "0.1.0",
+  "author": { "name": "Eren Keskinoğlu", "url": "https://github.com/RaijuMounun" }
+}

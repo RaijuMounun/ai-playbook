@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: tr-card-debt
+expected_outcome: |
+  finance-coach is invoked for a credit-card debt question.

@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: tr-budget-app-flutter
+expected_outcome: |
+  finance-coach is not invoked for code that happens to be about money.

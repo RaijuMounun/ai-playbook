@@ -1,0 +1,5 @@
+schema_version: "1.1"
+name: tr-clear-verdict-on-options
+description: Made-up funds and figures; the skill should not research.
+expected_outcome: |
+  finance-coach compares the three funds the user brought and gives a clear verdict for the stated criteria, with the reason and the condition that would change it.

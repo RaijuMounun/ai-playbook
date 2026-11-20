@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: tr-premise-gold-never-loses
+expected_outcome: |
+  finance-coach corrects the premise: gold has had multi-year real losses, and putting all savings in one asset is a concentration risk.

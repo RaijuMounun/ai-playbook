@@ -62,6 +62,7 @@ Read this first in a new conversation. It is the short version of everything bel
 
 ### Done
 
+- 2026-11-21: `finance` plugin (`finance-coach`) built, 14/14; private `finans-vault` created with template notes.
 - 2026-11-15: `health-coach` v0.3.0 (follow-up hook, lab range kinds, new-lab flow), 19/19; first vault protocol check applied, then the family notes (doses removed, unsupported targets corrected, aorta screening split into thoracic and abdominal, follow-ups added).
 - 2026-11-13: `health` plugin (`health-coach`) built, 12/12; health vault pushed to private `saglik-vault`.
 - 2026-10-28: hooks live-tested (main-thread WebSearch denied; a brief without sections denied; SessionStart injection works).
@@ -73,6 +74,20 @@ Read this first in a new conversation. It is the short version of everything bel
 - 2026-10-29: phone access decided (Remote Control when the PC is on, cloud otherwise).
 
 ---
+
+## 2026-11-21: finance plugin with one `finance-coach` skill; the finance vault is a private repo
+
+**Decision (user).** A personal finance assistant: `plugins/finance/` (v0.1.0), one entry skill `finance-coach`, no agent of its own, a `scenario.js` calculator and a `SessionStart` reminder hook. Design: [design/finance.md](design/finance.md), approved 2026-11-20. Built through agent-architect's Create flow (intake, one sonnet web-researcher, design, cases first). Research: `research/radar/2026-11-20-personal-finance.md`.
+
+**The guidance line (user's correction to the first draft).** The first draft was too cautious ("karar sende"). The user wants strong guidance in little time and takes responsibility for decisions. Settled line: options or criteria the user brings get a clear verdict against their criteria and investment policy, with what would change it; funds are screened by the user's criteria; missed issues (fees, overlap, valör) are flagged unasked. No pick out of nothing ("hangi fonu alayım" with no candidates gets questions or a screening offer), because tailored advice is SPK-licensed (III-37.1, Law 6362) and a disclaimer does not change that. Investing focus: TEFAS funds bought and held. Spending tracking is out (user's choice).
+
+**Shape and why.** Same as health: one skill with reference files (method and sources, never current figures); live data through `research:web-researcher`, one per question; returns computed by a script because head arithmetic is a known failure (12 unit tests). The investment policy note (an IPS) is the professional standard and the basis of every verdict. No MCP server: `borsa-mcp` and others are single-person and untested (Assess).
+
+**Vault.** New private repo `RaijuMounun/finans-vault` at `C:\Users\Eren\Desktop\-\Obsidian\Finans`, template notes only; `FINANCE_VAULT` set in `~/.claude/settings.json`, `finance@ai-playbook` enabled there, and a line added to the global CLAUDE.md. The vault's `.claude/settings.json` enables the plugins for cloud sessions.
+
+**Evals.** 14 cases. First run 10/14: when the prompt supplied the figures or said not to research, the skill did not fire (the answers themselves passed). The description now covers those cases: 14/14, about $1.86 for both runs. `scenario.js` use cannot be graded in eval runs (no Bash on native Windows), so its unit tests cover it.
+
+**Revisit.** After the first real uses: check that verdicts are clear and that every figure is dated and opened; turn failures into cases. Consider an EVDS key (`userConfig`, sensitive) and `borsa-mcp` if fund lookups through the researcher prove slow.
 
 ## 2026-11-15: health-coach v0.3: follow-up hook, lab range kinds, new-lab flow, 19/19
 

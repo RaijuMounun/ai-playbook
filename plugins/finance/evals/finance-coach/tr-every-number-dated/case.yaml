@@ -1,0 +1,5 @@
+schema_version: "1.1"
+name: tr-every-number-dated
+description: Needs live data; without the research plugin the skill uses WebFetch.
+expected_outcome: |
+  finance-coach ends a live-data answer with a data section that gives a source and a date for each figure.

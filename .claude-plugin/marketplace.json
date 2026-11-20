@@ -32,6 +32,11 @@
       "name": "health",
       "source": "./plugins/health",
       "description": "Personal health assistant: profile-aware answers from the Obsidian health vault, evidence labels, researched answers for contested questions, red-flag escalation, dated notes saved to the vault."
+    },
+    {
+      "name": "finance",
+      "source": "./plugins/finance",
+      "description": "Personal finance assistant for Turkey: compares the user's own options (funds, deposits, gold, FX) with live data and a clear verdict against their investment policy, screens funds by their criteria, reviews the portfolio, plans budgets and debt payoff, and computes real returns with a script."
     }
   ]
 }
