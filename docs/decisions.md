@@ -62,7 +62,7 @@ Read this first in a new conversation. It is the short version of everything bel
 
 ### Done
 
-- 2026-11-21: `finance` v0.2.0 (US ETFs, fetch/metrics/tax scripts), 20/21; `tr-live-rate-researches` is a known gap.
+- 2026-11-21: `finance` v0.2.0 (US ETFs, fetch/metrics/tax scripts), 21/21 after fixing a truncated-trace grader (see the entry on `focus: trace`).
 - 2026-11-21: `finance` plugin (`finance-coach`) built, 14/14; private `finans-vault` created with template notes.
 - 2026-11-15: `health-coach` v0.3.0 (follow-up hook, lab range kinds, new-lab flow), 19/19; first vault protocol check applied, then the family notes (doses removed, unsupported targets corrected, aorta screening split into thoracic and abdominal, follow-ups added).
 - 2026-11-13: `health` plugin (`health-coach`) built, 12/12; health vault pushed to private `saglik-vault`.
@@ -75,6 +75,14 @@ Read this first in a new conversation. It is the short version of everything bel
 - 2026-10-29: phone access decided (Remote Control when the PC is on, cloud otherwise).
 
 ---
+
+## 2026-11-21: llm graders with focus: trace are cut off on long runs; finance 21/21
+
+**Finding.** The finance known gap (`tr-live-rate-researches`) was a measurement bug, not a skill bug. With `--keep-temp`, the full trace was 132k characters with 31 WebFetch calls; the `llm` judge with `focus: trace` received only the first ~40k characters (25 lines), with no fetch in view, so the same behaviour passed or failed at random.
+
+**Decision.** For "did it fetch / dispatch / call X", use `tool_used` or `tool_order` (they read the whole trace); keep `llm` judges on `last_message`. Rule added to agent-architect `references/eval-authoring.md`. The finance case now uses `tool_used WebFetch` plus an `llm` check on the final answer: 3/3, so finance v0.2 is 21/21 (the other 20 from the last full run).
+
+**Open.** Four other graders use `focus: trace`: health `tr-new-lab-import`, `tr-treatment-decision-researches`, `tr-contested-needs-research`, and agent-architect `improve-reproduce-first`. Their passes may rest on a truncated view; rewrite them the same way.
 
 ## 2026-11-21: finance v0.2: US-listed ETFs, data and metrics scripts, foreign-securities tax, 20/21
 

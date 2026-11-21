@@ -1,5 +1,5 @@
 schema_version: "1.1"
 name: tr-live-rate-researches
-description: The eval run does not load the research plugin, so web-researcher is missing; the skill falls back to WebFetch, and the grader accepts either path.
+description: The eval run does not load the research plugin, so the skill fetches with WebFetch. The grader checks the fetch on the full trace (tool_used) and the sourcing on the final answer; an llm grader with focus trace only saw the first ~40k characters of long traces (found 2026-11-21), so it is not used here.
 expected_outcome: |
   finance-coach fetches current rates, stopaj and inflation before comparing, and cites only opened sources with dates.
