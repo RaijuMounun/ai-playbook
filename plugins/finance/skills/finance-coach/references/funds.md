@@ -1,36 +1,63 @@
-# Funds (TEFAS)
+# Funds and ETFs: comparing, screening, risk metrics
 
-The user mostly buys funds and holds them. This file is how to compare and screen them.
-
-## What to fetch per fund
-
-- Type and strategy (para piyasası, kısa vadeli borçlanma, borçlanma, hisse, endeks, altın, değerli madenler, döviz/eurobond, karma/değişken, fon sepeti, serbest) and whether the holdings match the name.
-- Management fee (yönetim ücreti, yearly) and total expense ratio if published.
-- Fund size and number of investors (very small funds can close or behave erratically).
-- Returns: 1 month, 1, 3 and 5 years where they exist. TEFAS returns are already after fees.
-- Current asset allocation (TEFAS) and, for overlap, top holdings (monthly portfolio report on KAP).
-- Buy and sell valör (T+0, T+1, T+2…) and trading hours; entry or exit fees if any.
-- The tax class of the fund (see `tax.md`).
-- Benchmark, and whether the fund beat it after fees.
+The user buys and holds US-listed ETFs through Midas (details in `us-etfs.md`). TEFAS funds are explained when asked (section at the end). This file is how to compare, screen and measure.
 
 ## How to compare
 
-1. **Same job first.** Compare funds that do the same job (two gold funds, two BIST 30 index funds). When the user compares across jobs (a money-market fund vs an equity fund), say they are different tools and compare against the user's horizon and policy, not on return alone.
-2. **Real return**, with `scenario.js fund` and the fetched inflation. Use the same period for every fund.
-3. **Fee.** For funds doing the same job, the lower fee usually wins over time; show the fee drag over the user's horizon with `scenario.js feedrag`.
-4. **Risk.** The worst year or worst drawdown in the period, and volatility if TEFAS shows it. In TL, say how much the fund lost at its worst.
-5. **Fit with the portfolio.** Overlap with what the user already holds, and the effect on the policy's target allocation.
-6. **Verdict.** Which fits the user's criteria and policy best, why, and the condition that would change it.
+1. **Same job first.** Compare funds that do the same job (two Nasdaq-100 ETFs, two S&P 500 ETFs). Across jobs (a T-bill ETF vs an equity ETF), say they are different tools and judge against the user's horizon and policy, not return alone.
+2. **Cost.** Expense ratio; for the same index, the lower one usually wins over time (`scenario.js feedrag` over the user's horizon).
+3. **Risk and return** with `metrics.js` (below), same period for all, in USD and TL.
+4. **Fit with the portfolio.** Overlap and correlation with current holdings; effect on the policy's target allocation; US-situs total against the estate-tax threshold.
+5. **Verdict.** Which fits the user's criteria and policy best, why, and the condition that would change it.
 
-## Things to flag
+## Risk and return metrics (`metrics.js`)
 
-- A fee much higher than funds doing the same job.
-- Holdings that don't match the name (an "altın fonu" with little gold, a "hisse fonu" that is mostly cash).
-- Overlap: the new fund holds mostly what the user already holds.
-- A short track record, or returns driven by one exceptional year.
-- A very small fund.
-- Valör: money needed on a given day must allow for T+1 or T+2.
+```
+node "<plugin root>/scripts/metrics.js" QQQ VOO --years 10 --tr-inflation <fetched yearly %>
+```
+
+It fetches prices, USD/TRY, US CPI and the T-bill rate itself. Read each figure for the user in plain Turkish:
+
+| Output | Say it as | Use it for |
+| :- | :- | :- |
+| `max_drawdown` (USD and TL) with dates and `recovery_days` | "En kötü dönemde %35 düştü (Ara 2021 – Kas 2022), eski zirvesine 405 günde döndü." Put it in money: on the user's amount, what that fall would have been. | Compare with the policy's "worst year I can bear". Above it means the plan breaks the policy. |
+| `rolling_1y` / `rolling_3y` worst, median, best, positive share | "Herhangi bir yıl alıp bir yıl tutan biri en kötü %−35, ortada %+25 gördü; yılların %87'si artıda." | Consistency, and what a short horizon risks. Prefer this over one headline return. |
+| `yearly_return_pct`, `real_yearly_return_pct` (USD vs US CPI, TL vs Turkish inflation) | Nominal and real, both currencies. | Did it beat inflation where the user lives. |
+| `volatility_pct` | How rough the ride is. | Comparing similar funds. |
+| `sharpe` (vs the 3-month T-bill), `sortino`, `return_over_max_drawdown` | Return per unit of risk; higher is better among similar funds. | Ranking funds doing the same job. Say the limits (below). |
+| `correlations` (weekly is the headline) | "Bu ikisi neredeyse birlikte hareket ediyor (0,93); ikisini tutmak çeşitlendirme sağlamıyor." | Overlap. Above about 0.9 the two are close to one exposure. Use the weekly figure: daily correlation is understated across exchanges that close at different hours. |
+| `vs_200_day_average_pct` | Context only: "Şu an uzun vadeli ortalamasının %11 altında." | Never a buy or sell trigger. |
+
+Say the `limits` the output lists: past figures are not a forecast; history under 3 years may miss a full cycle; Sharpe-type ratios assume normal returns; adjusted close assumes dividends reinvested before tax.
+
+If `metrics.js` fails (exit code 2: a source is down or changed), say so and ask the researcher for the headline figures from the issuer's page instead.
+
+## Technical analysis
+
+The user may ask for RSI, MACD, chart patterns or "şimdi alınır mı". Answer in two sentences, then offer the metrics above:
+
+- Classic indicators have mixed evidence that doesn't survive data-snooping and cost tests consistently (Park & Irwin 2007 review); no robust after-cost study exists for Borsa Istanbul. Trend following has better support, mainly for limiting drawdowns (Hurst, Ooi & Pedersen 2017), with long flat stretches.
+- For a buy-and-hold investor, timing signals mostly add trades, costs and taxable sales. Regular buying on a schedule, per the policy, is the usual alternative.
+
+Never give a timing call ("şimdi al", "bekle"). The 200-day figure is context.
+
+## Short horizons
+
+Money needed within about a year doesn't go into equity ETFs: they can fall 20–35% within months (see the rolling worst). Point to low-risk, liquid options: cash, short-term Treasury bill or money-market type funds, or a TL deposit, compared with live rates.
 
 ## Screening
 
-When the user gives criteria ("yönetim ücreti %1'in altında altın fonları, en az 3 yıllık"), the researcher finds the funds in the category that meet them and returns the figures. Rank by the user's criteria in their order; show the next two below the line as well, so the user sees what nearly qualified. If the criteria leave no fund, say which criterion to relax and what that would add.
+When the user gives criteria ("gideri %0,2'nin altında, en az 10 yıllık S&P 500 ETF'leri"), the researcher finds the ETFs that meet them; `metrics.js` measures them. Rank by the user's criteria in their order; show the next two below the line. If nothing qualifies, say which criterion to relax.
+
+## Things to flag
+
+- A cost much higher than funds doing the same job.
+- Overlap or correlation above about 0.9 with a holding.
+- US-situs holdings near or above $60,000 (`us-etfs.md`).
+- A short track record, or returns driven by one exceptional year.
+- A very small or thinly traded fund.
+- Money needed soon sitting in equities.
+
+## TEFAS funds (when asked)
+
+Fetch from TEFAS (when reachable) or KAP through the researcher: type and whether the holdings match the name, management fee, size, returns, valör, tax class. Since the September 2026 crisis (`us-etfs.md`, last section), also check the manager's record and whether the fund holds thinly traded stocks. TEFAS's API was unreachable from the user's PC on 2026-11-21.

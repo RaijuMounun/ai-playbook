@@ -1,0 +1,5 @@
+schema_version: "1.1"
+name: tr-reads-drawdown-vs-policy
+description: metrics.js output pasted in the prompt; eval runs cannot run scripts.
+expected_outcome: |
+  finance-coach says an all-QQQ portfolio breaks the policy: its drawdowns and worst rolling year exceed the 20% limit, and says what that means in money.

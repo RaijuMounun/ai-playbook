@@ -1,6 +1,23 @@
 # Data sources
 
-Which source for which figure. Checked 2026-11-20; addresses can move, so if a page fails, search the institution's own site. Put the matching rows into the researcher brief.
+## Scripts first (tested 2026-11-21)
+
+Try these before dispatching the researcher; they take seconds and no subagent. Each prints JSON with its source URL and as-of date; exit code 2 means the source failed, so fall back to the researcher.
+
+| Figure | Command | Source |
+| :- | :- | :- |
+| ETF prices, adjusted close, dividends (US-listed and LSE/Swiss UCITS tickers) | `fetch.js prices QQQ CNDX.L --years 10` | Yahoo chart API (unofficial, keyless) |
+| USD/TRY history (analysis) | `fetch.js prices TRY=X` | Yahoo |
+| Official USD/TRY on a date (tax) | `fetch.js fx-tcmb 2026-03-15` | TCMB daily bulletin; a weekend or holiday gives the last bulletin before it |
+| US CPI | `fetch.js cpi-us` | FRED (keyless; personal use; don't store the data) |
+| 3-month T-bill | `fetch.js tbill-us` | FRED |
+| All ETF risk metrics at once | `metrics.js QQQ VOO --tr-inflation <x>` | The above |
+
+Not usable: Stooq (blocked by a challenge page), TEFAS API (connection reset), Alpha Vantage and Tiingo (keys; not needed).
+
+## Researcher sources
+
+Which source for which figure the scripts don't cover. Checked 2026-11-20; addresses can move, so if a page fails, search the institution's own site. Put the matching rows into the researcher brief. Add these for ETFs: the issuer's page (iShares, Vanguard, Invesco, SPDR) for expense ratio, holdings, domicile and share class; Midas's fee page for commissions; TÜİK for Turkish CPI and Yİ-ÜFE; GİB for the dividend declaration threshold and tax brackets.
 
 | Figure | Source | Access | Updates | Notes |
 | :- | :- | :- | :- | :- |

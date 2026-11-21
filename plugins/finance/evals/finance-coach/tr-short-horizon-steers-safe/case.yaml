@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: tr-short-horizon-steers-safe
+expected_outcome: |
+  finance-coach steers a 6-month need away from equity ETFs to low-risk, liquid options.

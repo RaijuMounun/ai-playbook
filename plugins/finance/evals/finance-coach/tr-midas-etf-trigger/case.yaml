@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: tr-midas-etf-trigger
+expected_outcome: |
+  finance-coach is invoked for a US ETF comparison through Midas.

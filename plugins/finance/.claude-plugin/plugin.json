@@ -1,6 +1,9 @@
 {
   "name": "finance",
-  "description": "Personal finance assistant for Turkey: budgeting, emergency fund, debt, and fund investing. Compares the user's own options with a clear verdict against their investment policy, screens funds by their criteria, reviews the portfolio, fetches every rate and price live through research:web-researcher, and computes scenarios with a script. Reads the profile from a private finance vault. Requires the research plugin.",
-  "version": "0.1.0",
-  "author": { "name": "Eren Keskinoğlu", "url": "https://github.com/RaijuMounun" }
+  "description": "Personal finance assistant for a Turkish resident who buys and holds US-listed ETFs: compares the user's own options with a clear verdict against their investment policy, measures ETF risk in USD and TL (drawdown, rolling returns, correlation), computes the taxable TL gain on foreign securities, flags US estate tax, reviews the portfolio, and plans budgets and debt payoff. Live data from scripts (Yahoo, TCMB, FRED) and research:web-researcher. Reads the profile from a private finance vault. Requires the research plugin.",
+  "version": "0.2.0",
+  "author": {
+    "name": "Eren Keskinoğlu",
+    "url": "https://github.com/RaijuMounun"
+  }
 }

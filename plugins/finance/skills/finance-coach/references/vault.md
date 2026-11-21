@@ -39,26 +39,41 @@ Son güncelleme: YYYY-MM-DD · Sonraki gözden geçirme: YYYY-MM-DD
 ## Hedef dağılım
 | Varlık sınıfı | Hedef % | Bant |
 | :- | :- | :- |
-| Para piyasası / mevduat | | ±5 |
-| Hisse (endeks/hisse fonu) | | ±5 |
+| Nakit / mevduat / kısa vadeli tahvil | | ±5 |
+| Hisse ETF (ABD / dünya) | | ±5 |
 | Altın | | ±5 |
-| Döviz | | ±5 |
+| Diğer | | ±5 |
 
 ## Kurallar
-- En fazla yönetim ücreti: %<x>
+- Hedeflerin para birimi: TL / USD (hedef başına)
+- En fazla yıllık gider oranı: %<x>
+- Fon yerleşimi: ABD (US-listed) / İrlanda (UCITS) / ikisi de
+- ABD varlıkları için üst sınır (veraset vergisi, 60.000 $): <x> $
 - Kaldıraçlı ürün, kredili işlem: hayır
 - Tek fonda en fazla: %<x>
+- Alım düzeni: <ör. her ay maaştan sonra>
 - Yeniden dengeleme: yılda bir ya da bant aşılınca
 ```
+
+If the user's policy predates these fields (currency, domicile, US-situs ceiling), offer once to add them; don't block the answer.
 
 ## Portfoy.md
 
 ```markdown
-| Varlık | Kod/tür | Tutar (TL) | Platform | Alış tarihi | Vade | Not |
+Son güncelleme: YYYY-MM-DD
+
+## Varlıklar
+| Varlık | Sembol/tür | Tutar | Para birimi | Platform | Vade | Not |
+| :- | :- | :- | :- | :- | :- | :- |
+
+## İşlemler (ETF)
+| Tarih | Tür | Sembol | Adet | Fiyat (USD) | Komisyon (USD) | Platform |
 | :- | :- | :- | :- | :- | :- | :- |
 ```
 
-Update the amounts only from the user's figures, with the date at the top.
+Update the amounts only from the user's figures, with the date at the top. Every buy and sale the user reports goes into **İşlemler** (fractional quantities as given): `tax.js` needs them for the TL gain on a sale. Dividends go in a line under the table with the gross amount, the US tax withheld and the date received.
+
+To run `tax.js`, build its input JSON from **İşlemler** in the scratchpad, not in the vault, and pass the Yİ-ÜFE values fetched for the months it names.
 
 ## Takip.md
 

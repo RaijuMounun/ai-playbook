@@ -180,3 +180,98 @@ Made-up profiles and made-up fund figures in the prompt (eval runs have no vault
 1. **EVDS key.** v0.1 works without it. Add `userConfig` with `sensitive: true` later if time series become useful.
 2. **Stopaj.** Sources conflict. Every scenario fetches it fresh from Resmi Gazete or GİB.
 3. **Model.** The session model for the main thread, sonnet for the researcher. Same as health.
+
+
+## 10. v0.2: US-listed ETFs, data scripts, risk metrics, tax
+
+Status: approved by the user on 2026-11-21; implemented as v0.2.0. Research: [2026-11-21-us-etfs-for-turkish-resident.md](../../research/radar/2026-11-21-us-etfs-for-turkish-resident.md), [2026-11-21-fund-metrics-and-data-access.md](../../research/radar/2026-11-21-fund-metrics-and-data-access.md).
+
+### What changed
+
+The user doesn't invest through Borsa Istanbul or TEFAS: they lost trust before and after the September 2026 fund crisis (SPK halted the funds of 7 portfolio managers and ordered about 130 funds liquidated). They buy and hold **US-listed ETFs through Midas**. This supersedes the "TEFAS funds" focus in section 1. TL tools (deposits, the emergency fund, debt) stay as in v0.1; TEFAS funds are still explained when asked, with the crisis as a known risk (manager and liquidity risk, trading halts).
+
+Four needs follow:
+
+1. **Two currencies.** The user earns, spends and pays tax in TL, so a USD return is only half the answer. Every result is shown in USD and in TL, and real against both US and Turkish inflation.
+2. **Tax at home.** Gains on foreign securities go on the annual return (değer artışı), converted at the TCMB rates of the purchase and sale dates, with Yİ-ÜFE indexation when the index rose ≥10%; no exemption threshold. A USD loss can be a taxable TL gain. Dividends above the yearly threshold are declared, with credit for US tax withheld.
+3. **US estate tax.** US-domiciled ETFs are US-situs assets; above **$60,000** the estate of a non-US person owes US estate tax (no US-Turkey estate tax treaty found). Ireland-domiciled UCITS ETFs are the usual alternative for non-US investors. The skill flags this when the user's US-situs holdings approach the threshold; whether Midas offers UCITS ETFs is unknown (ask Midas support).
+4. **Broker risk.** Midas (SPK-licensed) holds US assets through Alpaca Securities, custody at DTCC; SIPC cover applies. SPK fined Midas 24.9M TL in August 2026 (remote ID, misleading advertising, internal controls). The FX conversion spread is not on its fee page. Portfolio reviews include where the assets sit and what the round-trip cost of TL → USD → TL is.
+
+### Technical analysis: measure, don't signal
+
+Unchanged from the first draft of this section. Classic indicators (RSI, MACD, patterns) have mixed, snooping-prone evidence; trend following has better support, mainly as drawdown control. The user buys and holds, so v0.2 adds the descriptive metrics fund selection uses (CFA Institute, Morningstar): how far a fund fell, how long it took to recover, how steady its returns were, how it moves with the user's other holdings. Price against its 200-day average is context, never a trigger. "RSI 30'un altında, alınır mı?" gets the evidence in two sentences and the metrics instead. Under a year's horizon the answer stays with low-risk liquid options.
+
+### Data (tested from the user's PC, 2026-11-21)
+
+| Need | Source | Notes |
+| :- | :- | :- |
+| ETF daily prices, adjusted close, dividends | Yahoo chart API, keyless | 10+ years; also LSE tickers for UCITS ETFs. Unofficial: on failure, the researcher. |
+| USD/TRY history (for TL returns) | Yahoo `TRY=X` | Market rate, for analysis. |
+| Official USD/TRY on a date (for tax) | TCMB `kurlar/YYYYMM/DDMMYYYY.xml` | The rate tax rules refer to. |
+| US CPI, 3-month T-bill | FRED `fredgraph.csv`, keyless | Personal use; fetched each time, never stored (FRED terms). |
+| Turkish CPI, Yİ-ÜFE, tax brackets, dividend threshold | Researcher (TÜİK, GİB, Resmi Gazete) | Dated, as in v0.1. |
+| ETF expense ratio, holdings, domicile | Researcher (issuer pages) | |
+
+Stooq is blocked; Alpha Vantage and Tiingo need keys and are not needed; TEFAS is dropped.
+
+### Files
+
+```
+scripts/
+├── fetch.js         # prices <SYM...> --years N | fx-tcmb <YYYY-MM-DD> | cpi-us | tbill-us
+├── metrics.js       # risk and return metrics, USD and TL
+├── tax.js           # değer artışı per sale with TL conversion and ÜFE indexation
+├── *.test.js        # parsers on saved samples; known series with known answers
+├── scenario.js      # v0.1, unchanged
+└── takip-reminder.js
+```
+
+`fetch.js` prints JSON with the source URL and the as-of date of the last data point. Nothing is cached in the plugin.
+
+`metrics.js <SYM...> [--years N] [--tr-inflation <yearly %>]` (fetches through `fetch.js`), per ETF:
+
+- total and annualised return in USD and in TL; real annualised return in USD (US CPI) and in TL (Turkish inflation input)
+- annualised volatility; max drawdown with dates and recovery time, in USD and in TL
+- rolling 1-year and 3-year returns: worst, median, best, share positive
+- Sortino and return over max drawdown; Sharpe against the 3-month T-bill, labelled
+- price against its 200-day average (context)
+- with two or more symbols: correlation of weekly returns (headline) and daily returns, so overlapping ETFs show up. Weekly, because daily correlation is understated across exchanges that close at different hours (QQQ vs CNDX.L: 0.62 daily, 0.93 weekly in the first live run)
+- a `limits` field: history length, normal-distribution assumption, adjusted-close method
+
+`tax.js` takes lots (`date, quantity, price USD` for buys and sells), FIFO by default, and for each sale gives the TL cost and proceeds at the TCMB rates, whether ÜFE indexation applies (the user or the researcher gives the two ÜFE values), the taxable gain in TL, and the commissions deducted. It does not compute the final tax: the bracket depends on the user's other income, so the output gives the gain and points to the beyanname (March) and, when the figures are large, a mali müşavir. The skill adds a March `Takip.md` item when the user reports a sale.
+
+### Vault
+
+- `Portfoy.md` gets a lot table for US ETFs: symbol, date, quantity, price USD, broker. The skill keeps it up to date when the user reports a trade, so `tax.js` has its input.
+- `Yatirim_Politikasi.md` gets: base currency for goals (TL or USD), the domicile rule (US-listed or UCITS), and the US-situs ceiling the user chooses.
+
+### Skill changes
+
+- New `references/us-etfs.md`: comparing ETFs (expense ratio, index, domicile, accumulating vs distributing, overlap), the two-currency view, estate tax, dividend withholding (treaty rate unresolved: read the user's own Midas dividend lines for the rate actually withheld), broker risk and costs.
+- `tax.md`: the foreign-securities section above.
+- `funds.md`: metrics section (how to read each figure in plain Turkish, how to set it against the policy's worst acceptable year); the TA position. TEFAS crisis note.
+- `portfolio-review.md`: correlation between holdings, US-situs total against the threshold, broker and FX cost.
+- `data-sources.md`: the tested table above. SKILL.md: try the scripts before the researcher; description triggers for "ETF", "Midas", "VOO/QQQ" style questions, "Amerikan fonu", "vergi beyannamesi yabancı hisse".
+
+### Evals
+
+Scripts are covered by unit tests (eval runs can't run Bash on native Windows); the cases test reasoning, with script output pasted in the prompt where needed.
+
+| Case | Kind | Grader |
+| :- | :- | :- |
+| `tr-midas-etf-trigger` ("Midas'tan VOO mu QQQ mu alayım, karşılaştır") | trigger | `tool_used` Skill finance-coach |
+| `tr-rsi-timing-request` | quality | `llm`: no timing call, evidence in brief, offers the metrics |
+| `tr-estate-tax-flag` (holds about $75k in US ETFs, asks about adding more) | quality | `llm`: flags US estate tax above $60k and names the UCITS alternative |
+| `tr-usd-loss-tl-gain-tax` ("dolar bazında zarardayım, vergi çıkmaz değil mi") | quality | `llm`: corrects the premise: the gain is computed in TL at the purchase and sale rates, so a tax can arise |
+| `tr-reads-drawdown-vs-policy` (metrics JSON in prompt, drawdown beyond the policy's limit) | quality | `llm`: flags it and says what it means in TL |
+| `tr-overlapping-etfs` (correlation 0.97 between two holdings) | quality | `llm`: says they add little diversification |
+| `tr-short-horizon-steers-safe` ("6 ay sonra lazım, hangi ETF") | quality | `llm`: steers to low-risk liquid options |
+
+`tr-compare-funds-trigger` (TEFAS codes) stays as a regression case: the skill still explains TEFAS funds when asked. All v0.1 cases rerun as the gate.
+
+### Open questions
+
+1. **UCITS at Midas.** Ask Midas support whether Ireland-domiciled ETFs are available. If not, the estate tax note says what the options are (a cap on US-situs holdings, another broker) without naming one.
+2. **Dividend withholding rate.** Resolved: the user's QQQ dividend in Midas had 20% withheld (0.16 of 0.81 USD).
+3. **Midas FX spread.** Not disclosed on the fee page; the user can read it from a conversion in the app.
+4. **Inflation series.** Turkish inflation is a single yearly input in v0.2; a monthly TÜİK series comes later.

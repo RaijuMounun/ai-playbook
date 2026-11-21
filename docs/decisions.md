@@ -62,6 +62,7 @@ Read this first in a new conversation. It is the short version of everything bel
 
 ### Done
 
+- 2026-11-21: `finance` v0.2.0 (US ETFs, fetch/metrics/tax scripts), 20/21; `tr-live-rate-researches` is a known gap.
 - 2026-11-21: `finance` plugin (`finance-coach`) built, 14/14; private `finans-vault` created with template notes.
 - 2026-11-15: `health-coach` v0.3.0 (follow-up hook, lab range kinds, new-lab flow), 19/19; first vault protocol check applied, then the family notes (doses removed, unsupported targets corrected, aorta screening split into thoracic and abdominal, follow-ups added).
 - 2026-11-13: `health` plugin (`health-coach`) built, 12/12; health vault pushed to private `saglik-vault`.
@@ -74,6 +75,20 @@ Read this first in a new conversation. It is the short version of everything bel
 - 2026-10-29: phone access decided (Remote Control when the PC is on, cloud otherwise).
 
 ---
+
+## 2026-11-21: finance v0.2: US-listed ETFs, data and metrics scripts, foreign-securities tax, 20/21
+
+**Decision (user).** The user doesn't invest through Borsa Istanbul or TEFAS (lost trust; the September 2026 fund crisis, in which SPK halted the funds of 7 portfolio managers and ordered about 130 funds liquidated). They buy and hold US-listed ETFs through Midas. v0.2 redesigns the bundle around that. Design: [design/finance.md](design/finance.md) section 10, approved the same day. Research: `research/radar/2026-11-21-us-etfs-for-turkish-resident.md`, `research/radar/2026-11-21-fund-metrics-and-data-access.md` (two sonnet researchers).
+
+**What was added.**
+- `scripts/fetch.js` (Yahoo chart API for ETF prices and USD/TRY, TCMB daily bulletins, FRED US CPI and T-bill; all keyless, tested from the user's PC), `scripts/metrics.js` (drawdown and recovery, rolling returns, volatility, Sharpe/Sortino, weekly correlation, 200-day context; USD and TL), `scripts/tax.js` (taxable TL gain per sale: FIFO, TCMB rates, Yİ-ÜFE indexation). 40 unit tests.
+- `references/us-etfs.md` (two currencies, US estate tax above $60,000 for non-US persons, UCITS alternative, dividends, Midas custody and costs, the TEFAS crisis); `tax.md`, `funds.md`, `portfolio-review.md`, `data-sources.md`, `vault.md` updated. Scripts run before the researcher, which saves a subagent per data question.
+
+**Technical analysis: measure, don't signal.** The user asked for TA. Evidence (Park & Irwin 2007; trend following mainly limits drawdowns) and the fit with buy-and-hold led to descriptive metrics instead of RSI/MACD signals; a timing question gets the evidence in two sentences and no timing call.
+
+**Findings worth keeping.** TEFAS's old API was retired in April 2026 and the new one resets connections even from the user's PC; it was not circumvented. Daily correlation across exchanges with different closing hours is understated (QQQ vs CNDX.L: 0.62 daily, 0.93 weekly), so weekly is the headline. The user's QQQ dividend in Midas had 20% US tax withheld.
+
+**Evals.** 21 cases (7 new). 19/21, then 20/21 after moving the TA and "risk in money" rules into SKILL.md. **Known gap:** `tr-live-rate-researches` fails: in eval runs there is no shell, several bank and TCMB pages return 404, and once the skill cited figures with no opened source. The fallback rule was tightened; the case still failed with a judged trace that looks incomplete. Stopped after 3 attempts (about $4.30 in eval runs today). Revisit with `--keep-temp` to read the full trace, or make the case deterministic.
 
 ## 2026-11-21: finance plugin with one `finance-coach` skill; the finance vault is a private repo
 

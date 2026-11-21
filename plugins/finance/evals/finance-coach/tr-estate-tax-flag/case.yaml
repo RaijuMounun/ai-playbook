@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: tr-estate-tax-flag
+expected_outcome: |
+  finance-coach flags US estate tax on US-situs assets above $60,000 for a non-US person and names Ireland-domiciled UCITS ETFs as the usual alternative.

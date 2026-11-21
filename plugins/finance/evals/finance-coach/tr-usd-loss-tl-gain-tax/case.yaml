@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: tr-usd-loss-tl-gain-tax
+expected_outcome: |
+  finance-coach corrects the premise: the gain is computed in TL at the purchase and sale exchange rates, so a TL gain and a tax can arise.
