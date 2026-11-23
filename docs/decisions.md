@@ -35,7 +35,7 @@ Read this first in a new conversation. It is the short version of everything bel
    - **What the skill does.** From a learning outcome ("kazanım") and a context, draft the question, the answer, and distractors with a reason for each. Then run a checklist: exactly one correct answer, plausible distractors, no clue in the wording, language fit for the grade, and the outcome actually tested.
    - **Evals from his judgment.** His own good past questions become the style reference, and he grades the first outputs. Those grades become the eval cases, the same way web-researcher is measured from real tasks.
    - **Privacy and copyright.** His examples and publisher material stay out of this public repo. They live in a private place he or the skill reads at runtime, the same rule as personal data.
-   - **Status (2026-11-11).** `question-writer` v0.3.0, all 15 cases pass (entries "question-writer built for Cowork", "v0.2.0" and "v0.3.0"). His intake is complete. Next:
+   - **Status (2026-11-23).** `question-writer` v0.4.0 (entry "v0.4.0"): his grade 3 review is folded in, and the item-writing cases pass 8/8. Grade 2 and grade 3 candidate pools for the 2nd deneme went to him; the 3rd deneme pools wait for his new outcome list. Still to do:
      - Install it on his PC with him (Cowork, his own Pro plan).
      - Copy his example booklets into `Soru Yazarlığı/ornekler/` there.
      - Run his first real set. He grades it item by item, and recurring failures become synthetic cases.
@@ -144,6 +144,31 @@ Also found: the red-flag case.yaml had not parsed since 2026-11-13 (unquoted col
 **Vault.** The user chose to push the whole health vault, family profiles included, to the private repo `RaijuMounun/saglik-vault`, so cloud sessions can use it. The skill finds the vault from the working directory, then `HEALTH_VAULT`, then asks; no path is in the plugin. Researched answers are saved to `06_Arastirmalar/` only after the user says yes.
 
 **Measurement.** 12 cases. First run 9/12 ($0.77): the red-flag and premise cases did not fire the skill, and the research case could not dispatch web-researcher in the isolated run. Fixes: description covers symptoms and belief checks; WebFetch fallback; the research case grades either path with an `llm` trace grader and gets 15 turns. Second run 10/12 ($0.62), research case rerun 1/1 ($0.14). Accepted gap: Sonnet answers chest pain with "call 112" directly without the skill, which is the safe result, so that case grades the outcome only. Final: 12/12 on the current graders.
+
+## 2026-11-23: question-writer v0.4.0 from his item-by-item review, 8/8
+
+**Input.** He reviewed the 54-item grade 3 candidate pool (2 per outcome) item by item and sent his finished grade 3 2nd-deneme booklet, which reuses about ten of the pool's items with his edits. Both files stay on the user's PC.
+
+**His requests, now in `skills/item-writing/references/writer-feedback.md`:**
+- Turkish-lesson texts (story, tale, poem, dialogue, message), never items whose key is a science fact.
+- No planting, sapling or plant-growing topics at all; recycling at most once per set; no hunting or fishing, even by animals.
+- Distractors that tempt (his most frequent note), natural writing, plausible plots.
+- Spelling and punctuation items give the rule first, then ask which option breaks it.
+- Correspondence through digital messages, not letters.
+- For literary texts: retell public-domain folk material (Nasreddin Hoca, Keloğlan, Aesop and La Fontaine), or use passages he puts in his work folder, cited. Copyrighted books are never quoted from memory.
+
+`item-types.md` gained the item types from his booklet:
+- numbered I-V order items: swap two steps, or find the one that breaks the order
+- picture-sequence order items
+- "görsele göre hangisi söylenebilir" items
+- "which child's sentence is not well formed" items
+
+The reviewer gained the codes `OFF-SUBJECT`, `AVOIDED-TOPIC` and `IMPLAUSIBLE`.
+
+**Measurement.** Three new cases: `rule-first-spelling`, `digital-correspondence` and `turkish-lesson-text`.
+- **Baseline: 1/3.** The skill wrote a bare "which is correct" capital-letter item and a camel's-hump science item. Digital messages already passed.
+- **After the edit: all eight item-writing cases pass (8/8).**
+- Cost about $1.
 
 ## 2026-11-11: question-writer v0.3.0, pictures and template settled by him
 

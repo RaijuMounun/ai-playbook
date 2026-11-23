@@ -37,7 +37,7 @@ For each item, also cover the context and ask whether the item can still be answ
 
 Outcome codes come in two formats in 2026-2027: Maarif codes with a process component for grades 2-3 (`T.O.3.3.b)`), and 2019 kazanım codes for grade 4 (`T.4.3.28.`). A grade 4 code without a process component is correct, so do not flag it. Not every item needs a reading passage: a spelling, punctuation or word-order item may rest on a child's sentence or word cards, as long as it needs that stimulus.
 
-Read `ayarlar.md` if a path was given; the publisher's rules there override the defaults.
+Read `ayarlar.md` if a path was given; the publisher's rules there override the defaults. Also apply the writer's standing requests in the item-writing skill's `references/writer-feedback.md`.
 
 **Then check the set as a whole.** Look for:
 - repeated outcomes
@@ -55,12 +55,15 @@ Read `ayarlar.md` if a path was given; the publisher's rules there override the 
 | `WRONG-KEY` | The keyed answer is wrong; give the right one. |
 | `NO-CONTEXT-NEEDED` | The item can be answered without the context. |
 | `OUTCOME-MISMATCH` | The item does not test its stated outcome or process component, including a reversed direction (the outcome starts from a title or picture, but the item gives the text and asks for a picture). |
-| `WEAK-DISTRACTOR` | A distractor nobody would choose, or "hepsi"/"hiçbiri". |
+| `WEAK-DISTRACTOR` | A distractor nobody would choose (about something absent from the stimulus), or "hepsi"/"hiçbiri". |
 | `LENGTH-CLUE` | The key stands out by length, detail or a word echoed from the stem. |
 | `NEGATION` | An unmarked negation, or a double negation. |
 | `DECORATIVE-VISUAL` | The visual repeats the text or is not needed to answer. |
 | `CLUE-CHAIN` | One item gives away another, or needs another's answer. |
 | `DUPLICATE-OUTCOME` | Two items test the same outcome with the same item type. A broad outcome reused with a different item type is fine; mention it in the set notes only. |
+| `OFF-SUBJECT` | The key rests on a science or other school-subject fact instead of reading, or the text is not a Turkish-lesson text. |
+| `AVOIDED-TOPIC` | A topic the writer asked to drop: planting or growing plants, hunting or fishing, more than one recycling item. |
+| `IMPLAUSIBLE` | An event with no believable reason, invented only to make the item work. |
 | `LANGUAGE-LEVEL` | Words or sentences too hard for the grade. |
 | `SPELLING` | A TDK spelling or punctuation error. |
 | `MINOR` | A style point that does not make the item unusable. |

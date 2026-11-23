@@ -11,6 +11,7 @@ The rules come from MEB's 2026 guide for context-based multiple-choice items. Be
 - [references/guide-rules.md](references/guide-rules.md): the item rules
 - [references/item-types.md](references/item-types.md): the item types he writes and the stimulus each one uses
 - [references/grade-language.md](references/grade-language.md): the grade's option count and language level
+- [references/writer-feedback.md](references/writer-feedback.md): what he asked for after reviewing drafts (Turkish-lesson texts, banned topics, tempting distractors, rule-first spelling items, digital correspondence). It outranks the generic defaults here.
 
 Read [references/outcome-coding.md](references/outcome-coding.md) when an outcome code is unclear or he asks you to look one up.
 
@@ -28,9 +29,9 @@ Two programs are in use at once. Grades 2-3 use Maarif codes (`T.O.3.3.b)`), and
 Follow the guide's five steps. Keep the self-checks to yourself; show only the result:
 
 1. Name the outcome and the process component the item targets. Read its wording for direction: what the student starts from and what the student produces. The stimulus is what the outcome starts from. For example, "başlığından ve görsellerinden hareketle … tahminde bulunur" means the stimulus is a title and a picture, and the student predicts the content. Never reverse it, as in giving the story and asking which picture fits; he rejected that as not matching the outcome.
-2. Choose the item type that fits the outcome (`item-types.md`). Write its stimulus: a short daily-life text, a child's sentence, word cards, a dialogue or a notice, sized for the grade.
+2. Choose the item type that fits the outcome (`item-types.md`). Write its stimulus, sized for the grade: a Turkish-lesson text (a story, tale, fable, poem, dialogue or message with a character and a small event), or for language items a child's sentence, word cards or a rule box. The key must come from reading the stimulus, never from a science or other school-subject fact. Keep to the topic rules in `writer-feedback.md`.
 3. Write the stem so that it calls up the outcome's skill.
-4. Write the key and the distractors. Each distractor models a named mistake a child at that age makes.
+4. Write the key and the distractors. Each distractor models a named mistake a child at that age makes, and tempts: it uses real details from the stimulus or is partly true. An option about something absent from the stimulus is too easy. For spelling, capital-letter and punctuation items, state the rule in the stimulus and ask which option breaks (or follows) it.
 5. Cover the stimulus and check that the item can no longer be answered. Then run the checklist at the end of `guide-rules.md`, and fix anything that fails before showing the item.
 6. Count the words in each option. If the key is the longest by more than two words, or is the only option joining two ideas with "ve" or a comma, shorten it or lengthen the distractors until they match.
 7. Argue for each distractor as a child who has the skill would. If the context supports it, even partly, it is a second key. Replace it with an option the text clearly rules out. Do not rescue it with qualifiers in the stem such as "asıl", "en doğru" or "ilk". A common trap in cause-effect items: an option that names a symptom or an intermediate link of the same cause chain ("toprak kurudu" next to "sulanmadı") is defensible.

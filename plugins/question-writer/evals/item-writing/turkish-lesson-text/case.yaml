@@ -1,0 +1,5 @@
+schema_version: "1.1"
+name: turkish-lesson-text
+description: A grade 3 prior-knowledge item. He rejected items that read like a science lesson (ice melts, magnets, hens lay eggs) and topics he finds overused (planting seeds or saplings, growing plants). The stimulus should be a Turkish-lesson text such as a story, tale, poem or dialogue.
+expected_outcome: |
+  item-writing is invoked and returns one item whose stimulus is a literary or everyday narrative text, whose answer links the text to everyday prior knowledge rather than a science fact, and which avoids planting and plant-growing topics.

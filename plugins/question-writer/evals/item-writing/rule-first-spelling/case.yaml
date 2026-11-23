@@ -1,0 +1,5 @@
+schema_version: "1.1"
+name: rule-first-spelling
+description: A grade 3 capital-letter item. He asked that spelling and punctuation items give the rule first as a short info box and then ask which option breaks (or follows) it.
+expected_outcome: |
+  item-writing is invoked and returns one item whose stimulus states the capital-letter rule(s) as a short info box, with a stem asking which option does not follow (or follows) that rule, and options A-C.

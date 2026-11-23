@@ -13,7 +13,7 @@ An item is context-based when the context and the question are really linked: th
 ## The five steps
 
 1. **Fix the target.** Choose the outcome and one process component. Write down what a student who has the skill can do that one without it cannot.
-2. **Build the context.** Write a short, believable daily-life situation for a child of that age: a note from a teacher, a dialogue between friends, a poster, a short story, a recipe, a class table. It must carry what the question needs.
+2. **Build the context.** Write a short, believable daily-life situation for a child of that age: a note from a teacher, a dialogue between friends, a poster, a short story, a recipe, a class table. It must carry what the question needs. For this writer, prefer Turkish-lesson texts and follow `writer-feedback.md`.
 3. **Write the stem.** Use wording that calls up the outcome's skill: "olayların sırası", "neden", "metnin konusu", "bu kelime metinde hangi anlamda". Ask one thing.
 4. **Write the options.** Write one key and build the distractors from real mistakes.
 5. **Run the context test.** Cover the context. If the item can still be answered, it fails, so rewrite it.
