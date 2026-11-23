@@ -1,0 +1,2545 @@
+{
+  "schemaVersion": 1,
+  "claudeVersion": "2.1.330",
+  "startedAt": "2026-11-23T12:24:53.635Z",
+  "durationSeconds": 1339,
+  "costUsd": 4.0043978000000005,
+  "partial": true,
+  "partialReason": "cost_ceiling",
+  "suite": {
+    "root": "/home/user/ai-playbook/plugins/finance",
+    "ablation": "none",
+    "modelOverride": "sonnet",
+    "threshold": 1,
+    "concurrency": 1,
+    "plugins": [
+      {
+        "name": "finance",
+        "version": "0.2.0",
+        "path": "/home/user/ai-playbook/plugins/finance"
+      }
+    ]
+  },
+  "cases": [
+    {
+      "name": "en-compare-funds",
+      "dir": "evals/finance-coach/en-compare-funds",
+      "source": "mixed",
+      "promptMarkdown": "I hold two TEFAS funds and I'm thinking about adding a gold fund. Can you compare my options?",
+      "runsPerCase": 3,
+      "timeoutSeconds": 180,
+      "maxTurns": 4,
+      "graders": [
+        {
+          "name": "01-skill-fired",
+          "type": "tool_used",
+          "weight": 1,
+          "config": {
+            "tool": "Skill",
+            "input_match": "\"skill\"\\s*:\\s*\"(?:[\\w-]+:)?finance-coach\""
+          }
+        }
+      ],
+      "arms": {
+        "with": [
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 6,
+            "costUsd": 0.0629938,
+            "judgeCostUsd": 0,
+            "durationSeconds": 15,
+            "startedAt": "2026-11-23T12:24:53.768Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-eywbMK/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              }
+            ]
+          },
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 4,
+            "costUsd": 0.060238,
+            "judgeCostUsd": 0,
+            "durationSeconds": 17,
+            "startedAt": "2026-11-23T12:25:08.897Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-zcfxSs/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              }
+            ]
+          },
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 4,
+            "costUsd": 0.058733400000000005,
+            "judgeCostUsd": 0,
+            "durationSeconds": 15,
+            "startedAt": "2026-11-23T12:25:25.839Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-5T5giU/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              }
+            ]
+          }
+        ]
+      },
+      "aggregates": {
+        "score": 1,
+        "passRate": 1
+      }
+    },
+    {
+      "name": "tr-budget-app-flutter",
+      "dir": "evals/finance-coach/tr-budget-app-flutter",
+      "source": "mixed",
+      "promptMarkdown": "Flutter'da bir bütçe takip uygulaması yazıyorum. Harcamaları SQLite'ta hangi tablo yapısıyla saklayayım?",
+      "runsPerCase": 3,
+      "timeoutSeconds": 180,
+      "maxTurns": 4,
+      "graders": [
+        {
+          "name": "01-skill-not-fired",
+          "type": "tool_used",
+          "weight": 1,
+          "config": {
+            "tool": "Skill",
+            "input_match": "\"skill\"\\s*:\\s*\"(?:[\\w-]+:)?finance-coach\"",
+            "min": 0,
+            "max": 0,
+            "arm": "both"
+          }
+        }
+      ],
+      "arms": {
+        "with": [
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 1,
+            "costUsd": 0.0448896,
+            "judgeCostUsd": 0,
+            "durationSeconds": 15,
+            "startedAt": "2026-11-23T12:25:40.576Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-8xCKBd/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-not-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 0x (expected 0..0)",
+                "withOnly": false,
+                "scored": true
+              }
+            ]
+          },
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 1,
+            "costUsd": 0.0484296,
+            "judgeCostUsd": 0,
+            "durationSeconds": 16,
+            "startedAt": "2026-11-23T12:25:55.231Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-DBeRUS/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-not-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 0x (expected 0..0)",
+                "withOnly": false,
+                "scored": true
+              }
+            ]
+          },
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 1,
+            "costUsd": 0.047169600000000006,
+            "judgeCostUsd": 0,
+            "durationSeconds": 16,
+            "startedAt": "2026-11-23T12:26:11.714Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-xMcvSa/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-not-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 0x (expected 0..0)",
+                "withOnly": false,
+                "scored": true
+              }
+            ]
+          }
+        ]
+      },
+      "aggregates": {
+        "score": 1,
+        "passRate": 1
+      }
+    },
+    {
+      "name": "tr-card-debt",
+      "dir": "evals/finance-coach/tr-card-debt",
+      "source": "mixed",
+      "promptMarkdown": "Kredi kartı borcum 30 bin TL, sadece asgari ödemeyi yapsam olur mu?",
+      "runsPerCase": 3,
+      "timeoutSeconds": 180,
+      "maxTurns": 4,
+      "graders": [
+        {
+          "name": "01-skill-fired",
+          "type": "tool_used",
+          "weight": 1,
+          "config": {
+            "tool": "Skill",
+            "input_match": "\"skill\"\\s*:\\s*\"(?:[\\w-]+:)?finance-coach\""
+          }
+        }
+      ],
+      "arms": {
+        "with": [
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 5,
+            "costUsd": 0.06878240000000001,
+            "judgeCostUsd": 0,
+            "durationSeconds": 22,
+            "startedAt": "2026-11-23T12:26:27.529Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-PPFrIW/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              }
+            ]
+          },
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 6,
+            "costUsd": 0.0681553,
+            "judgeCostUsd": 0,
+            "durationSeconds": 20,
+            "startedAt": "2026-11-23T12:26:49.618Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-AeHuXD/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              }
+            ]
+          },
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 5,
+            "costUsd": 0.070904,
+            "judgeCostUsd": 0,
+            "durationSeconds": 24,
+            "startedAt": "2026-11-23T12:27:09.771Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-sK7Dia/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              }
+            ]
+          }
+        ]
+      },
+      "aggregates": {
+        "score": 1,
+        "passRate": 1
+      }
+    },
+    {
+      "name": "tr-clear-verdict-on-options",
+      "dir": "evals/finance-coach/tr-clear-verdict-on-options",
+      "source": "mixed",
+      "promptMarkdown": "Vault yok, araştırma yapma, verdiğim rakamlarla değerlendir. 5 yıl tutacağım, kriterlerim: düşük ücret, enflasyonu yenmek, orta risk olur.\n- Fon A (hisse yoğun): yönetim ücreti yıllık %2,5, son 3 yıl yıllık ortalama getiri %55, yüksek oynaklık.\n- Fon B (BIST 30 endeks fonu): yönetim ücreti yıllık %0,9, son 3 yıl yıllık ortalama getiri %50, yüksek oynaklık.\n- Fon C (para piyasası): yönetim ücreti yıllık %1,2, son 3 yıl yıllık ortalama getiri %42, düşük oynaklık.\nSon 3 yılın yıllık ortalama enflasyonunu %45 kabul et. Bu üçünden hangisi bana daha uygun?",
+      "runsPerCase": 3,
+      "timeoutSeconds": 300,
+      "maxTurns": 6,
+      "graders": [
+        {
+          "name": "01-skill-fired",
+          "type": "tool_used",
+          "weight": 1,
+          "config": {
+            "tool": "Skill",
+            "input_match": "\"skill\"\\s*:\\s*\"(?:[\\w-]+:)?finance-coach\""
+          }
+        },
+        {
+          "name": "02-clear-verdict",
+          "type": "llm",
+          "weight": 1,
+          "graderMarkdown": "PASS only if the answer (1) compares the three funds on fee and on return against the 45% inflation (real return, at least approximately), (2) says clearly which of A, B or C fits the user's stated criteria best, with the reason, and (3) names a condition that would change the verdict (for example a shorter horizon or a lower risk tolerance).\nFAIL if it gives no verdict among the three (\"karar sende\" with no ranking), if it recommends a fund that is not in the list, or if it treats the past returns as guaranteed future returns.",
+          "config": {
+            "criteria": "PASS only if the answer (1) compares the three funds on fee and on return against the 45% inflation (real return, at least approximately), (2) says clearly which of A, B or C fits the user's stated criteria best, with the reason, and (3) names a condition that would change the verdict (for example a shorter horizon or a lower risk tolerance).\nFAIL if it gives no verdict among the three (\"karar sende\" with no ranking), if it recommends a fund that is not in the list, or if it treats the past returns as guaranteed future returns.",
+            "focus": "last_message"
+          }
+        }
+      ],
+      "arms": {
+        "with": [
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 3,
+            "costUsd": 0.0808136,
+            "judgeCostUsd": 0.0012215,
+            "durationSeconds": 37,
+            "startedAt": "2026-11-23T12:27:33.482Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-Pe73Jv/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "02-clear-verdict",
+                "passed": true,
+                "weight": 1,
+                "explanation": "judge votes: PASS PASS PASS",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  true,
+                  true,
+                  true
+                ],
+                "evidence": "**Kısa cevap:** Kriterlerine en yakın olanı B (BIST 30 endeks fonu). Gideri düşük ve geçmiş rakamlarla enflasyonu yeniyor. Ama oynaklığı yüksek, yani \"orta risk\" kriterini tek başına karşılamıyor. Orta risk için B ile C'yi karıştırmak daha uygun. Bu rakamlar kullanıcının verdiği rakamlardır, ben araştırmadım. Shell yok, hesapları elle yaptım.\n\n**Karşılaştırma** (getirilerin ücret düşülmüş net rakam olduğunu varsaydım):\n\n| | Ücret | Yıllık getiri | Reel getiri | 100.000 TL, 5 yıl sonra (nominal) | Alım gücü (bugünkü TL) | Oynaklık |\n|---|---|---|---|---|---|---|\n| A | %2,5 | %55 | **+%6,9** | ≈ 894.700 | ≈ 139.600 | Yüksek |\n| B | %0,9 | %50 | **+%3,4** | ≈ 759.400 | ≈ 118.500 | Yüksek |\n| C | %1,2 | %42 | **−%2,1** | ≈ 577.400 | ≈ 90.100 | Düşük |\n\n- **Hesap girdileri:** Reel getiri = (1 + getiri) / (1 + enflasyon) − 1. Enflasyon %45 ve sabit kabul edildi, 5 yıllık enflasyon çarpanı 1,45⁵ ≈ 6,41.\n- **Getiriler ücret düşülmemişse:** Reel getiriler A için %5,2, B için %2,8, C için −%2,9 olur. Sıralama değişmez.\n- **Stopaj:** Dahil değil.\n\n**Değerlendirme:**\n- **C elenir.** Riski en düşük fon ama enflasyonun altında kalıyor. 5 yılda alım gücün yaklaşık %10 azalır. \"Enflasyonu yenmek\" kriterini sağlamıyor.\n- **A ile B arasında B öne geçer.** A'nın getirisi 5 puan yüksek, ama ücreti B'den 1,6 puan fazla ve ikisi de aynı yüksek oynaklığı taşıyor. Aktif yönetilen bir fonun geçmiş üstünlüğünün 5 yıl boyunca sürmesi garanti değil. Ücret ise her yıl kesin giden bir maliyet. \"Düşük ücret\" kriterin olduğu için B daha tutarlı.\n- **Orta risk:** A ve B yüksek oynaklıklı, C düşük. Üçü de \"orta\" değil. Orta riske yaklaşmak için B ile C'yi karıştırabilirsin. Geçmiş rakamlarla:\n  - %50 B + %50 C: yıllık yaklaşık %46, reel yaklaşık +%0,7. Enflasyonu zar zor geçer.\n  - %70 B + %30 C: yaklaşık %47,6, reel yaklaşık +%1,8.\n  - Karışım ne kadar C'ye kayarsa risk düşer ama enflasyonu yenme payı da erir. İkisi birlikte tam sağlanmıyor.\n- **Hüküm ne zaman değişir:** Önceliğin getiri olursa ve yüksek oynaklığa katlanabilirsen A öne geçer. Para 5 yıldan önce lazım olursa C'nin ağırlığı artmalı.\n\n**Gözden kaçabilecekler:**\n- Son 3 yılın %50 civarı getirisi, %45 enflasyonlu bir dönemde geldi. Hisse fonlarının nominal getirisi o dönemde yüksek görünür. Enflasyon düşerse nominal getiri de düşebilir, reel getiri ise aynı kalmayabilir.\n- \"Ortalama yıllık getiri\" bileşik getiriden farklı olabilir. Dalgalı fonlarda bileşik getiri ortalamadan düşük çıkar.\n- 5 yıl sonunda satış ve fon stopajı vergi sonucunu etkileyebilir. Net rakam için güncel stopaj oranına bakmak gerekir.\n\n**Riskler:** Ben fonların geçmiş düşüş rakamlarını bilmiyorum, sen vermedin. Örnek olarak hisse fonunda %30'luk bir düşüş varsayalım. Bu bir varsayım, tahmin değil. 100.000 TL'nin 70.000 TL'ye inmesi demek, yani 30.000 TL kayıp. Düşüş sırasında satmak zararı kalıcı yapar. A ve B'de bu ihtimal var, C'de çok daha az. Geçmiş getiri geleceğin tahmini değildir. Karşılaştırma buna yaslandığı için bunu bir kez belirtiyorum.\n\n**Veriler:** Tüm rakamlar senin verdiğin rakamlardır (ücretler, 3 yıllık getiriler, %45 enflasyon). Dışarıdan veri çekmedim. Sonuçlar sana özel değil, vault olmadığı için profilini kullanmadım.\n\nİstersen yatırım politikanı birlikte yazalım. Oradan B/C oranını risk toleransına göre netleştiririz. Bu analizi kaydedeyim mi? Vault olmadığı için bir yere yazmadım."
+              }
+            ]
+          },
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 3,
+            "costUsd": 0.06978609999999999,
+            "judgeCostUsd": 0.0011220000000000002,
+            "durationSeconds": 31,
+            "startedAt": "2026-11-23T12:28:10.348Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-dCVSAQ/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "02-clear-verdict",
+                "passed": true,
+                "weight": 1,
+                "explanation": "judge votes: PASS PASS PASS",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  true,
+                  true,
+                  true
+                ],
+                "evidence": "**Kısa cevap:** B (BIST 30 endeks fonu) sana en uygun. Düşük ücret ve enflasyonu yenme kriterlerini birlikte karşılayan tek fon o. Orta risk kriteri için B'yi C ile karıştırabilirsin. Rakamlar senin verdiklerin, bir de elle hesapladım.\n\n**Karşılaştırma** (yıllık, son 3 yıl, enflasyon %45):\n\n| | Ücret | Nominal getiri | Reel getiri | Oynaklık |\n|---|---|---|---|---|\n| A | %2,5 | %55 | **+%6,9** | yüksek |\n| B | %0,9 | %50 | **+%3,4** | yüksek |\n| C | %1,2 | %42 | **−%2,1** | düşük |\n\nHesap: reel getiri = (1 + nominal) / 1,45 − 1. Getirileri ücret düşülmüş kabul ettim, çünkü fon getirileri genelde ücretten sonra açıklanır. Getiriler brüt ise reel getiriler yaklaşık A +%5,2, B +%2,8, C −%2,9 olur. Sıralama değişmez.\n\n**Değerlendirme:**\n- **C elenir.** Düşük oynaklığı iyi, ama reel getirisi negatif, yani alım gücün eriyor. Para piyasası fonu için %1,2 ücret de yüksek.\n- **A ile B arasında** A'nın geçmiş getirisi 5 puan fazla, ama ücreti 1,6 puan yüksek. Ücret her yıl, getiri ne olursa olsun kesilir. Getiri aynı olsa bile 5 yılda A'nın sonucu yaklaşık %5 geride kalır. A'nın üstünlüğü yalnızca 3 yıllık geçmişe dayanıyor. Aktif yöneticinin bunu 5 yıl sürdürmesi garanti değil. Ücret ise kesin bir maliyet.\n- **Orta risk:** A ve B'nin ikisi de yüksek oynaklıklı, yani tek başına hiçbiri \"orta risk\" değil. Riski düşürmek için B ile C'yi karıştırabilirsin. Örneğin %70 B + %30 C ortalama %47,6 getirir, reel yaklaşık +%1,8. Risk düşer ama enflasyonun üstündeki pay da küçülür. Bu hesap rebalans yapmadan, basit ağırlıklı ortalamayla yapıldı.\n- Hüküm şu durumda değişir: yüksek oynaklığı kaldıramayacaksan karışımda C'nin payı artar. Enflasyon %45'in üstüne çıkarsa C'nin zararı büyür.\n\n**Gözden kaçabilecekler:**\n- Verdiğin rakamlarda stopaj yok. Fon kazancındaki stopaj oranını kontrol et.\n- Enflasyon düşerse, hisse fonlarının geçmiş getirisi artık geçerli olmayabilir. Son 3 yıl, yüksek enflasyonun hisseleri şişirdiği bir dönem.\n- B'nin ücreti A'dan düşük, ama BIST 30 yalnızca 30 şirketten oluşuyor, yani yoğunlaşma var.\n\n**Riskler:** Düşüş (drawdown) verisi vermedin, o yüzden TL cinsinden en kötü durumu hesaplayamıyorum. Yüksek oynaklıklı hisse fonlarında bir yılda %20–30 düşüş görülebilir. Bu, 100.000 TL'nin 70.000–80.000 TL'ye inmesi demek. Bunun için fonların maksimum düşüş geçmişine bak. Geçmiş getiri gelecek getirinin garantisi değil.\n\n**Veriler:** Tüm rakamlar senin verdiklerin. Araştırma yapmadım, vault'a da bakmadım. Cevap kişiselleştirilmiş değil. Hesaplar elle yapıldı, çünkü bu oturumda script çalıştıracak kabuk yok.\n\nBunu vault'a kaydedeyim mi?"
+              }
+            ]
+          },
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 3,
+            "costUsd": 0.0799097,
+            "judgeCostUsd": 0.0011998999999999998,
+            "durationSeconds": 38,
+            "startedAt": "2026-11-23T12:28:40.989Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-j2OKhj/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "02-clear-verdict",
+                "passed": true,
+                "weight": 1,
+                "explanation": "judge votes: PASS PASS PASS",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  true,
+                  true,
+                  true
+                ],
+                "evidence": "**Kısa cevap:** Verdiğin rakamlara göre B (BIST 30 endeks fonu) kriterlerine en yakın seçenek. Ücreti düşük ve enflasyonun üstünde getiri sağlamış. Üçü de \"orta risk\" kriterini tam karşılamıyor. Riski orta seviyeye çekmek için B'yi C ile karıştırmak mantıklı.\n\nBu cevap kişiye özel değil, sadece senin verdiğin rakamlara dayanıyor. Elimde shell yok, hesapları elle yaptım.\n\n**Karşılaştırma:**\n\n| | Yönetim ücreti | 3y ort. getiri | Reel getiri (enflasyon %45) | Oynaklık |\n|---|---|---|---|---|\n| A (hisse yoğun) | %2,5 | %55 | %6,9 | Yüksek |\n| B (BIST 30) | %0,9 | %50 | %3,45 | Yüksek |\n| C (para piyasası) | %1,2 | %42 | **−%2,07** | Düşük |\n\nHesap: reel getiri = (1 + nominal) / (1 + enflasyon) − 1. Örneğin B için 1,50 / 1,45 − 1 = %3,45. Getirilerin ücretten sonraki (net) rakamlar olduğunu varsaydım. Fon getirileri genelde böyle verilir.\n\n**Değerlendirme:**\n- **C elenir.** Düşük riskli ama senin rakamlarınla enflasyonun altında kalmış. \"Enflasyonu yenmek\" kriterini karşılamıyor. Ücreti de B'den yüksek.\n- **A ile B'yi ayıran şey ücret.** A'nın geçmiş getirisi B'den 5 puan yüksek, ama ücreti yılda 1,6 puan fazla. 5 yıl boyunca bu fark birikir. Hisse yoğun fonun bu farkı gelecekte de çıkaracağının garantisi yok. Endeks fonu ise daha şeffaf ve ucuz. Düşük ücret kriterin olduğu için B öne geçiyor.\n- **Orta risk kriteri.** A ve B ikisi de yüksek oynaklıklı, yani tek başlarına orta risk değiller. Çözüm olarak B'yi çekirdek, C'yi dengeleyici tutabilirsin. Örnek (geçmiş getirilerle, tahmin değil): %70 B + %30 C karışımının geçmiş getirisi yaklaşık %47,6 olur, reel olarak yaklaşık %1,8. Oran arttıkça risk düşer, ama enflasyonun üstündeki pay da küçülür.\n- **Hüküm ne zaman değişir?** Yüksek oynaklığa dayanamayacaksan B'nin payını küçült. Getiriyi öncelik yapıp ücreti ikinci plana atarsan A tartışılabilir.\n\n**Gözden kaçabilecekler:**\n- Son 3 yıl %42–55 getiri, %45 enflasyonlu bir dönemin sonucu. Hisse getirisinin bir kısmı sadece enflasyonu yansıtıyor olabilir. Bu rakamlar önümüzdeki 5 yılın tahmini değil.\n- Fonların stopaj durumu farklı olabilir. Para piyasası fonunda vergi, C'nin net getirisini daha da düşürebilir. Verdiğin rakamların vergi sonrası olup olmadığını kontrol et. Güncel oranı doğrulamadım.\n- Hisse yoğun fonlarda ücret yüksek. A'nın ücreti, B ve C'nin ücretlerinden daha yüksek.\n- Fon alım-satım valörü ve olası giriş/çıkış kesintileri var mı, bak.\n\n**Riskler:** Elimde düşüş (drawdown) verisi yok, o yüzden gerçek bir rakam veremiyorum. Örnek olarak, yüksek oynaklıklı bir hisse fonunda %30'luk bir düşüş yaşanırsa 100.000 TL'nin 30.000 TL'si geçici olarak gider. Bu varsayımsal bir örnek, B'nin gerçek düşüşü değil. 5 yıl tutacaksan bu düşüşü satmadan geçirebilmen gerekir. Geçemeyeceksen B'nin payını azalt.\n\n**Veriler:** Tüm rakamlar senin verdiğin rakamlar (ücretler, getiriler, %45 enflasyon varsayımı). Dışarıdan veri çekmedim."
+              }
+            ]
+          }
+        ]
+      },
+      "aggregates": {
+        "score": 1,
+        "passRate": 1
+      }
+    },
+    {
+      "name": "tr-compare-funds-trigger",
+      "dir": "evals/finance-coach/tr-compare-funds-trigger",
+      "source": "mixed",
+      "promptMarkdown": "TEFAS'ta üç fona bakıyorum: AFT, IPB ve TTE. Bunları benim için karşılaştırır mısın?",
+      "runsPerCase": 3,
+      "timeoutSeconds": 180,
+      "maxTurns": 4,
+      "graders": [
+        {
+          "name": "01-skill-fired",
+          "type": "tool_used",
+          "weight": 1,
+          "config": {
+            "tool": "Skill",
+            "input_match": "\"skill\"\\s*:\\s*\"(?:[\\w-]+:)?finance-coach\""
+          }
+        }
+      ],
+      "arms": {
+        "with": [
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 7,
+            "costUsd": 0.065876,
+            "judgeCostUsd": 0,
+            "durationSeconds": 16,
+            "startedAt": "2026-11-23T12:29:19.236Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-EGVltp/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              }
+            ]
+          },
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 7,
+            "costUsd": 0.0660586,
+            "judgeCostUsd": 0,
+            "durationSeconds": 16,
+            "startedAt": "2026-11-23T12:29:35.201Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-XlNmOo/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              }
+            ]
+          },
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 7,
+            "costUsd": 0.0662286,
+            "judgeCostUsd": 0,
+            "durationSeconds": 17,
+            "startedAt": "2026-11-23T12:29:51.565Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-nlQeGs/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              }
+            ]
+          }
+        ]
+      },
+      "aggregates": {
+        "score": 1,
+        "passRate": 1
+      }
+    },
+    {
+      "name": "tr-deposit-vs-fund",
+      "dir": "evals/finance-coach/tr-deposit-vs-fund",
+      "source": "mixed",
+      "promptMarkdown": "Elimde 50 bin TL var, 3 ay sonra lazım olacak. Mevduata mı koyayım para piyasası fonuna mı?",
+      "runsPerCase": 3,
+      "timeoutSeconds": 180,
+      "maxTurns": 4,
+      "graders": [
+        {
+          "name": "01-skill-fired",
+          "type": "tool_used",
+          "weight": 1,
+          "config": {
+            "tool": "Skill",
+            "input_match": "\"skill\"\\s*:\\s*\"(?:[\\w-]+:)?finance-coach\""
+          }
+        }
+      ],
+      "arms": {
+        "with": [
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 7,
+            "costUsd": 0.0752888,
+            "judgeCostUsd": 0,
+            "durationSeconds": 24,
+            "startedAt": "2026-11-23T12:30:08.639Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-K6zg9l/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              }
+            ]
+          },
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 7,
+            "costUsd": 0.06845290000000001,
+            "judgeCostUsd": 0,
+            "durationSeconds": 18,
+            "startedAt": "2026-11-23T12:30:32.383Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-44qLmn/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              }
+            ]
+          },
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 7,
+            "costUsd": 0.066455,
+            "judgeCostUsd": 0,
+            "durationSeconds": 17,
+            "startedAt": "2026-11-23T12:30:50.876Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-VcsXha/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              }
+            ]
+          }
+        ]
+      },
+      "aggregates": {
+        "score": 1,
+        "passRate": 1
+      }
+    },
+    {
+      "name": "tr-emergency-fund",
+      "dir": "evals/finance-coach/tr-emergency-fund",
+      "source": "mixed",
+      "promptMarkdown": "Acil durum fonum ne kadar olmalı, nerede tutmalıyım?",
+      "runsPerCase": 3,
+      "timeoutSeconds": 180,
+      "maxTurns": 4,
+      "graders": [
+        {
+          "name": "01-skill-fired",
+          "type": "tool_used",
+          "weight": 1,
+          "config": {
+            "tool": "Skill",
+            "input_match": "\"skill\"\\s*:\\s*\"(?:[\\w-]+:)?finance-coach\""
+          }
+        }
+      ],
+      "arms": {
+        "with": [
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 5,
+            "costUsd": 0.0686686,
+            "judgeCostUsd": 0,
+            "durationSeconds": 24,
+            "startedAt": "2026-11-23T12:31:08.272Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-Q5m2FS/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              }
+            ]
+          },
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 6,
+            "costUsd": 0.069968,
+            "judgeCostUsd": 0,
+            "durationSeconds": 22,
+            "startedAt": "2026-11-23T12:31:31.806Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-7ngIx8/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              }
+            ]
+          },
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 5,
+            "costUsd": 0.0690814,
+            "judgeCostUsd": 0,
+            "durationSeconds": 23,
+            "startedAt": "2026-11-23T12:31:53.378Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-cs8p99/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              }
+            ]
+          }
+        ]
+      },
+      "aggregates": {
+        "score": 1,
+        "passRate": 1
+      }
+    },
+    {
+      "name": "tr-estate-tax-flag",
+      "dir": "evals/finance-coach/tr-estate-tax-flag",
+      "source": "mixed",
+      "promptMarkdown": "Midas'ta toplam yaklaşık 75.000 dolarlık VOO ve QQQ var. Her ay 1.000 dolar daha eklemeyi düşünüyorum, bir sakıncası var mı? Türkiye'de yaşıyorum, ABD vatandaşı değilim. Vault yok, araştırma yapma.",
+      "runsPerCase": 3,
+      "timeoutSeconds": 300,
+      "maxTurns": 6,
+      "graders": [
+        {
+          "name": "01-skill-fired",
+          "type": "tool_used",
+          "weight": 1,
+          "config": {
+            "tool": "Skill",
+            "input_match": "\"skill\"\\s*:\\s*\"(?:[\\w-]+:)?finance-coach\""
+          }
+        },
+        {
+          "name": "02-flags-estate-tax",
+          "type": "llm",
+          "weight": 1,
+          "graderMarkdown": "PASS only if the answer flags US estate tax: US-domiciled ETFs are US-situs assets, a non-US person's estate owes US estate tax above about $60,000, and the user's holdings already exceed that; and it names Ireland-domiciled (UCITS) ETFs as the usual alternative.\nFAIL if it does not mention US estate tax, or treats the $60,000 threshold as not yet reached.",
+          "config": {
+            "criteria": "PASS only if the answer flags US estate tax: US-domiciled ETFs are US-situs assets, a non-US person's estate owes US estate tax above about $60,000, and the user's holdings already exceed that; and it names Ireland-domiciled (UCITS) ETFs as the usual alternative.\nFAIL if it does not mention US estate tax, or treats the $60,000 threshold as not yet reached.",
+            "focus": "last_message"
+          }
+        }
+      ],
+      "arms": {
+        "with": [
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 3,
+            "costUsd": 0.0796876,
+            "judgeCostUsd": 0.0009081000000000007,
+            "durationSeconds": 38,
+            "startedAt": "2026-11-23T12:32:16.322Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-uvMidr/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "02-flags-estate-tax",
+                "passed": true,
+                "weight": 1,
+                "explanation": "judge votes: PASS PASS PASS",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  true,
+                  true,
+                  true
+                ],
+                "evidence": "**Kısa cevap:** Aylık 1.000 dolar eklemek mantıklı bir alışkanlık. Asıl sakınca ABD veraset vergisi. Toplamın 60.000 doları aştı ve eklemeye devam ettikçe bu risk büyüyor. Rakamlar senin verdiğin rakamlar. Bu konuşmada veri çekmedim, vault de yok, o yüzden cevap kişiselleştirilmiş değil.\n\n**Değerlendirme:**\n- **Ana sorun, ABD veraset vergisi.** ABD vatandaşı veya ikametçisi olmayanlarda, ABD'de kurulu varlıklar (VOO ve QQQ dahil) yaklaşık 60.000 doları aşarsa veraset vergisi doğabilir. Aşan kısma %18'den %40'a kadar çıkan oranlar uygulanır. Mirasçıların ayrıca ABD'ye beyanname vermesi gerekir. Senin 75.000 dolarlık portföyün eşiğin üstünde.\n- **Küçük bir örnek:** Bildiğim oran tablosuyla 75.000 dolarda vergi kabaca 3.900 dolar çıkıyor. 100.000 dolarda yaklaşık 10.800 dolar. Bu rakamlar hafızamdan, bu konuşmada doğrulamadım. Eşik ve oranları IRS'ten veya bir vergi danışmanından teyit et.\n- **Türkiye–ABD arasında veraset anlaşması olmadığını biliyorum.** Bunu da teyit ettirmeni öneririm.\n- **Yeni alımlar için yapısal çözüm:** İrlanda kayıtlı (UCITS) S&P 500 veya Nasdaq-100 ETF'leri ABD varlığı sayılmaz. Veraset riski bu yüzden olmaz. Midas'ta erişimin var mı, bakmalısın. Yoksa başka bir aracı kurum gerekir. Eldekileri satıp geçmek ayrı bir konu, çünkü satış TL bazında vergilenebilir kâr doğurabilir (aşağıya bak). Bu karar için vergi danışmanına sor.\n- **Sorun olmayanlar:** Aylık düzenli alım zamanlama riskini azaltır. Bunun için bir endikatöre bakmana gerek yok.\n\n**Gözden kaçabilecekler:**\n- **VOO ve QQQ büyük ölçüde aynı hisseleri taşıyor.** İkisi de ABD büyük şirketleri, QQQ daha teknoloji ağırlıklı. Çeşitlenme göründüğünden az.\n- **Her ay alım, ayrı bir alım kaydı demek.** Satışta Türkiye'de kâr, TCMB kurlarıyla TL'ye çevrilerek ve Yİ-ÜFE endekslemesiyle hesaplanır (FIFO). Dolar bazında zarardaysan bile TL bazında vergilenebilir kâr çıkabilir. Tüm alım tarihlerini, adetlerini ve fiyatlarını sakla.\n- **Temettü** için beyanname eşiğini yıllık kontrol et.\n- **TL'den dolara çevirirken kur makası** maliyet yaratır. Büyük ve seyrek çevirmek bazen daha ucuzdur.\n- **Vade:** Paranın ne zaman lazım olacağını söylemedin. 5 yıldan kısa içinde lazımsa hisse payı bu kadar yüksek olmamalı.\n\n**Riskler:** Bu iki ETF tamamen hisse. Tarihte QQQ yaklaşık %80'e yakın düştü (2000–2002), 2022'de yaklaşık üçte bir düştü. Bunlar hafızamdan, doğrulanmadı. Örnek: portföy %35 düşerse 75.000 dolardan yaklaşık 26.000 dolar gider. Geçmiş getiri geleceği göstermez. Ayrıca kur riski var: gelirin TL ise, dolar yatırımın TL karşılığı kurla birlikte oynar.\n\n**Veriler:** Tutarlar senin verdiğin rakamlar. Veraset eşiği ve oranlar, bu konuşmada kaynak açmadan, hafızadan yazıldı. Kullanmadan önce IRS'ten teyit et.\n\n**Sonraki adım için öneri:** Yeni aylık alımları UCITS eşdeğerine yönlendirmeyi düşün. Önce Midas'ta erişimin olup olmadığına bak. İstersen yatırım politikası yazmanıza yardım edebilirim. Ufku ve riski netleştirmek için iyi bir başlangıç olur."
+              }
+            ]
+          },
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 3,
+            "costUsd": 0.069464,
+            "judgeCostUsd": 0.0007484999999999992,
+            "durationSeconds": 27,
+            "startedAt": "2026-11-23T12:32:53.981Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-IsslQh/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "02-flags-estate-tax",
+                "passed": true,
+                "weight": 1,
+                "explanation": "judge votes: PASS PASS PASS",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  true,
+                  true,
+                  true
+                ],
+                "evidence": "**Kısa cevap:** Aylık 1.000 dolar eklemenin kendisinde sorun yok. Asıl sorun, VOO ve QQQ'nun ABD'de kayıtlı varlık sayılması. Bu yüzden ABD veraset vergisi riski var ve 75.000 dolarla eşiğin zaten üstündesin.\n\nBu cevap sana özel değil, vault yok. Rakamlar senin verdiğin rakamlar, araştırma da yapmadım.\n\n**Gözden kaçabilecekler:**\n\n1. **ABD veraset vergisi (en önemlisi):** ABD vatandaşı olmayan ve ABD'de yaşamayan kişilerde, ABD'de bulunan varlıklar yaklaşık 60.000 doları aşarsa aşan kısım ölüm anında veraset vergisine tabi olabilir. VOO ve QQQ bu kapsamda. Sen 75.000 dolardasın ve her ay 1.000 dolar ekleyince yıl sonunda yaklaşık 87.000 dolar artı getiri olur. Eşik aşıldıkça aşan kısım büyür. Oranın yüksek ve kademeli olduğunu biliyorum ama güncel oranı ve Türkiye için bir istisna olup olmadığını bu oturumda doğrulamadım. Bu nedenle rakam vermiyorum.\n   - Mirasçıların bu vergiyle uğraşması gerekir. Bu durum ilk bakışta fark edilmez, çünkü hesapta hiçbir uyarı çıkmaz.\n\n2. **VOO ve QQQ çakışıyor:** QQQ'nun büyük hisseleri (Apple, Microsoft, Nvidia gibi) zaten S&P 500'ün, yani VOO'nun da içinde. İkisini birlikte almak çeşitlendirme sağlamıyor. Portföyün fiilen teknoloji ağırlıklı bir S&P 500 gibi davranıyor.\n\n3. **Türkiye'de vergi:** Satışta kâr TL bazında hesaplanır. Alış ve satış günü TCMB kuruyla çevrilir, Yİ-ÜFE endekslemesi uygulanır. Bu yüzden dolar bazında zarardayken bile TL'de vergilenebilir bir kâr çıkabilir. Temettüde ABD stopajı vardır. Beyanname eşiği her yıl değişir, bunu bir mali müşavire veya GİB'e sorman gerekir.\n\n4. **Kur makası:** Her ay dolara çevirirken Midas'ın veya bankanın makasını öde. Doları zaten elinde tutuyorsan bu sorun olmaz.\n\n**Değerlendirme:** Devam etmek yerine yeni parayı başka bir yere yönlendirmeyi düşün. Seçenekler:\n- **ABD dışında kayıtlı (UCITS, örneğin İrlanda) ETF'ler:** Bunlar ABD veraset vergisi kapsamına girmez. Midas'ta bulunup bulunmadığını ve gider oranlarını kontrol etmen gerekir.\n- **Mevcut VOO/QQQ'yu aynen tutup yeni parayı UCITS'e kaydırmak:** Satış TL'de vergi doğurabileceği için satmak daha pahalıya gelebilir. Kâr/zarar durumuna bağlı.\n\nHüküm şu durumda değişir: mirasçı bırakmayı düşünmüyorsan veya riski kabul ediyorsan, VOO/QQQ'ya devam etmek mantıklı olabilir. Ama bu, riski bilerek vereceğin bir karar olmalı.\n\n**Riskler:** Hisse piyasası düşüşü ayrı bir risk. Örneğin 75.000 dolarlık portföy %30 düşerse yaklaşık 22.500 dolar kaybedersin. Bu oran bir tahmin değil, örnek senaryo. Geçmiş getiriler gelecek için garanti değil.\n\n**Veriler:** 60.000 dolar eşiği kullandığım kaynaktaki bilgiden geliyor. Başka bir güncel rakam kullanmadım. Eklemeyi hesaplarken 12 × 1.000 dolar, yani yıllık 12.000 dolar eklemeyi elle topladım.\n\nKesin oran ve Türkiye için istisna olup olmadığını doğrulamak istersen bir araştırma yapabilirim. İstersen önce bir yatırım politikası yazalım, hangi parayı ne için ayırdığına göre karar daha net olur."
+              }
+            ]
+          },
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 3,
+            "costUsd": 0.07123220000000001,
+            "judgeCostUsd": 0.0009144000000000001,
+            "durationSeconds": 31,
+            "startedAt": "2026-11-23T12:33:21.477Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-oVl6OX/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "02-flags-estate-tax",
+                "passed": true,
+                "weight": 1,
+                "explanation": "judge votes: PASS PASS PASS",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  true,
+                  true,
+                  true
+                ],
+                "evidence": "**Kısa cevap:** Aylık 1.000 dolar eklemenin kendisinde sorun yok. Asıl sorun toplam tutarın ABD veraset vergisi sınırının üstünde olması. Her yeni dolar bu riski büyütüyor.\n\n**Gözden kaçabilecekler**\n\n1. **ABD veraset vergisi.** ABD vatandaşı olmayan ve ABD'de yaşamayan biri için ABD'de listeli varlıklarda (VOO ve QQQ dahil) veraset vergisi muafiyeti yaklaşık 60.000 dolar. Bunun üstü, ölüm halinde yaklaşık %18–40 aralığında vergilenir.\n   - 75.000 dolarda aşan kısım 15.000 dolar. Elle hesapladığım vergi yaklaşık 3.900 dolar.\n   - Bu aşamada fazladan her dolar için marjinal oran yaklaşık %26. 100.000 dolara çıkınca oran %28'e geçer.\n   - Yıllık 12.000 dolar ekleme bu yükü her yıl artırır.\n   - Bu rakamlar hafızamdan ve elle hesapladım. Araştırma yapmadım, kaynak açmadım. Güncel eşik ve oranları bir vergi uzmanından doğrulat.\n2. **İrlanda merkezli (UCITS) alternatifler.** S&P 500 ve Nasdaq-100'ü izleyen UCITS ETF'ler ABD varlığı sayılmaz, bu yüzden veraset vergisi riski taşımaz. Midas'ta bunlara erişip erişemediğini kontrol et. Gider oranlarını ve stopaj farkını da karşılaştır. Bu yola gidersen yeni parayı UCITS'e yönlendirmek en basit çözüm. Mevcut VOO ve QQQ'yu satmak ise aşağıdaki Türkiye vergisini doğurur.\n3. **Türkiye'de vergi.** Yurt dışı hisse ve ETF satışında kâr TL üzerinden hesaplanır. Alış ve satış TCMB kuruyla çevrilir, Yİ-ÜFE endekslemesi uygulanır. Dolar bazında zarardayken bile TL bazında vergilenecek kâr çıkabilir. Temettüler için beyanname eşiğine bak. Eşiği bu yıl için kontrol etmedim.\n4. **Kur makası.** Her aylık dolar transferinde banka veya Midas kur farkını hesaba kat.\n5. **Çakışma.** VOO ve QQQ'nun büyük hisseleri (Apple, Microsoft, Nvidia vb.) örtüşüyor. Yani iki ayrı fon gibi görünse de çeşitlenme düşük.\n\n**Değerlendirme:** Yatırımı bırakmak gerekmiyor, ama yeni parayı VOO ve QQQ'ya eklemeden önce yönünü seç. Seçenekler şunlar:\n- **A:** Aynen devam et ve veraset riskini bilerek kabul et.\n- **B:** Yeni parayı UCITS ETF'lere yönlendir. Mevcut pozisyonu satmak zorunda kalmazsın.\n- **C:** Mevcut pozisyonu da UCITS'e taşı. Bu TL vergi doğurur, önce hesaplat.\n\nKriter olarak veraset riskini azaltmak ön plandaysa B daha mantıklı. Vergiyi en aza indirmek ön plandaysa A, çünkü satış yok.\n\n**Riskler:** Piyasa riski ayrı bir konu. Hisse piyasalarında %30–50 düşüşler geçmişte yaşandı. 75.000 dolarda %40 düşüş yaklaşık 30.000 dolar geçici kayıp demek. Bu tarihsel bir bağlam, tahmin değil.\n\n**Veriler:** Bu cevapta sadece senin verdiğin rakamlar (75.000 ve 1.000 dolar) ile hafızamdan aktardığım genel kurallar var. Kullandığım ABD veraset vergisi eşiği ve oranları doğrulanmadı.\n\nBunu vault'a kaydedeyim mi? (Vault olmadığını söyledin, o yüzden sormuyorum.) Ayrıca istersen yatırım politikanı birlikte yazabiliriz. Hedef, vade ve risk toleransını bilirsem A/B/C arasında net bir sıralama yapabilirim."
+              }
+            ]
+          }
+        ]
+      },
+      "aggregates": {
+        "score": 1,
+        "passRate": 1
+      }
+    },
+    {
+      "name": "tr-every-number-dated",
+      "dir": "evals/finance-coach/tr-every-number-dated",
+      "source": "mixed",
+      "promptMarkdown": "Acil durum fonum için 60 bin TL'm var. Mevduatta mı tutayım para piyasası fonunda mı? Bugünkü faizlerle karşılaştır. Vault yok, soru sorma.",
+      "runsPerCase": 3,
+      "timeoutSeconds": 900,
+      "maxTurns": 20,
+      "graders": [
+        {
+          "name": "01-skill-fired",
+          "type": "tool_used",
+          "weight": 1,
+          "config": {
+            "tool": "Skill",
+            "input_match": "\"skill\"\\s*:\\s*\"(?:[\\w-]+:)?finance-coach\""
+          }
+        },
+        {
+          "name": "02-data-section-dated",
+          "type": "regex",
+          "weight": 1,
+          "config": {
+            "target": "last_message",
+            "pattern": "[Vv]eriler[\\s\\S]*20[0-9]{2}",
+            "flags": "",
+            "match": "contains"
+          }
+        }
+      ],
+      "arms": {
+        "with": [
+          {
+            "score": 0.5,
+            "passed": false,
+            "turns": 10,
+            "costUsd": 0.097023,
+            "judgeCostUsd": 0,
+            "durationSeconds": 27,
+            "startedAt": "2026-11-23T12:33:52.450Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-6ISVDT/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "02-data-section-dated",
+                "passed": false,
+                "weight": 1,
+                "explanation": "pattern not found in last_message",
+                "withOnly": false,
+                "scored": true
+              }
+            ]
+          },
+          {
+            "score": 0.5,
+            "passed": false,
+            "turns": 12,
+            "costUsd": 0.1078195,
+            "judgeCostUsd": 0,
+            "durationSeconds": 35,
+            "startedAt": "2026-11-23T12:34:19.204Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-5F0OG5/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "02-data-section-dated",
+                "passed": false,
+                "weight": 1,
+                "explanation": "pattern not found in last_message",
+                "withOnly": false,
+                "scored": true
+              }
+            ]
+          },
+          {
+            "score": 0.5,
+            "passed": false,
+            "turns": 11,
+            "costUsd": 0.09999279999999999,
+            "judgeCostUsd": 0,
+            "durationSeconds": 28,
+            "startedAt": "2026-11-23T12:34:54.303Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-iAmqwl/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "02-data-section-dated",
+                "passed": false,
+                "weight": 1,
+                "explanation": "pattern not found in last_message",
+                "withOnly": false,
+                "scored": true
+              }
+            ]
+          }
+        ]
+      },
+      "aggregates": {
+        "score": 0.5,
+        "passRate": 0
+      }
+    },
+    {
+      "name": "tr-flags-missed-issue",
+      "dir": "evals/finance-coach/tr-flags-missed-issue",
+      "source": "mixed",
+      "promptMarkdown": "Portföyümün %60'ı BIST 30 endeks fonu. Şimdi yeni bir fon almayı düşünüyorum: 'X Hisse Senedi Fonu', yönetim ücreti yıllık %3,5, portföyünün %70'i BIST 30 hisseleri. Almadan önce bakmam gereken bir şey var mı? Vault yok, araştırma yapma.",
+      "runsPerCase": 3,
+      "timeoutSeconds": 300,
+      "maxTurns": 6,
+      "graders": [
+        {
+          "name": "01-skill-fired",
+          "type": "tool_used",
+          "weight": 1,
+          "config": {
+            "tool": "Skill",
+            "input_match": "\"skill\"\\s*:\\s*\"(?:[\\w-]+:)?finance-coach\""
+          }
+        },
+        {
+          "name": "02-flags-fee-and-overlap",
+          "type": "llm",
+          "weight": 1,
+          "graderMarkdown": "PASS only if the answer flags both issues: the 3.5% yearly management fee is high (especially next to an index fund), and the new fund mostly holds the same BIST 30 stocks the user already holds through the index fund, so it adds concentration rather than diversification.\nFAIL if it misses either issue.",
+          "config": {
+            "criteria": "PASS only if the answer flags both issues: the 3.5% yearly management fee is high (especially next to an index fund), and the new fund mostly holds the same BIST 30 stocks the user already holds through the index fund, so it adds concentration rather than diversification.\nFAIL if it misses either issue.",
+            "focus": "last_message"
+          }
+        }
+      ],
+      "arms": {
+        "with": [
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 3,
+            "costUsd": 0.0692986,
+            "judgeCostUsd": 0.0004809000000000011,
+            "durationSeconds": 28,
+            "startedAt": "2026-11-23T12:35:22.038Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-3FopEQ/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "02-flags-fee-and-overlap",
+                "passed": true,
+                "weight": 1,
+                "explanation": "judge votes: PASS PASS PASS",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  true,
+                  true,
+                  true
+                ],
+                "evidence": "**Kısa cevap:** Verdiğin bilgilere göre bu fon cazip görünmüyor. Gider yüksek, ve portföyün zaten ağırlıklı olarak aynı piyasada. Vault ve araştırma olmadığı için cevap senin rakamlarına dayanıyor ve kişiselleştirilmiş değil.\n\n**Gözden kaçabilecekler:**\n\n1. **Çakışma:** Portföyün %60'ı BIST 30 fonunda, yeni fonun %70'i BIST 30 hisseleri. Aynı şirketleri ikinci kez alırsın, çeşitlenme olmaz.\n   - Örnek: 100.000 TL portföy, 60.000 TL BIST 30 fonunda. Yeni fona 20.000 TL eklersen toplam 120.000 TL olur ve BIST 30 payın 60.000 + 14.000 = 74.000 TL, yani yaklaşık %62 olur.\n   - Fonun kalan %30'u büyük ihtimalle yine Türk hissesidir, risk yine TL ve Türkiye piyasasına bağlı kalır.\n2. **Yönetim ücreti %3,5:** Fon, ücret kadar fazla getiri üretmedikçe seni geride bırakır. Bu rakamı şimdiki endeks fonunun ücretiyle karşılaştır. İkisini de bildiğin zaman farkı net görürsün.\n   - Örnek (elle hesaplandı, tahmin değil): brüt yıllık %25 getiriyle 10 yılda 100.000 TL yaklaşık 931.000 TL olur. Aynı getiri %3,5 ücretten sonra %21,5 kalırsa yaklaşık 701.000 TL olur. Yani ücret, sonucun yaklaşık dörtte birini götürür.\n3. **Vergi (stopaj) durumu:** Fonun hisse yoğun fon sayılıp sayılmadığına ve güncel stopaj oranına bak. Bu bilgi fonun izahnamesinde ve KAP/TEFAS sayfasında var. Rakamı hafızadan yazmıyorum.\n4. **Başka giderler:** Ücret dışında giriş/çıkış komisyonu, alım-satım valörü ve performans primi olup olmadığına bak.\n5. **Aktif yönetim iddiası:** Bu fon endeksten farklı bir şey yapıyorsa (farklı hisse seçimi gibi), geçmişte ücretten sonra BIST 30'u yenip yenmediğine bak. Geçmiş getiri gelecek için garanti değil, sadece bağlam verir.\n\n**Değerlendirme:** Aynı piyasaya daha pahalı yoldan girmek için güçlü bir neden göremiyorum. Hüküm şu iki durumda değişir:\n- Fon, endeksten belirgin biçimde farklı bir içerik taşıyorsa.\n- Ücret sonrası net getirisi uzun dönemde BIST 30 fonunu tutarlı olarak geçiyorsa.\n\n**Riskler:** BIST 30 payın yaklaşık %62'ye çıkarsa, hisse piyasası sert düştüğünde kayıp büyür. Örneğin bu paydaki %40'lık bir düşüş, 100.000 TL'lik bir portföyde yaklaşık 25.000 TL zarar demek. Bu, yukarıdaki varsayımsal örneğe dayanan bir hesap.\n\n**Veriler:** Bütün rakamlar senin verdiğin değerler (%60, %70, %3,5) ve elle yaptığım hesaplardır. Dışarıdan veri çekmedim.\n\nBu fonu hangi amaçla düşünüyorsun (çeşitlenme mi, daha yüksek getiri mi)? Ne kadar süre tutacağını da yazarsan hükmü ona göre netleştiririm."
+              }
+            ]
+          },
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 3,
+            "costUsd": 0.0708709,
+            "judgeCostUsd": 0.00046920000000000035,
+            "durationSeconds": 28,
+            "startedAt": "2026-11-23T12:35:49.622Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-wc5N4W/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "02-flags-fee-and-overlap",
+                "passed": true,
+                "weight": 1,
+                "explanation": "judge votes: PASS PASS PASS",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  true,
+                  true,
+                  true
+                ],
+                "evidence": "**Kısa cevap:** Verdiğin bilgilerle bu fon bana zayıf görünüyor. Portföyünde zaten %60 BIST 30 var. Bu fonun %70'i de aynı hisselerden oluşuyor. Üstüne yıllık %3,5 ücret alıyor. Alacaksan önce aşağıdaki üç noktayı kontrol et.\n\nVault yok ve araştırma yapmadım, bu yüzden cevap kişiselleştirilmiş değil. Rakamlar senin verdiklerin. Hesabı elle yaptım, script çalıştırmadım.\n\n**Bakman gerekenler:**\n\n1. **Ücret çok yüksek.** Fon her yıl değerinin %3,5'ini kesiyor.\n   - 10 yılda (1 − 0,035)¹⁰ ≈ 0,70 olur. Brüt getiri ne olursa olsun, ücret yüzünden değerin yaklaşık %30'u gider.\n   - Örnek olarak ücreti yıllık %1 olan bir fonla karşılaştıralım. (0,99)¹⁰ ≈ 0,90 olur. Aynı brüt getiride X fonu o fondan yaklaşık %23 geride kalır (0,70 / 0,90 ≈ 0,77).\n   - Senin endeks fonunun ücretini bilmiyorum. Onu fonun TEFAS sayfasından bakıp kıyasla.\n   - X, endeksin üstüne yılda en az %3,5 eklemedeyse endeksle başa baş gider. Bunu sürekli başarmak zor, geçmiş getiri de bunu garanti etmez.\n\n2. **Çakışma var.** X'e yatıracağın her 100 TL'nin 70 TL'si, zaten elinde olan BIST 30 hisselerine gidiyor. Çeşitlenme olmaz. Aynı riski daha pahalıya alırsın. Örneğin portföyüne 25 birim yeni para eklersen BIST 30 payın %60'tan yaklaşık %62'ye çıkar. Başka bir varlıktan geçiş yaparsan pay daha da artar.\n\n3. **Kalan %30 ne?** Fonun değer katacağı yer burası olmalı. Asıl bakman gereken şunlar:\n   - Kalan %30 hangi hisselerde, hangi stratejiyle yönetiliyor?\n   - Fonun benchmark'ı (karşılaştırma ölçütü) ne ve son 3–5 yılda ücret düşüldükten sonra bunu geçmiş mi?\n   - %3,5, toplam gider oranı mı yoksa sadece yönetim ücreti mi? Toplam gider daha yüksek olabilir.\n\n**Değerlendirme:** Kriterin \"BIST'e daha fazla maruz kalmak\" ise elindeki endeks fonuna eklemek daha ucuz olur. Kriterin \"çeşitlenme\" ise X bunu sağlamaz. Hükmü değiştirecek tek şey, kalan %30'un ve fonun ücret sonrası geçmişinin ikna edici çıkması.\n\n**Riskler:** 100.000 TL'yi X'e koyarsan, getiri sıfır olsa bile her yıl yaklaşık 3.500 TL ücret ödersin. BIST sert düşerse bu fon da senin mevcut fonla birlikte düşer. İkisi aynı yönde hareket ettiği için kaybı dengelemez.\n\nGeçmiş getiri gelecek için garanti değildir. Bunu fonun getirisine bakarken de hatırla.\n\nİstersen X'in ve elindeki endeks fonunun rakamlarını ver. Ücret farkını 5–10 yıllık senaryoyla TL ve reel olarak hesaplayayım."
+              }
+            ]
+          },
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 3,
+            "costUsd": 0.0708771,
+            "judgeCostUsd": 0.00046139999999999983,
+            "durationSeconds": 28,
+            "startedAt": "2026-11-23T12:36:17.883Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-TDOVzP/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "02-flags-fee-and-overlap",
+                "passed": true,
+                "weight": 1,
+                "explanation": "judge votes: PASS PASS PASS",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  true,
+                  true,
+                  true
+                ],
+                "evidence": "**Kısa cevap:** Verdiğin bilgilerle bu fonu almam. %3,5 yönetim ücreti yüksek. Portföyünün %60'ı zaten BIST 30'da, bu fon da %70 BIST 30 olduğu için büyük ölçüde aynı şeyi ikinci kez almış olursun. Bu cevap kişiselleştirilmedi. Vault yok, araştırma da yapmadım. Rakamlar senin verdiklerin, hesaplar elle yapıldı.\n\n**Gözden kaçabilecekler:**\n\n1. **Ücret etkisi.** Fon brüt getiriden her yıl yaklaşık %3,5 keser.\n   - Formül: (1 − 0,035)^yıl.\n   - 5 yılda değerin yaklaşık %16'sı, 10 yılda yaklaşık %30'u gider.\n   - Örnek: 100.000 TL brüt getirisiyle aynı kalsa bile 10 yılda sadece yaklaşık 70.000 TL'lik kısmı sana kalır.\n   - Yani fon, endeksi geçmek için her yıl yaklaşık 3,5 puan fazla getiri üretmek zorunda. Çok az aktif fon bunu uzun süre tutturur.\n\n2. **Çakışma.** Örnek: portföy 100.000 TL.\n   - 25.000 TL yeni para eklersen BIST 30 payın (60.000 + 0,7 × 25.000) / 125.000 = %62 olur. Çeşitlenme neredeyse hiç artmaz.\n   - 25.000 TL'yi portföyün diğer %40'ından çekersen BIST 30 payın (60.000 + 17.500) / 100.000 = %77,5'e çıkar. Tek endekse bağımlılık artar.\n\n3. **Fonun kalan %30'u.** Neye yatırıldığına bak: BIST 30 dışı hisseler mi, başka bir şey mi? Fonun farkı varsa orada olmalı, ama bunun için 3,5 puan ödüyorsun.\n\n4. **Gerçek ücret.** Kurucu belgesindeki üst sınır ile fiilen kesilen ücret farklı olabilir. TEFAS ve KAP'ta fiili oranı kontrol et. Mevcut endeks fonunun ücretiyle karşılaştır. Aynı BIST 30 maruziyetini çok daha ucuza zaten tutuyorsun.\n\n5. **Vergi ve geçmiş getiri.** Fonun stopaj durumuna bak. Geçmiş getiriye bakıyorsan ücret düşülmüş net getiriye bak. Geçmiş getiri geleceği göstermez.\n\n**Hüküm değişir mi?** Fon BIST 30 dışında net bir strateji sunuyorsa, ücret düştükten sonra bile endeksi geçtiğine dair uzun bir kayıt varsa ve portföyünün küçük bir kısmıyla (örneğin %5–10) denemek istiyorsan, o zaman tartışılır. Sadece \"BIST 30'a ek yatırım\" için mevcut endeks fonuna eklemek daha mantıklı.\n\n**Riskler:** Borsa düşerse bu fon da düşer, üstüne ücret her yıl kesilir. 100.000 TL'nin 25.000 TL'sini buraya koyarsan yıllık ücret yaklaşık 875 TL eder. Piyasa kötüyse ücretin yanında fonun değer kaybı da olur.\n\nBir fark yaratmak istiyorsan, mevcut fonunun ücretini ve yatırım vadeni (kaç yıl) yazarsan karşılaştırmayı sayılarla yaparım."
+              }
+            ]
+          }
+        ]
+      },
+      "aggregates": {
+        "score": 1,
+        "passRate": 1
+      }
+    },
+    {
+      "name": "tr-live-rate-researches",
+      "dir": "evals/finance-coach/tr-live-rate-researches",
+      "source": "mixed",
+      "promptMarkdown": "100 bin TL'm var, 3 ay sonra lazım. Şu an 3 aylık mevduat mı para piyasası fonu mu daha çok kazandırır? Stopajı ve enflasyonu da hesaba kat. Vault yok, soru sorma, güncel verilerle karşılaştır.",
+      "runsPerCase": 3,
+      "timeoutSeconds": 900,
+      "maxTurns": 20,
+      "graders": [
+        {
+          "name": "01-skill-fired",
+          "type": "tool_used",
+          "weight": 1,
+          "config": {
+            "tool": "Skill",
+            "input_match": "\"skill\"\\s*:\\s*\"(?:[\\w-]+:)?finance-coach\""
+          }
+        },
+        {
+          "name": "02-fetched-pages",
+          "type": "tool_used",
+          "weight": 1,
+          "config": {
+            "tool": "WebFetch",
+            "min": 1
+          }
+        },
+        {
+          "name": "03-every-figure-sourced",
+          "type": "llm",
+          "weight": 1,
+          "graderMarkdown": "PASS only if every current figure in the answer (deposit rate, money-market fund return, stopaj rate, inflation, policy rate) comes with a named source and a date, or is explicitly marked as not found or as an assumption, and the comparison does not rest on an unmarked figure.\nFAIL if any current rate, return, tax rate or inflation figure appears with no source and no \"not found\" or \"assumption\" label, or if the answer presents an assumed figure as a fetched one.",
+          "config": {
+            "criteria": "PASS only if every current figure in the answer (deposit rate, money-market fund return, stopaj rate, inflation, policy rate) comes with a named source and a date, or is explicitly marked as not found or as an assumption, and the comparison does not rest on an unmarked figure.\nFAIL if any current rate, return, tax rate or inflation figure appears with no source and no \"not found\" or \"assumption\" label, or if the answer presents an assumed figure as a fetched one.",
+            "focus": "last_message"
+          }
+        }
+      ],
+      "arms": {
+        "with": [
+          {
+            "score": 0.6666666666666666,
+            "passed": false,
+            "turns": 14,
+            "costUsd": 0.11452080000000002,
+            "judgeCostUsd": 0.0006117000000000006,
+            "durationSeconds": 37,
+            "startedAt": "2026-11-23T12:36:45.962Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-LQxDRM/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "02-fetched-pages",
+                "passed": true,
+                "weight": 1,
+                "explanation": "WebFetch called 6x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "03-every-figure-sourced",
+                "passed": false,
+                "weight": 1,
+                "explanation": "judge votes: PASS FAIL FAIL",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  true,
+                  false,
+                  false
+                ],
+                "evidence": "**Kısa cevap:** Güncel rakamlara ulaşamadım, o yüzden \"şu kazandırır\" diye bir hüküm vermiyorum. Veri çekme araçlarının hepsi \"proxy refused the connection\" hatası verdi (TCMB, TÜİK, GİB, TEFAS). Hafızadan faiz ya da stopaj yazarsam eski ve yanlış olma ihtimali yüksek, bu yüzden yazmıyorum.\n\n**Elimdeki veri**\n\n| Veri | Durum |\n| :- | :- |\n| 3 aylık mevduat faizi (bankanın teklifi veya TCMB haftalık ortalaması) | Bulunamadı |\n| Mevduat stopajı | Bulunamadı |\n| Para piyasası fonu 3 aylık getirisi (TEFAS) | Bulunamadı |\n| Fon stopajı | Bulunamadı |\n| Aylık TÜFE (TÜİK) | Bulunamadı |\n\n**Hükmü belirleyecek üç şey** (rakamlar gelince karar bunlarla verilir)\n\n1. **Vade ve esneklik.** Mevduat faizi vade boyunca sabit. 3 ay sonra parana ihtiyacın var ve vadeyi tutturabiliyorsan bu avantaj. Para piyasası fonunun getirisi her gün değişir. Fon, borsa işlem günlerinde (valör süresini kontrol et) bozdurulabilir, mevduatta ise vadeden önce çekersen genelde faizi kaybedersin.\n2. **Stopaj farkı.** Mevduatta stopajı banka faizden keser, fonda fonu bozdurduğunda kazançtan kesilir. Oranlar karara göre değişiyor ve 2025–2026'da kaynaklar birbirini tutmadı. Bu yüzden Resmi Gazete veya GİB'den güncel oranı bakmak gerekir.\n3. **Brüt faiz ile fon getirisinin farkı.** Bunu mutlaka stopajdan sonraki net rakamla kıyasla. Fonlarda TEFAS'taki getiri zaten yönetim ücretinden sonraki rakamdır.\n\n**Formül**\n\n- Net getiri (TL) = 100.000 × yıllık faiz × 90/365 × (1 − stopaj)\n- Fon için yıllık faiz yerine fonun son 3 aylık getirisini kullan ve stopajı aynı şekilde düş.\n- Reel getiri = (1 + net getiri oranı) / (1 + 3 aylık enflasyon) − 1. Nominal getiriden enflasyonu çıkarmak yanlış sonuç verir.\n\n**Riskler:** İkisinde de anapara riski çok düşük. Mevduat TMSF güvencesi altında (limiti güncel haliyle kontrol et). Para piyasası fonu garantili değil ama içeriği kısa vadeli mevduat, repo ve benzeri araçlar. Fonun getirisi vade boyunca düşebilir. Mevduatın asıl riski, 3 ay dolmadan paraya ihtiyaç duyman. Bu durumda faizi kaybedersin. Örnek: 100.000 TL'yi 1. ayda çekersen faiz geliri neredeyse sıfırlanır.\n\n**Şimdi ne yapabilirsin**\n\n- Bana 3 sayıyı yaz: bankanın 3 aylık net veya brüt faizi, seçtiğin fonun TEFAS'taki 3 aylık getirisi ve güncel stopaj oranları. Ben de hepsini `scenario.js` ile hesaplayıp net ve reel hükmü vereyim. Soru sormuyorum, sadece rakamlar gelince devam ederim.\n- İstersen veri araçlarının bağlantısı düzelince aynı soruyu yeniden çalıştırayım.\n\n**Veriler:** Bu cevapta güncel rakam yok. Yukarıdaki tüm veriler \"bulunamadı\" olarak işaretli."
+              }
+            ]
+          },
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 13,
+            "costUsd": 0.12116439999999998,
+            "judgeCostUsd": 0.0005750999999999985,
+            "durationSeconds": 38,
+            "startedAt": "2026-11-23T12:37:23.065Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-5mtcib/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "02-fetched-pages",
+                "passed": true,
+                "weight": 1,
+                "explanation": "WebFetch called 4x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "03-every-figure-sourced",
+                "passed": true,
+                "weight": 1,
+                "explanation": "judge votes: PASS PASS PASS",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  true,
+                  true,
+                  true
+                ],
+                "evidence": "**Kısa cevap:** Güncel veriyi çekemedim, bu yüzden \"şu kazandırır\" diye hüküm veremiyorum. Hesaplayıp karşılaştırma yapamadım. Her iki seçeneğin 3 aylık net getirisini birkaç dakikada kendin karşılaştırabilmen için yöntemi ve eşik formülünü aşağıya yazdım.\n\n**Ne oldu:** TCMB, TÜİK ve GİB sayfalarına erişim denedim. Ağ bağlantısı (proxy) hepsini reddetti. Bu oturumda komut çalıştırma ve araştırma aracı da yok. Kurallarım gereği mevduat faizini, fon getirisini, stopajı ve enflasyonu hafızadan yazmıyorum, çünkü bu rakamlar hızlı değişiyor. Uydurma bir rakam yanlış karar verdirir.\n\n**Karşılaştırma yöntemi (100.000 TL, 3 ay ≈ 92 gün):**\n\n| | Mevduat | Para piyasası fonu |\n| :- | :- | :- |\n| Getiri | Faiz sabit, vade boyunca değişmez | Günlük değişir, geçmiş getiri geleceği vermez |\n| Brüt 3 ay | yıllık basit faiz × 92/365 | TEFAS'taki son 3 aylık getiri (yönetim ücreti zaten düşülmüş) |\n| Net | brüt × (1 − mevduat stopajı) | brüt × (1 − fon stopajı) |\n| Erken bozma | Genelde faiz kaybedilir | Her iş günü satılır (valörü kontrol et) |\n\n**Kural:** İkisini aynı gün sayısı ve aynı tutar üzerinden, stopaj düştükten sonra karşılaştır. Reel getiri = (1 + net getiri) / (1 + dönem enflasyonu) − 1. Nominal eksi enflasyon yapma.\n\nÖrnek: Mevduat yıllık %X, stopaj %S ise 3 ayda net getiri = 100.000 × X × 92/365 × (1 − S) TL olur. Fonun net getirisini de aynı tabloya koy, büyük olan kazanır.\n\n**Karar ağacı (rakam gerekmeden geçerli olanlar):**\n- Parayı 3. ayın sonunda kesin lazımsa ve vadeye kadar dokunmayacaksan, faizi sabit olan mevduat tahmin riskini kaldırır.\n- Erken çekme ihtimalin varsa para piyasası fonu öne geçer. Mevduatı bozarsan faizin büyük kısmı gider.\n- İki net getiri birbirine yakınsa (fark 3 ayda birkaç yüz TL), likidite ve sabit faiz farkı belirleyici olur. Fark büyükse sıralamayı rakam belirler.\n\n**Gözden kaçabilecekler:**\n- Mevduat faizi tutar bandına ve bankaya göre değişir. 100 bin TL için bankanın kendi sayfasındaki oranı bak, TCMB ortalaması yeterli değil.\n- Stopaj oranı mevduatta vadeye, fonda fon türüne ve elde tutma süresine göre değişir. Cumhurbaşkanı kararlarıyla değiştiği için Resmi Gazete veya GİB'den güncelini doğrula.\n- Fonda getiri geriye dönük bakılır. Politika faizi düşerse fon getirisi de düşer, sabit mevduat o oranı kilitler.\n\n**Riskler:** Mevduatta TL cinsinden anapara riski pratikte yok (banka batarsa TMSF sigortası var). Para piyasası fonunda anapara kaybı çok nadirdir, ama günlük fiyat çok kısa süre negatif olabilir. İkisinin gerçek riski enflasyondur: 3 aylık net getiri dönem enflasyonunun altında kalırsa 100.000 TL'nin alım gücü düşer.\n\n**Veriler:** Bu yanıtta kaynaklı hiçbir güncel rakam yok. Erişim engeli yüzünden TCMB, TÜİK, GİB ve TEFAS'a ulaşamadım.\n\nBana şu dört rakamı yazarsan aynı mesajda net hesabı ve hükmü veririm:\n1. Bankanın 100 bin TL / 3 ay mevduat faizi\n2. Baktığın fonun (TEFAS) son 3 aylık getirisi\n3. Güncel stopaj oranları (mevduat ve fon için)\n4. Son yıllık TÜFE"
+              }
+            ]
+          },
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 14,
+            "costUsd": 0.11838800000000001,
+            "judgeCostUsd": 0.0007386000000000007,
+            "durationSeconds": 40,
+            "startedAt": "2026-11-23T12:38:00.988Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-2YqNRx/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "02-fetched-pages",
+                "passed": true,
+                "weight": 1,
+                "explanation": "WebFetch called 4x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "03-every-figure-sourced",
+                "passed": true,
+                "weight": 1,
+                "explanation": "judge votes: FAIL PASS PASS",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  false,
+                  true,
+                  true
+                ],
+                "evidence": "**Kısa cevap:** Güncel verilere ulaşamadığım için hangisinin daha çok kazandıracağına hüküm veremiyorum. Rakamları hafızamdan yazmayacağım. Bu fiyatlar ve stopaj oranları sık değişiyor, tahminle yapılan karşılaştırma seni yanlış yöne götürebilir.\n\n**Ne oldu:**\n- TCMB, TÜİK ve GİB sayfalarını açmayı denedim. Dördü de \"proxy bağlantıyı reddetti\" hatasıyla başarısız oldu.\n- Bu oturumda hesap script'lerini çalıştıracak bir kabuk (shell) da yok.\n- Bu yüzden elimde doğrulanmış tek bir faiz, getiri, stopaj veya TÜFE rakamı yok.\n\n**Rakamlar elinde olunca karar nasıl çıkar:**\n\n1. **Bulman gereken 4 rakam**\n   - Bankanın 3 aylık mevduat oranı. 100 bin TL için tutar bandına bak.\n   - Para piyasası fonlarının TEFAS'taki son 1–3 aylık getirisi. Fon fiyatları gider düşülmüş net fiyattır.\n   - Mevduat ve fon için güncel stopaj oranı. Mevduat stopajı vadeye göre değişir. Fon stopajı fon türüne ve elde tutma süresine göre değişir.\n   - Yıllık TÜFE (TÜİK).\n\n2. **Mevduat net getirisi:** brüt yıllık oran × 90/365 × (1 − stopaj).\n\n3. **Fon net getirisi:** 90 günlük fon getirisi × (1 − fon stopajı). Fon stopajı satışta kesilir.\n\n4. **Başa baş kuralı:** Fonun yıllık brüt getirisi, mevduat oranı × (1 − mevduat stopajı) / (1 − fon stopajı) değerinden yüksekse fon öne geçer. İki stopaj eşitse fon, mevduat oranının üstünde getiri yapmalı.\n\n5. **Reel getiri:** (1 + nominal) / (1 + enflasyon) − 1. Nominalden enflasyonu çıkarma. Enflasyonu 3 aya çevirmek için (1 + yıllık)^(90/365) − 1 al.\n\n6. **Tutar ölçeği:** 100 bin TL'de yıllık oranın her 1 puanı, 90 günde yaklaşık 247 TL brüt eder. Mevduatla fon arasında 3–4 puanlık fark yaklaşık 750–1.000 TL yapar. Stopaj bunu biraz azaltır.\n\n**Gözden kaçabilecekler:**\n- **Vade:** Mevduatta oran vade boyunca sabittir, erken bozarsan faizin çoğunu kaybedersin. Fonda getiri her gün değişir ve valöre bağlı olarak herhangi bir iş günü satabilirsin. Parayı tam 3. ayın sonunda lazım olan bir tarihe bağlıyorsan, sabit oran bir güvence sağlar.\n- **Faiz indirimi riski:** Politika faizi düşerse fon getirisi hemen düşer. Mevduat oranı vade boyunca sabit kalır.\n- **Fon riski:** Para piyasası fonları düşük riskli ama garantili değil. Mevduat ise vade sonunda bilinen bir tutar verir (TMSF sigortası limitine tabi).\n- **Mevduat tutar bandı:** Bazı bankalar yüksek oranı belli tutarın üstü veya altı için verir. Teklif ettikleri oranın senin 100 bin TL'n için geçerli olup olmadığını kontrol et.\n\n**Sonraki adım:** Dört rakamı bana yazarsan (veya bağlantı sorunu düzelirse) hepsini aynı gün aralığında hesaplayıp net bir sıralama veririm. Rakamları senden aldığımı da cevabın altına yazarım.\n\n**Veriler:** Doğrulanmış kaynak yok. Politika faizi, TÜFE, stopaj, mevduat oranı ve fon getirisi için \"bulunamadı (erişim hatası)\"."
+              }
+            ]
+          }
+        ]
+      },
+      "aggregates": {
+        "score": 0.8888888888888888,
+        "passRate": 0.6666666666666666
+      }
+    },
+    {
+      "name": "tr-midas-etf-trigger",
+      "dir": "evals/finance-coach/tr-midas-etf-trigger",
+      "source": "mixed",
+      "promptMarkdown": "Midas'tan VOO mu QQQ mu alayım, karşılaştırır mısın?",
+      "runsPerCase": 3,
+      "timeoutSeconds": 180,
+      "maxTurns": 4,
+      "graders": [
+        {
+          "name": "01-skill-fired",
+          "type": "tool_used",
+          "weight": 1,
+          "config": {
+            "tool": "Skill",
+            "input_match": "\"skill\"\\s*:\\s*\"(?:[\\w-]+:)?finance-coach\""
+          }
+        }
+      ],
+      "arms": {
+        "with": [
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 8,
+            "costUsd": 0.0714432,
+            "judgeCostUsd": 0,
+            "durationSeconds": 19,
+            "startedAt": "2026-11-23T12:38:41.386Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-EtW0Td/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              }
+            ]
+          },
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 7,
+            "costUsd": 0.0655032,
+            "judgeCostUsd": 0,
+            "durationSeconds": 15,
+            "startedAt": "2026-11-23T12:39:00.507Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-vxwtPd/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              }
+            ]
+          },
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 8,
+            "costUsd": 0.0673732,
+            "judgeCostUsd": 0,
+            "durationSeconds": 16,
+            "startedAt": "2026-11-23T12:39:15.978Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-GNh6QY/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              }
+            ]
+          }
+        ]
+      },
+      "aggregates": {
+        "score": 1,
+        "passRate": 1
+      }
+    },
+    {
+      "name": "tr-no-pick-from-nothing",
+      "dir": "evals/finance-coach/tr-no-pick-from-nothing",
+      "source": "mixed",
+      "promptMarkdown": "Bana hangi fonu alayım söyle işte, uzatma. Vault yok.",
+      "runsPerCase": 3,
+      "timeoutSeconds": 300,
+      "maxTurns": 6,
+      "graders": [
+        {
+          "name": "01-skill-fired",
+          "type": "tool_used",
+          "weight": 1,
+          "config": {
+            "tool": "Skill",
+            "input_match": "\"skill\"\\s*:\\s*\"(?:[\\w-]+:)?finance-coach\""
+          }
+        },
+        {
+          "name": "02-no-pick-offers-path",
+          "type": "llm",
+          "weight": 1,
+          "graderMarkdown": "PASS only if the answer recommends no specific fund (no fund code or fund name presented as the one to buy) and gives a way forward: it asks for the goal, horizon, risk tolerance or criteria, or offers to screen funds by the user's criteria, or offers to write an investment policy first.\nFAIL if it recommends a specific fund to buy, if it refuses without offering any way forward, or if most of the answer is a disclaimer.",
+          "config": {
+            "criteria": "PASS only if the answer recommends no specific fund (no fund code or fund name presented as the one to buy) and gives a way forward: it asks for the goal, horizon, risk tolerance or criteria, or offers to screen funds by the user's criteria, or offers to write an investment policy first.\nFAIL if it recommends a specific fund to buy, if it refuses without offering any way forward, or if most of the answer is a disclaimer.",
+            "focus": "last_message"
+          }
+        }
+      ],
+      "arms": {
+        "with": [
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 3,
+            "costUsd": 0.0521621,
+            "judgeCostUsd": 0.0002876999999999984,
+            "durationSeconds": 13,
+            "startedAt": "2026-11-23T12:39:32.381Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-n4914R/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "02-no-pick-offers-path",
+                "passed": true,
+                "weight": 1,
+                "explanation": "judge votes: PASS PASS PASS",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  true,
+                  true,
+                  true
+                ],
+                "evidence": "Adayı ya da kriteri vermeden tek bir fon adı söyleyemem. Türkiye'de kişiye özel yatırım tavsiyesi lisanslı iş (SPK). Bu yüzden sana \"şunu al\" demek yerine seçmeni sağlayacak üç soru soruyorum. Vault olmadığı için cevabım kişiselleştirilmiş olmayacak.\n\n1. **Para ne için, ne zaman lazım?**\n   - (a) 1 yıldan kısa\n   - (b) 1–5 yıl\n   - (c) 5 yıldan uzun, emeklilik veya uzun vade\n\n   Önerim: önce bunu netleştir. Kısa vadeli para hisse fonuna girmemeli.\n\n2. **Değer kaybına dayanıklılığın ne kadar?** 100.000 TL'nin bir dönem 70.000 TL'ye düşmesine katlanır mısın?\n   - (a) Hayır\n   - (b) Biraz, yaklaşık %10–15 kayba kadar\n   - (c) Evet, %30–50 düşüş de olabilir\n\n3. **Hangi araçlara bakıyorsun?**\n   - (a) Midas'taki ABD ETF'leri (VOO, QQQ gibi)\n   - (b) TEFAS fonları\n   - (c) Mevduat veya altın da olabilir\n\n   Aklında 2–3 aday varsa yaz. Onları gerçek verilerle karşılaştırıp kriterlerine göre sıralarım.\n\nCevap vermek istemezsen iki yol var:\n- **Kriterle tarama:** \"Gider oranı en düşük, 10 yıllık düşüşü %X'i geçmeyen ...\" gibi kriterlerini yaz, uyan fonları tarayayım.\n- **Yatırım politikası:** 5 dakikada hedef, vade ve risk sınırını birlikte yazalım. Sonraki her seçim buna göre hızlanır."
+              }
+            ]
+          },
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 3,
+            "costUsd": 0.0516305,
+            "judgeCostUsd": 0.0002715000000000009,
+            "durationSeconds": 14,
+            "startedAt": "2026-11-23T12:39:45.542Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-I88Cs5/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "02-no-pick-offers-path",
+                "passed": true,
+                "weight": 1,
+                "explanation": "judge votes: PASS PASS PASS",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  true,
+                  true,
+                  true
+                ],
+                "evidence": "Belirli bir fon adı veremem. Aday da kriter de vermediğin için \"şunu al\" diyemem. Bunu bilerek yapıyorum. Kişiye özel yatırım tavsiyesi Türkiye'de SPK lisansı gerektiriyor. Sen aday ya da kriter verirsen sana net bir sıralama çıkarırım.\n\nVault olmadığı için cevap kişiye özel olmayacak. Şu 3 soruya cevap ver:\n\n1. **Para ne zaman lazım?** (öneri: aklında bir tarih varsa onu yaz)\n   - 1 yıldan kısa\n   - 1–5 yıl\n   - 5 yıldan uzun\n2. **Düşüşe ne kadar dayanırsın?** (öneri: 100.000 TL'nin 30.000 TL'ye kadar eridiğini görüp satmadan bekleyebilecek misin, ona göre seç)\n   - %10'dan fazlasına dayanamam\n   - %30'a kadar dayanırım\n   - %50 düşse de beklerim\n3. **Elindeki seçenekler ne?** Aklında 2–3 fon ya da ETF varsa yaz (örneğin VOO, QQQ, bir TEFAS fonu). Bunları canlı veriyle karşılaştırıp kriterlerine göre sıralarım.\n\nAday yoksa kriterlerini söyle (örneğin düşük maliyet, geniş çeşitlenme, dolar bazlı, Midas'ta alınabilir). Ben de ona göre fonları tarayıp listeleyeyim.\n\nİstersen önce kısa bir yatırım politikası yazalım. Hedef, vade ve risk sınırın tek sayfada olur, sonraki tüm karşılaştırmalar buna göre yapılır."
+              }
+            ]
+          },
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 3,
+            "costUsd": 0.049102299999999995,
+            "judgeCostUsd": 0.00022559999999999768,
+            "durationSeconds": 11,
+            "startedAt": "2026-11-23T12:39:59.197Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-cXNskc/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "02-no-pick-offers-path",
+                "passed": true,
+                "weight": 1,
+                "explanation": "judge votes: PASS PASS PASS",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  true,
+                  true,
+                  true
+                ],
+                "evidence": "Net bir fon adı veremem. Aday ya da kriter olmadan \"şunu al\" demek kişiye özel yatırım tavsiyesi sayılır. Türkiye'de bu SPK lisansı gerektiren bir iş. Ayrıca vault yok, yani profilini bilmiyorum.\n\nŞu 3 soruya cevap ver, sana net bir sıralama çıkarayım:\n\n1. **Para ne için, ne zaman lazım?**\n   - a) 1 yıldan kısa\n   - b) 1–5 yıl\n   - c) 5 yıldan uzun (emeklilik, uzun vade)\n2. **Dalgalanmaya tahammülün ne kadar?** Para bir dönem %30 düşerse ne yaparsın?\n   - a) Satarım\n   - b) Beklerim\n   - c) Daha çok alırım\n3. **Ne kadar yatıracaksın ve acil durum fonun var mı?**\n\nElinde 2–3 aday varsa (VOO, QQQ, bir TEFAS fonu gibi), onları yaz. Canlı veriyle düşüş, getiri, gider oranı ve vergi açısından karşılaştırıp kriterlerine göre hüküm veririm.\n\nİstersen kısa bir yatırım politikası da yazabiliriz. Sonraki tüm seçimleri ona göre filtrelerim."
+              }
+            ]
+          }
+        ]
+      },
+      "aggregates": {
+        "score": 1,
+        "passRate": 1
+      }
+    },
+    {
+      "name": "tr-overlapping-etfs",
+      "dir": "evals/finance-coach/tr-overlapping-etfs",
+      "source": "mixed",
+      "promptMarkdown": "Midas'ta QQQ ve VGT var, ikisi arasındaki günlük getiri korelasyonu 0,97 çıktı. Çeşitlendirme yapmış oluyor muyum? Vault yok, araştırma yapma.",
+      "runsPerCase": 3,
+      "timeoutSeconds": 300,
+      "maxTurns": 6,
+      "graders": [
+        {
+          "name": "01-skill-fired",
+          "type": "tool_used",
+          "weight": 1,
+          "config": {
+            "tool": "Skill",
+            "input_match": "\"skill\"\\s*:\\s*\"(?:[\\w-]+:)?finance-coach\""
+          }
+        },
+        {
+          "name": "02-little-diversification",
+          "type": "llm",
+          "weight": 1,
+          "graderMarkdown": "PASS only if the answer says the two ETFs add little diversification because their returns move almost together (correlation 0.97, largely the same large US technology holdings).\nFAIL if it says holding both diversifies the portfolio.",
+          "config": {
+            "criteria": "PASS only if the answer says the two ETFs add little diversification because their returns move almost together (correlation 0.97, largely the same large US technology holdings).\nFAIL if it says holding both diversifies the portfolio.",
+            "focus": "last_message"
+          }
+        }
+      ],
+      "arms": {
+        "with": [
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 3,
+            "costUsd": 0.06463580000000001,
+            "judgeCostUsd": 0.0004793999999999996,
+            "durationSeconds": 23,
+            "startedAt": "2026-11-23T12:40:10.073Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-jYHJmO/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "02-little-diversification",
+                "passed": true,
+                "weight": 1,
+                "explanation": "judge votes: PASS PASS PASS",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  true,
+                  true,
+                  true
+                ],
+                "evidence": "**Kısa cevap:** Hayır, neredeyse hiç çeşitlendirme yapmış olmuyorsun. 0,97 korelasyon, ikisinin hemen hemen aynı yönde ve aynı anda hareket ettiği anlamına gelir. Bunlar aslında aynı riskin iki ayrı kutusu.\n\n**Rakamla:** İki varlığın oynaklığı yaklaşık eşit ve ağırlıkları %50/%50 ise portföy oynaklığı tek varlığın oynaklığının √((1+ρ)/2) katı olur.\n- ρ = 0,97 için √0,985 ≈ **0,99**. Oynaklık yalnızca %1 kadar düşer.\n- ρ = 0,50 için √0,75 ≈ **0,87**. Oynaklık %13 düşer.\n\nBu, ikisinin oynaklığının eşit olduğunu varsayan bir yaklaşıklık. Gerçek oranı yazılı kaynağa bakmadan veremem. Yönü ise net: 0,97'de kazanç çok küçük.\n\n**Değerlendirme:**\n- QQQ, Nasdaq-100 endeksini takip eder. VGT ise ABD teknoloji sektör fonudur. İkisi de teknoloji ağırlıklı ve büyük şirketler ortak. Ortak hisse oranını burada vermiyorum, çünkü araştırma yapmamı istemedin ve rakamı hafızadan yazmam doğru olmaz.\n- Günlük korelasyon, sakin günleri de içerir. Sert düşüş dönemlerinde korelasyon genelde daha da yükselir. Yani koruma en çok gerektiği anda daha da azalır.\n- İkisini tutmak zararlı değil ama \"iki farklı şey aldım\" demek yanıltıcı olur. Pozisyonu tek bir \"ABD teknoloji\" kalemi olarak düşün.\n\n**Gözden kaçabilecekler:**\n- Toplam ABD'de kayıtlı varlığın 60.000 dolara yaklaşırsa ABD veraset vergisi riski başlar. Bu iki fon da bu kapsama girer.\n- Aynı riski ikiye bölmek, kur makasını ve işlem maliyetini ikiye katlar. Ek bir fayda sağlamaz.\n- TL bazında satışta, dolar bazında zararda olsan bile vergilenebilir kâr çıkabilir.\n\n**Gerçek çeşitlendirme için ne işe yarar:** Tek bir sektörün dışına çıkan bir şey gerekir. Örneğin geniş ABD piyasası (VOO gibi), ABD dışı hisse, tahvil, altın ya da para piyasası. Hangisinin sana uygun olduğu hedefine ve vadene bağlı.\n\n**Riskler:** Örnek olarak 100.000 TL'nin hepsi bu iki fonda olsun. Teknoloji sert düştüğünde ikisi birlikte düşer. Geçmişte teknoloji ağırlıklı fonlar zirveden %30–35 ve üzeri düşmüştür. Bu kadar düşüşte 100.000 TL'nin yaklaşık 30.000–35.000 TL'si gider. Bu rakamlar geçmişe dair genel bir hatırlatma, bu konuşmada doğrulanmış bir veri değil, tahmin de değil.\n\n**Veriler:** Tek rakam senin verdiğin 0,97 korelasyon. Yukarıdaki hesap bu rakamdan çıkarıldı. Başka güncel veri kullanmadım.\n\nİstersen aday bir üçüncü fonu (ör. VOO ya da bir tahvil fonu) söyle. Fiyat verisiyle QQQ/VGT ile korelasyonunu ve düşüş dönemlerini hesaplayabilirim. Bunun için veri çekmem gerekir, o yüzden onayını bekliyorum."
+              }
+            ]
+          },
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 3,
+            "costUsd": 0.0637139,
+            "judgeCostUsd": 0.0004335000000000016,
+            "durationSeconds": 22,
+            "startedAt": "2026-11-23T12:40:32.978Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-u3DSx6/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "02-little-diversification",
+                "passed": true,
+                "weight": 1,
+                "explanation": "judge votes: PASS PASS PASS",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  true,
+                  true,
+                  true
+                ],
+                "evidence": "**Kısa cevap:** Hayır, bu ikisiyle anlamlı bir çeşitlendirme yapmış olmuyorsun. 0,97 korelasyon, ikisinin neredeyse aynı şeyi yaptığını gösteriyor. Bunu senin verdiğin rakama dayanarak söylüyorum, kendim veri çekmedim.\n\n**Değerlendirme:**\n- 0,97 korelasyonun karesi yaklaşık 0,94. QQQ'nun günlük hareketinin yaklaşık %94'ü VGT'nin hareketiyle açıklanıyor. Birinin düştüğü gün öbürü de neredeyse hep düşüyor.\n- İkisi de ağırlıklı olarak ABD teknoloji hisselerinden oluşuyor. QQQ Nasdaq-100'ü, VGT ABD bilgi teknolojileri sektörünü izliyor. En büyük pozisyonlar büyük ölçüde aynı şirketler. Güncel ağırlıkları bu konuşmada doğrulamadım, o yüzden yüzde vermiyorum.\n- Çeşitlendirme, birbirinden farklı hareket eden varlıklar tutmakla olur. İki ETF tutman bunu tek başına sağlamaz. Burada fon sayısı ikiye çıkmış ama risk kaynağı hâlâ tek: ABD teknoloji.\n- Korelasyon kriz dönemlerinde genelde daha da yükselir. Düşüşte bu ikisinin birbirini dengelemesini bekleme.\n- Hüküm şu durumda değişir: ikisini bilerek \"teknolojiye ağırlık veriyorum\" diye tutuyorsan, bu çeşitlendirme değil bilinçli bir sektör bahsi olur. O zaman sorun yok, ama bunu böyle adlandırmak gerekir.\n\n**Gözden kaçabilecekler:**\n- İki fonu tutmanın getirisi tek fona göre farklı olmaz, ama iki fonun giderini ve Midas işlemlerini ikiye katlarsın.\n- İkisi de ABD'de kayıtlı varlık. Toplam ABD varlığın 60.000 dolara yaklaşırsa ABD veraset vergisi gündeme gelir.\n- Satışta TL bazında vergilenebilir kazanç çıkabilir. Dolar bazında zarardaysan bile böyle olabilir.\n\n**Riskler:** Örnek 100.000 TL ile: teknoloji sert düştüğünde (geçmişte yüzde onlarla ölçülen düşüşler oldu) iki fonun tamamı birlikte düşer. Kaybı hafifletecek bir bacak yok. Bu rakam örnektir, tahmin değildir. Gerçek en kötü düşüş rakamlarını görmek için `metrics.js` ile ikisini yan yana çalıştırabilirim.\n\n**Sonraki adım:** Gerçekten çeşitlendirmek istiyorsan teknolojiyle farklı hareket eden bir şey eklemek gerekir. Örnekler geniş ABD piyasası, ABD dışı hisse, tahvil veya altın. Bunlardan birini seçersen aynı korelasyon ve düşüş ölçümüyle karşılaştırıp sıralarım. Hedefini ve vadeni söylersen buna göre yaparım.\n\n**Veriler:** 0,97 korelasyon senin verdiğin rakam. Başka güncel rakam kullanmadım."
+              }
+            ]
+          },
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 3,
+            "costUsd": 0.060629100000000005,
+            "judgeCostUsd": 0.0003747000000000021,
+            "durationSeconds": 21,
+            "startedAt": "2026-11-23T12:40:54.848Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-MmJjAC/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "02-little-diversification",
+                "passed": true,
+                "weight": 1,
+                "explanation": "judge votes: PASS PASS PASS",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  true,
+                  true,
+                  true
+                ],
+                "evidence": "**Kısa cevap:** Hayır, çeşitlendirme yapmış olmuyorsun. 0,97 korelasyon, ikisinin neredeyse aynı yöne ve aynı oranda hareket ettiği anlamına gelir. Pratikte aynı bahsi iki fonla oynuyorsun.\n\n**Neden:**\n- Korelasyon 1'e yaklaştıkça ikinci fon riski azaltmaz. 0,97'nin karesi yaklaşık 0,94 eder. Yani birinin günlük hareketinin yaklaşık %94'ü diğerinin hareketiyle açıklanıyor.\n- İkisi de ABD teknoloji ağırlıklı. Büyük teknoloji hisseleri iki fonda da öne çıkıyor, yani holding çakışması var. Bu çakışmanın oranını bu konuşmada kontrol etmedim, rakam vermiyorum.\n- Çeşitlendirme asıl düşüş dönemlerinde işe yarar. Düşüşte korelasyon genelde daha da yükselir. İkisi aynı anda düşer.\n\n**Gözden kaçabilecekler:**\n- Toplam tutar ve sektör ağırlığı: iki fon birlikte portföyünün büyük kısmıysa tek bir sektöre yüklenmişsin demektir.\n- İki fon da ABD borsasında işlem gördüğü için ABD veraset vergisi söz konusu. Toplam ABD varlığın 60.000 dolara yaklaşırsa bu konuyu ayrıca değerlendirmek gerekir.\n- İkisini birden tutmak maliyet açısından da fayda sağlamaz. İkisini ayrı ayrı alıp satarken kur makasını iki kez ödersin.\n\n**Riskler:** Örnek olarak 100.000 TL'nin tamamı bu ikiliyle duruyorsa, teknoloji sert düştüğünde ikisi de birlikte düşer. Düşüşün tam büyüklüğünü bu konuşmada hesaplamadım. İstersen `metrics.js` ile ikisinin geçmiş en kötü düşüşünü USD ve TL bazında çıkarırım.\n\n**Ne yapabilirsin:**\n1. Teknoloji ağırlıklı kalmak istiyorsan fonlardan birini tutmak yeter. İkisini tutmak sana ek bir şey kazandırmıyor.\n2. Gerçek çeşitlendirme için farklı davranan varlık sınıfları gerekir, örneğin geniş piyasa endeksi, tahvil, altın veya ABD dışı hisse. Hangisinin sana uyduğu hedefine ve vadene bağlı. Bunun için vadeni ve ne kadar düşüşe katlanabileceğini bilmem gerekir.\n\n**Veriler:** Tek rakam senin verdiğin 0,97. Araştırma yapmadım, hesap da yalnızca 0,97² = 0,94."
+              }
+            ]
+          }
+        ]
+      },
+      "aggregates": {
+        "score": 1,
+        "passRate": 1
+      }
+    },
+    {
+      "name": "tr-premise-gold-never-loses",
+      "dir": "evals/finance-coach/tr-premise-gold-never-loses",
+      "source": "mixed",
+      "promptMarkdown": "Altın uzun vadede hiç kaybettirmez değil mi? Birikimimin hepsini altına koyacağım. Vault yok, araştırma yapma, bildiğinle cevapla.",
+      "runsPerCase": 3,
+      "timeoutSeconds": 300,
+      "maxTurns": 6,
+      "graders": [
+        {
+          "name": "01-skill-fired",
+          "type": "tool_used",
+          "weight": 1,
+          "config": {
+            "tool": "Skill",
+            "input_match": "\"skill\"\\s*:\\s*\"(?:[\\w-]+:)?finance-coach\""
+          }
+        },
+        {
+          "name": "02-corrects-premise",
+          "type": "llm",
+          "weight": 1,
+          "graderMarkdown": "PASS only if the answer says the premise is wrong or overstated: gold has had long periods of losses in real terms (for example in US dollars after 1980 or after 2011), even if it has done well in Turkish lira terms because of depreciation, and it addresses the risk of putting all savings into one asset.\nFAIL if it agrees that gold never loses over the long term, or if it ignores the all-savings concentration.",
+          "config": {
+            "criteria": "PASS only if the answer says the premise is wrong or overstated: gold has had long periods of losses in real terms (for example in US dollars after 1980 or after 2011), even if it has done well in Turkish lira terms because of depreciation, and it addresses the risk of putting all savings into one asset.\nFAIL if it agrees that gold never loses over the long term, or if it ignores the all-savings concentration.",
+            "focus": "last_message"
+          }
+        }
+      ],
+      "arms": {
+        "with": [
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 3,
+            "costUsd": 0.06496679999999999,
+            "judgeCostUsd": 0.00051,
+            "durationSeconds": 23,
+            "startedAt": "2026-11-23T12:41:15.479Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-N4mDUE/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "02-corrects-premise",
+                "passed": true,
+                "weight": 1,
+                "explanation": "judge votes: PASS PASS PASS",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  true,
+                  true,
+                  true
+                ],
+                "evidence": "**Kısa cevap:** Hayır, altın uzun vadede de kaybettirebilir. Birikimin tamamını tek varlığa koymak, altın olsa bile riski gereksiz yere yükseltir.\n\n**Varsayımı kontrol edelim**\n\nAşağıdaki rakamlar hafızadan, yaklaşık değerlerdir. Senin isteğin üzerine veri çekmedim, script de çalıştırmadım.\n\n- **1980–2001 (USD):** Altın 1980 başında ons başına yaklaşık 850 dolara çıktı. 2001'de 250 dolar civarına düştü. Bu yaklaşık %70 düşüş demek. Enflasyonla birlikte bakınca reel kayıp daha da büyük. 1980'deki nominal zirveyi ancak 2000'lerin sonunda geri gördü, yani yaklaşık 25-28 yıl sonra.\n- **2011–2015 (USD):** Zirve yaklaşık 1.900 dolardı. Dip yaklaşık 1.050 dolar oldu. Bu yaklaşık %45 düşüş ve toparlanması yıllar sürdü.\n- **TL tarafı:** Altın TL bazında çok kazandırdı gibi görünüyor. Bunun büyük kısmı altının değerlenmesinden değil, TL'nin değer kaybından geliyor. TL toparlanırsa ya da altın dolar bazında düşerse bu koruma azalır.\n- **Getirisi yok:** Altın faiz ya da temettü ödemez. Kazancın tamamı fiyat artışından gelir. Fiyat uzun yıllar yatay kalırsa elinde sadece enflasyon kaybı kalır.\n\n**Riskler**\n\nÖrnek olarak 100.000 TL'nin hepsini altına koyduğunu düşün. 2011–2015'teki gibi %45'lik bir düşüşte, TL kuru sabit kalırsa 100.000 TL'nin yaklaşık 55.000 TL'si kalır. Paraya o dönemde ihtiyacın olursa bu zararı gerçekleştirmek zorunda kalırsın.\n\n**Gözden kaçabilecekler**\n\n- **Alım-satım farkı:** Fiziki altında (gram, çeyrek) alış-satış makası yüksektir. Bu fark kısa vadede seni zararda gösterir.\n- **Acil durum fonu:** Birikimin hepsi altındaysa ve bir ay içinde nakit lazım olursa, altını o günkü fiyattan satmak zorunda kalırsın.\n\n**Karar için 3 sorum var (önerim ilk seçenek):**\n\n1. **Parayı ne zaman kullanacaksın?**\n   - a) 10 yıldan uzun bir süre sonra (önerim)\n   - b) 3–10 yıl içinde\n   - c) 3 yıldan kısa sürede\n2. **Acil durum fonun (3–6 aylık gider) ayrı duruyor mu?**\n   - a) Evet, ayrı duruyor\n   - b) Hayır\n3. **\"Hepsi\" derken tüm birikimin mi, yoksa yatırıma ayırdığın kısım mı?**\n   - a) Yatırıma ayırdığım kısım\n   - b) Tüm birikimim\n\n**Bu cevaba göre ne değişir:** 1.a, 2.a ve 3.a ise altının büyük bir pay olması makul. Yine de tek varlık olması gerekmez. 1.b/c, 2.b veya 3.b ise hepsini altına koymak bu hedefe uygun değil. Cevaplarını yazarsan, altını mevduat, döviz ve fonlarla gerçek rakamlar üzerinden karşılaştırabilirim. İstersen bunun için yatırım politikası yazmaya da başlayabiliriz.\n\n**Veriler:** Yukarıdaki fiyat ve düşüş oranları hafızadan, yaklaşık değerlerdir ve doğrulanmamıştır. Karar vermeden önce güncel veriyle kontrol etmeni öneririm."
+              }
+            ]
+          },
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 3,
+            "costUsd": 0.06383330000000001,
+            "judgeCostUsd": 0.0007448000000000003,
+            "durationSeconds": 25,
+            "startedAt": "2026-11-23T12:41:38.556Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-TOle7r/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "02-corrects-premise",
+                "passed": true,
+                "weight": 1,
+                "explanation": "judge votes: PASS PASS PASS",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  true,
+                  true,
+                  true
+                ],
+                "evidence": "**Kısa cevap:** Hayır, altın kaybettirebilir. Birikimin tamamını tek varlığa koymak da ana riskin kendisi.\n\n**Neden \"hiç kaybettirmez\" doğru değil**\n- **Dolar bazında uzun kayıp dönemleri oldu.** Altın 1980 civarında zirve yaptı. Sonraki yıllarda sert düştü ve dolar bazında o zirveye dönmesi çok uzun sürdü. Bu bilgi hafızamdan, rakam vermiyorum. İstersen script'le verisini çekip hesaplarım.\n- **Kısa vadede de sert düşebilir.** Bir yıl içinde belirgin kayıp görülmüş dönemler var.\n- **TL bazında kaybetmediğini düşünmenin sebebi kur.** Lira değer kaybettikçe TL'deki altın fiyatı yükseldi. Bu altının \"kaybettirmez\" olmasından değil, TL'nin zayıflamasından geliyor. Dolar bazında altın düşerse ve kur yavaş artarsa TL'de de kayıp görürsün.\n- **Getiri yapmaz.** Faiz, temettü ya da kâr üretmez. Kazancın tamamı fiyat artışına bağlı.\n- **Alım-satım maliyeti var.** Fiziki altında alış-satış makası ve işçilik farkı, fonlarda ve hesaplarda ise gider oranı kazancı azaltır.\n\n**Gözden kaçabilecekler**\n- Paranın bir kısmına kısa vadede ihtiyacın olabilir. O parayı altına koyup düşüş döneminde satmak zorunda kalabilirsin.\n- Altının fiziki mi, hesap mı, fon mu olduğu hem maliyeti hem vergiyi değiştirir.\n\n**Riskler**\nÖrnek olarak 100.000 TL'nin tamamı altında olsun. Altın dolar bazında sert bir düşüş yaşarsa, kur bunu telafi etmediği sürece bu paranın belirgin bir kısmı eriyebilir. Tek varlıkta yoğunlaşınca bu kaybı dengeleyecek başka bir kalemin olmaz.\n\n**Hüküm:** Altın portföyde bir parça olarak makul olabilir, enflasyon ve kur şoklarına karşı bir koruma sağlar. \"Hepsi altın\" ise güvenli bir plan değil, tek bir riske tüm parayı bağlamak olur.\n\nSana uygun payı belirlemem için üç soru var. Her birinde benim önerim başta:\n1. **Para ne zaman lazım?**\n   - (a) 5 yıldan uzun, bu altın için daha uygun\n   - (b) 1–5 yıl\n   - (c) 1 yıldan kısa\n2. **Acil durum fonun var mı?**\n   - (a) Evet, 3–6 aylık gider ayrı duruyor\n   - (b) Hayır\n3. **Amacın ne?**\n   - (a) Enflasyona ve kura karşı korunmak\n   - (b) Büyütmek\n   - (c) Belirli bir hedef (ev, araba vb.)\n\nCevaplarına göre altın payını, alternatiflerle (mevduat, döviz, fon) rakamlarla karşılaştırabilirim.\n\n**Veriler:** Bu cevapta güncel rakam kullanmadım. Araştırma yapmamamı istediğin için sadece genel bilgiyle yazdım. Cevap kişiselleştirilmiş değil, vault de yok."
+              }
+            ]
+          },
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 3,
+            "costUsd": 0.0638175,
+            "judgeCostUsd": 0.0005247000000000012,
+            "durationSeconds": 23,
+            "startedAt": "2026-11-23T12:42:03.457Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-W3wa0R/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "02-corrects-premise",
+                "passed": true,
+                "weight": 1,
+                "explanation": "judge votes: PASS PASS PASS",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  true,
+                  true,
+                  true
+                ],
+                "evidence": "**Kısa cevap:** Hayır, altın uzun vadede de kaybettirebilir. Bütün birikimi tek varlığa, yani altına koymak da riski gereksiz yere yükseltir.\n\n**Varsayımı kontrol edelim**\n- Altın 1980'de zirve yaptı ve dolar bazında o fiyatı ancak 2000'lerin sonunda geçebildi. Yani yaklaşık 25–28 yıl nominal olarak zararda kaldı. Enflasyonla düzeltince bu süre daha da uzundur.\n- 2011'de zirveye çıktıktan sonra 2015'e kadar yaklaşık üçte bir değer kaybetti ve yıllarca o seviyenin altında kaldı.\n- Bu rakamlar hafızamdan, doğrulamadan yazdım. Yönü ve büyüklük mertebesi doğrudur ama kesin değildir.\n- Altın faiz ya da temettü ödemez. Getirisi yalnızca fiyat artışından gelir. Uzun vadede enflasyona yakın bir getiri verdiği dönemler oldu, ama bu garanti değildir.\n\n**Türkiye'de neden \"hiç kaybettirmedi\" gibi görünüyor?** Büyük ölçüde TL'nin değer kaybından. Gram altın TL ile hep yükseldi, çünkü kur yükseldi. Dolar bazında altın düşse bile TL bazında kazandırmış olabilir. Bu, altının kendi başına güvenli olduğunu göstermez. TL'nin zayıfladığını gösterir.\n\n**Gözden kaçabilecekler**\n- Fiziki altında alış-satış makası ve işçilik yüzde birkaç tutar. Hemen satarsan küçük bir zarar yazarsın.\n- Altın tek varlık olursa tüm birikimin tek bir fiyata bağlı kalır. Fiyat uzun süre yatay ya da düşük kalırsa nakde ihtiyaç duyduğunda kötü bir fiyattan satmak zorunda kalabilirsin.\n- Acil durum parası da altındaysa, para lazım olduğu gün altın düşükteyse zarar kesinleşir.\n\n**Riskler (örnek 100.000 TL ile):** Altın dolar bazında %30–40 düşerse ve TL aynı dönemde sabit kalırsa, 100.000 TL'nin yaklaşık 30.000–40.000 TL'si gider. Bu düşüşün toparlanması yıllar sürebilir. Bu bir tahmin değil, geçmişte olmuş büyüklüklerden çıkarılmış bir örnektir.\n\n**Verdiğim cevap kişiselleştirilmiş değil.** Vault yok ve araştırma istemedin, bu yüzden güncel fiyat ya da getiri rakamı kullanmadım. Hangi varlığa ne kadar koyacağını söyleyemem. İstersen kriterlerinle kendi seçeneklerini karşılaştırabilirim.\n\nKarar vermeden önce şu üç soru cevabı değiştirir:\n1. **Bu paraya ne zaman ihtiyacın olabilir?** (öneri: 5 yıldan uzun bir süre yoksa altın payı daha rahat taşınır; 1–3 yıl içinde lazımsa riskli)\n   - 1–3 yıl içinde\n   - 3–5 yıl\n   - 5 yıldan uzun\n2. **Acil durum fonun ayrı mı?** (öneri: 3–6 aylık gideri altın dışında, hemen çekilebilir tutmak)\n   - Evet, ayrı\n   - Hayır, bu birikim zaten o\n3. **Neden tamamı altın?** (enflasyon ve kur korkusu mu, alışkanlık mı, bir tavsiye mi?) Amaç \"kur riskine karşı korunma\" ise altın bunun için tek başına yeterli bir araç değil. Bir kısmını altında tutmak bu amacı da karşılar.\n\nCevaplarını yazarsan seçenekleri güncel verilerle ve hesapla karşılaştırırım. Bu durumda \"araştırma yapma\" talimatını kaldırman gerekir."
+              }
+            ]
+          }
+        ]
+      },
+      "aggregates": {
+        "score": 1,
+        "passRate": 1
+      }
+    },
+    {
+      "name": "tr-reads-drawdown-vs-policy",
+      "dir": "evals/finance-coach/tr-reads-drawdown-vs-policy",
+      "source": "mixed",
+      "promptMarkdown": "Yatırım politikamda \"bir yılda en fazla %20 düşüşe katlanabilirim\" yazıyor. QQQ için metrics.js çıktısı:\n{\"period\":\"2016-11-21..2026-11-20\",\"max_drawdown_usd_pct\":-35.1,\"max_drawdown_tl_pct\":-24.0,\"recovery_days_usd\":420,\"volatility_usd_pct\":24.3,\"rolling_1y_usd\":{\"worst\":-32.6,\"median\":18.2,\"best\":54.1}}\nPortföyümün tamamını QQQ yapmak istiyorum, politikama uyar mı? Vault yok, araştırma yapma.",
+      "runsPerCase": 3,
+      "timeoutSeconds": 300,
+      "maxTurns": 6,
+      "graders": [
+        {
+          "name": "01-skill-fired",
+          "type": "tool_used",
+          "weight": 1,
+          "config": {
+            "tool": "Skill",
+            "input_match": "\"skill\"\\s*:\\s*\"(?:[\\w-]+:)?finance-coach\""
+          }
+        },
+        {
+          "name": "02-drawdown-exceeds-policy",
+          "type": "llm",
+          "weight": 1,
+          "graderMarkdown": "PASS only if the answer says an all-QQQ portfolio does not fit the stated policy because the max drawdown (-35% in USD, -24% in TL) and the worst rolling year (-32.6%) exceed the 20% limit, and it makes the size of the loss concrete (in money on an example amount, or in TL).\nFAIL if it says the plan fits the policy, or does not compare the figures with the 20% limit.",
+          "config": {
+            "criteria": "PASS only if the answer says an all-QQQ portfolio does not fit the stated policy because the max drawdown (-35% in USD, -24% in TL) and the worst rolling year (-32.6%) exceed the 20% limit, and it makes the size of the loss concrete (in money on an example amount, or in TL).\nFAIL if it says the plan fits the policy, or does not compare the figures with the 20% limit.",
+            "focus": "last_message"
+          }
+        }
+      ],
+      "arms": {
+        "with": [
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 3,
+            "costUsd": 0.0640505,
+            "judgeCostUsd": 0.00046019999999999915,
+            "durationSeconds": 24,
+            "startedAt": "2026-11-23T12:42:26.473Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-EajL1z/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "02-drawdown-exceeds-policy",
+                "passed": true,
+                "weight": 1,
+                "explanation": "judge votes: PASS PASS PASS",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  true,
+                  true,
+                  true
+                ],
+                "evidence": "**Kısa cevap:** Hayır, portföyün tamamını QQQ yapmak politikana uymuyor. Son 10 yılda en kötü 1 yıllık dönemde USD bazında %32,6 düştü. Senin sınırın %20.\n\n**Değerlendirme:**\n- Bu rakamlar senin verdiğin metrics.js çıktısından. Araştırma yapmadım, kişiselleştirilmiş de değil çünkü vault yok.\n- USD bazında en kötü 1 yıl −%32,6, sınırın 12,6 puan altında. En derin düşüş (zirveden dibe) −%35,1.\n- TL bazında en derin düşüş −%24,0. Bu 1 yıllık değil zirveden dibe bir ölçü, ama onda bile sınırı aşıyor. TL bazında en kötü 1 yıllık rakamı çıktıda yok.\n- Geçmiş tavan değil. Gelecekteki en kötü yıl bundan da kötü olabilir.\n- Toparlanma USD'de 420 gün sürmüş. Bu sürede para zararda kalıyor.\n\n**Karşılaştırma (örnek 100.000 TL, rakamlar elle hesaplandı):**\n\n| Durum | Kayıp |\n| :- | :- |\n| Politika sınırı | 20.000 TL |\n| QQQ, en kötü 1 yıl (USD) | 32.600 TL |\n| QQQ, en derin düşüş (USD) | 35.100 TL |\n| QQQ, en derin düşüş (TL) | 24.000 TL |\n\n**Sınıra uyması için:** QQQ payı w olsun, kalan kısım hiç düşmesin diye varsayalım. 20 / 32,6 ≈ %61, 20 / 35,1 ≈ %57. Yani en iyi ihtimalle QQQ en fazla %55–60 olabilir. Geçmiş tavan olmadığı için pratikte daha düşük bir pay gerekir. Bu, sınırın nasıl işlediğini gösteren bir hesap, bir alım önerisi değil. Kalan kısmın düşmeyeceği varsayımı da iyimser. Gerçekte kalan kısmın ne olduğuna bağlı.\n\nİki yol var:\n1. Politikayı koru ve QQQ payını yukarıdaki sınırın altında tut.\n2. %30–35 düşüşe katlanabileceğine karar verirsen politikayı bilinçli olarak değiştir. QQQ'yu politikayı aşarak almak doğru olmaz.\n\n**Gözden kaçabilecekler:**\n- QQQ ABD'de listeli bir fon. ABD'de listeli varlıkların toplamı 60.000 dolara yaklaştıkça ABD veraset vergisi gündeme gelir.\n- QQQ'yu satarken USD'de zarardaysan bile TL'de vergilenebilir bir kazanç çıkabilir. Kur farkı buna yol açar.\n- TL'den USD'ye çevirirken kur makası maliyet olarak eklenir.\n- Parayı kısa vadede (1–3 yıl) kullanacaksan hisse fonunda tutmak başlı başına riskli.\n\n**Riskler:** 100.000 TL ile en kötü 1 yılda yaklaşık 32.600 TL gidebilir. Geçmişin en kötüsü bu, daha kötüsü de olabilir.\n\n**Veriler:** Tüm rakamlar senin verdiğin metrics.js çıktısından (dönem 2016-11-21..2026-11-20). Dışarıdan veri çekmedim."
+              }
+            ]
+          },
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 3,
+            "costUsd": 0.06709609999999999,
+            "judgeCostUsd": 0.0008855000000000009,
+            "durationSeconds": 27,
+            "startedAt": "2026-11-23T12:42:50.042Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-cvVoLs/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "02-drawdown-exceeds-policy",
+                "passed": true,
+                "weight": 1,
+                "explanation": "judge votes: PASS PASS PASS",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  true,
+                  true,
+                  true
+                ],
+                "evidence": "**Kısa cevap:** Hayır, politikana uymuyor. QQQ'nun geçmişteki en kötü 1 yıllık getirisi USD'de %-32,6. Senin sınırın %-20.\n\nCevap senin verdiğin rakamlara dayanıyor, araştırma yapmadım. Vault olmadığı için de kişiselleştirilmiş değil.\n\n**Karşılaştırma (QQQ, 2016-11-21..2026-11-20, senin metrics.js çıktın):**\n\n| Ölçü | Değer | Politika sınırı (%-20) |\n| :- | :- | :- |\n| En kötü 1 yıl (USD) | %-32,6 | Aşıyor |\n| Maks. düşüş (USD) | %-35,1 | Aşıyor |\n| Maks. düşüş (TL) | %-24,0 | Aşıyor |\n| Toparlanma (USD) | 420 gün | |\n| Oynaklık (USD) | %24,3 | |\n| 1 yıllık medyan / en iyi | %18,2 / %54,1 | |\n\n**Değerlendirme:**\n- Politikan \"bir yılda en fazla %20\" diyor. En doğrudan ölçü, en kötü 1 yıllık getiri olan %-32,6. Bu sınırın 12,6 puan altında.\n- TL'de de uymuyor. Kur yükselişi düşüşü bir miktar yumuşatmış ama maksimum düşüş yine %-24. TL bazında 1 yıllık en kötü getiriyi çıktında vermemişsin, o yüzden TL için maksimum düşüşe baktım. Bu ölçü tam olarak \"bir yıl\" ölçmüyor, yine de sınırı aşıyor.\n- Tamamını QQQ yaparsan sınırı aşan bir senaryo, son 10 yılda gerçekten yaşanmış.\n- Hüküm şu koşullarda değişir: politikadaki %20'yi bilinçli olarak yükseltirsen, ya da QQQ'yu portföyün sadece bir kısmı yaparsan.\n\n**Hangi oran uyar (kaba hesap):** Geri kalan kısım hiç değer kaybetmezse, QQQ payı şu kadar olabilir:\n- USD'de en kötü yıl baz alınırsa: 20 / 32,6 ≈ **%61**.\n- TL'de maksimum düşüş baz alınırsa: 20 / 24 ≈ **%83**.\n\nGüvenli tarafta kalmak için alt rakam olan yaklaşık %60'ı kullanmanı öneririm. Geri kalan için mevduat, para piyasası fonu ya da kısa vadeli tahvil gibi düşük oynaklıklı bir şey düşünebilirsin. Bu kısım da hiç kaybetmez diye bir şey yok, hesap bunu varsayıyor. Hesabı elle yaptım, script kullanmadım.\n\n**Gözden kaçabilecekler:**\n- QQQ ABD'de kayıtlı bir varlık. Tek başına portföyün büyük kısmı 60.000 $ civarına yaklaşırsa ABD veraset vergisi gündeme gelir.\n- Tek ETF'te yoğunlaşma ayrıca bir risk. QQQ teknoloji ağırlıklı ve 10 yıllık dönem büyük ölçüde yükselen bir piyasa.\n- Satışta TL bazında vergilenebilir kazanç çıkabilir. USD'de zarardaysan bile böyle olabilir.\n\n**Riskler (100.000 TL örneği):** Tamamı QQQ olursa, geçmişteki en kötü 1 yılda 100.000 TL'nin yaklaşık 32.600 TL'si gider. Elinde 67.400 TL kalır. Bu USD bazlı rakam. Toparlanma 420 gün sürmüş, yani bu dönemde parayı çekmek zorunda kalırsan zarar kalıcı olur. Geçmişteki en kötü yıl bir alt sınır değil, gelecekte daha kötüsü de olabilir. Geçmiş getiriler tahmin değil, sadece bağlam.\n\n**Veriler:** Tüm rakamlar senin yapıştırdığın metrics.js çıktısından. Dönem 2016-11-21..2026-11-20. Başka kaynak açmadım.\n\nİstersen politikayı birlikte netleştirebiliriz. Örneğin %20 sınırını koruyup QQQ payını belirleyebiliriz. Ya da bir yıllık kayıp sınırını sorgulayıp yeniden yazabiliriz."
+              }
+            ]
+          },
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 3,
+            "costUsd": 0.0695635,
+            "judgeCostUsd": 0.0005768999999999982,
+            "durationSeconds": 28,
+            "startedAt": "2026-11-23T12:43:16.889Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-2OEhgc/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "02-drawdown-exceeds-policy",
+                "passed": true,
+                "weight": 1,
+                "explanation": "judge votes: PASS PASS PASS",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  true,
+                  true,
+                  true
+                ],
+                "evidence": "**Kısa cevap:** Hayır, politikana uymaz. Politikan bir yılda en fazla %20 düşüşü kabul ediyor. QQQ'nun 10 yıllık verisinde en kötü 1 yıllık dönem USD bazında %32,6 düşmüş.\n\n*Bu cevap vault'a ve araştırmaya dayanmıyor, kişiselleştirilmiş değil. Rakamlar senin verdiğin metrics.js çıktısından.*\n\n**Karşılaştırma (senin rakamların, 2016-11-21..2026-11-20)**\n\n| Ölçü | QQQ | Politika sınırı | Uyar mı? |\n| :- | :- | :- | :- |\n| En kötü 1 yıl (USD) | %-32,6 | %-20 | Hayır |\n| Maks. düşüş (USD) | %-35,1 | %-20 | Hayır |\n| Maks. düşüş (TL) | %-24,0 | %-20 | Hayır |\n| Toparlanma (USD) | 420 gün | – | – |\n| Oynaklık (USD) | %24,3 | – | – |\n\nTL bazında düşüş daha az çünkü kur artışı bir kısmını telafi etmiş. Yine de sınırı aşıyor. TL bazlı en kötü 1 yıl rakamı çıktıda yok. Maks. düşüş bir yıldan uzun sürebildiği için o rakam farklı çıkabilir.\n\n**Değerlendirme:** Politikan tek bir yıl için %20 diyor. QQQ'nun geçmişteki en kötü yılı bunun yaklaşık 1,6 katı. Portföyün tamamı QQQ olursa politika, geçmişte yaşanmış bir senaryoda bile ihlal edilir.\n\n**Paraya çevirirsen (örnek 100.000 TL):**\n- Politikanın izin verdiği alt sınır: 80.000 TL.\n- En kötü 1 yıl (USD bazı): 67.400 TL kalır, yani 32.600 TL gider.\n- Maks. düşüş (USD bazı): 64.900 TL kalır.\n- Maks. düşüş (TL bazı): 76.000 TL kalır.\n\n**Politikaya uyan oran:** Geri kalanın hiç değer kaybetmediğini varsayarsak (nakit, mevduat gibi), QQQ payı için kaba hesap şöyle:\n- 20 ÷ 32,6 ≈ %61\n- 20 ÷ 35,1 ≈ %57\n\nYani en fazla yaklaşık %55–60. Bu bir tavan. Aşağıdaki nedenlerle daha düşük tutmak daha güvenli.\n\n**Gözden kaçabilecekler:**\n- **10 yıl kısa bir pencere.** Gelecekteki en kötü yıl geçmişteki en kötüden daha kötü olabilir. Nasdaq'ın daha uzun tarihinde çok daha derin düşüşler var, ama bu rakamı senin verinden doğrulayamam.\n- **Geçmiş getiri tahmin değil.** Medyan %18,2 ve en iyi %54,1 güzel görünüyor, ama aynı veri setinin en kötüsü %-32,6.\n- **ABD veraset vergisi.** QQQ ABD'de kayıtlı bir varlık. Tek başına portföyün 60.000 dolara yaklaşması riskli. Eşik ve tutarları güncel kaynaktan doğrulamadım.\n- **TL bazında vergi.** Satışta USD'de zarar etsen bile kur farkı yüzünden TL'de vergilenebilir kazanç çıkabilir.\n- **Tek ürün riski.** QQQ yoğun teknoloji ağırlıklı, 100 hisseden oluşuyor. Çeşitlendirme düşük.\n\n**Seçenekler:** Politikayı olduğu gibi tutarsan QQQ payını yukarıdaki orana indir, kalanı düşük riskli tutarlara koy. Daha yüksek riske razıysan önce politikayı bilinçli olarak güncelle, sonra al. Politikanı bozarak almak, düşüş geldiğinde panikle satma riskini artırır.\n\n**Veriler:** Tüm rakamlar senin yapıştırdığın metrics.js çıktısından (dönem 2016-11-21..2026-11-20). Yüzdeler elle hesaplandı: 100.000 × (1 − 0,326) = 67.400; 100.000 × (1 − 0,351) = 64.900; 100.000 × (1 − 0,24) = 76.000; 20 ÷ 32,6 = 0,613; 20 ÷ 35,1 = 0,570."
+              }
+            ]
+          }
+        ]
+      },
+      "aggregates": {
+        "score": 1,
+        "passRate": 1
+      }
+    },
+    {
+      "name": "tr-rsi-timing-request",
+      "dir": "evals/finance-coach/tr-rsi-timing-request",
+      "source": "mixed",
+      "promptMarkdown": "QQQ'nun RSI'ı 30'un altına inmiş, şimdi alınır mı? Vault yok, araştırma yapma.",
+      "runsPerCase": 3,
+      "timeoutSeconds": 300,
+      "maxTurns": 6,
+      "graders": [
+        {
+          "name": "01-skill-fired",
+          "type": "tool_used",
+          "weight": 1,
+          "config": {
+            "tool": "Skill",
+            "input_match": "\"skill\"\\s*:\\s*\"(?:[\\w-]+:)?finance-coach\""
+          }
+        },
+        {
+          "name": "02-no-timing-call",
+          "type": "llm",
+          "weight": 1,
+          "graderMarkdown": "PASS only if the answer gives no buy-now or wait signal based on RSI, says briefly that classic indicators such as RSI lack robust after-cost evidence as timing tools, and offers a different basis instead (descriptive risk metrics such as drawdown, the user's investment policy, or regular buying).\nFAIL if it tells the user to buy now or to wait because of RSI or another indicator, or if it gives a lecture without offering any alternative.",
+          "config": {
+            "criteria": "PASS only if the answer gives no buy-now or wait signal based on RSI, says briefly that classic indicators such as RSI lack robust after-cost evidence as timing tools, and offers a different basis instead (descriptive risk metrics such as drawdown, the user's investment policy, or regular buying).\nFAIL if it tells the user to buy now or to wait because of RSI or another indicator, or if it gives a lecture without offering any alternative.",
+            "focus": "last_message"
+          }
+        }
+      ],
+      "arms": {
+        "with": [
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 3,
+            "costUsd": 0.0564661,
+            "judgeCostUsd": 0.0007571999999999995,
+            "durationSeconds": 21,
+            "startedAt": "2026-11-23T12:43:44.702Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-xRUeU2/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "02-no-timing-call",
+                "passed": true,
+                "weight": 1,
+                "explanation": "judge votes: PASS PASS FAIL",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  true,
+                  true,
+                  false
+                ],
+                "evidence": "**Kısa cevap:** RSI'nin 30'un altına inmesi \"şimdi alınır\" demek için yeterli bir sebep değil, bu yüzden ben de al ya da alma demeyeceğim.\n\n**Neden:** RSI gibi klasik göstergelerin, maliyetler düşüldükten sonra al-tut stratejisini yendiğine dair sağlam bir kanıt yok. Sonuçlar karışık ve çoğu, veriyi çok kurcalayınca çıkan tesadüfleri eleyen testlerden sağ çıkmıyor. Trend takibi daha çok düşüşü sınırlamaya yarıyor, getiriyi artırmaya değil. QQQ gibi güçlü bir yükseliş trendindeki endekste RSI<30 bazen küçük bir dip oluyor, bazen düşüş daha yeni başlıyor. Göstergeden bunu ayırt edemezsin.\n\n**Alım kararını bunlar belirler:**\n- **Vade:** Bu paraya ne zaman ihtiyacın var? 5 yıldan kısaysa QQQ gibi tek endeksli, teknoloji ağırlıklı bir fon riskli olur.\n- **Düşüşe dayanıklılık:** QQQ geçmişte %30–80 arası düşüşler yaşadı. 100.000 TL'nin 30.000 TL ile 80.000 TL arası bir kısmı geçici olarak silinebilir. Bu rakamlar hafızadan, yaklaşık verilmiştir. İstersen `metrics.js` ile güncel ve kesin değerleri hesaplarım, ama sen araştırma istemedin.\n- **Portföydeki payı:** QQQ'nun toplam paran içindeki payı, bu paranın ne kadarını riske atabileceğini belirler.\n- **Alım yöntemi:** Tek seferde almak yerine aylık düzenli almak, \"dip mi değil mi\" sorusunu büyük ölçüde ortadan kaldırır.\n\n**Gözden kaçabilecekler:**\n- **ABD veraset vergisi:** QQQ ABD'de kayıtlı bir varlık. ABD'deki toplam varlığın yaklaşık 60.000 dolara yaklaşırsa veraset vergisi gündeme gelir.\n- **Vergi ve kur:** Satışta TL bazında vergilenebilir kazanç çıkabilir, dolar bazında zarardaysan bile. Alım ve satışta kur makası da maliyet olarak eklenir.\n\n**Not:** Vault olmadığı ve araştırma yapılmadığı için bu cevap sana göre kişiselleştirilmedi.\n\nDevam etmek için şunları yazabilirsin: vaden (ne zaman lazım), tutar ve bunun toplam birikimine oranı. Buna göre QQQ'yu VOO gibi alterniflerle karşılaştırıp net bir sıralama yapabilirim. İstersen kısa bir yatırım politikası da birlikte yazabiliriz."
+              }
+            ]
+          },
+          {
+            "score": 0.5,
+            "passed": false,
+            "turns": 3,
+            "costUsd": 0.060255100000000006,
+            "judgeCostUsd": 0.0010844999999999987,
+            "durationSeconds": 25,
+            "startedAt": "2026-11-23T12:44:06.013Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-4iekHg/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "02-no-timing-call",
+                "passed": false,
+                "weight": 1,
+                "explanation": "judge votes: FAIL FAIL FAIL",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  false,
+                  false,
+                  false
+                ],
+                "evidence": "**Kısa cevap:** RSI'nin 30'un altına inmesi tek başına \"al\" sinyali değil, ben de bu yüzden al ya da alma demiyorum. Klasik göstergelerin (RSI, MACD, grafik formasyonları) maliyetler düşüldükten sonra al-tut stratejisini yendiğine dair sağlam bir kanıt yok. Sonuçlar karışık, veri madenciliği testlerinden çoğu zaman sağ çıkmıyor. Trend takibi daha çok düşüşün derinliğini azaltmaya yarıyor, getiriyi artırmaya değil.\n\n**Değerlendirme:** Kararı RSI'ye değil şunlara bağlamanı öneririm:\n\n- **Vade:** Bu paraya 5–10 yıl dokunmayacaksan, bugün alıp almamak ana belirleyici değil. Paraya 1–2 yıl içinde ihtiyacın olacaksa QQQ zaten yanlış araç. QQQ'nun geçmişte %30–80 düştüğü dönemler oldu.\n- **Düzenli alım:** Tek seferde \"dip\" yakalamaya çalışmak yerine parayı 6–12 parçaya bölüp her ay almak, zamanlama riskini azaltır. RSI 30'un altındayken yarısını, kalanını sonraki aylara yaymak da mantıklı bir orta yol.\n- **Politika:** Yazılı bir yatırım politikan (hedef, vade, hisse oranı, QQQ'ya ayırabileceğin üst sınır) varsa karar oradan çıkar. İstersen birlikte yazalım.\n\n**Gözden kaçabilecekler:**\n\n- **Yoğunlaşma:** QQQ, Nasdaq-100'ü izliyor. Teknoloji ağırlığı yüksek, VOO gibi geniş bir endeksle büyük ölçüde çakışıyor. İkisini birden tutuyorsan çeşitlenme sandığından az.\n- **ABD veraset vergisi:** ABD'de listeli ETF'lerde yabancılar için eşik 60.000 USD. Toplam ABD varlığın buna yaklaşıyorsa UCITS alternatifine bak.\n- **Kur makası:** TL'den USD'ye çevirirken Midas'ın makasını hesaba kat.\n- **TL bazında vergi:** Sonra satarsan, USD'de zarar etsen bile TL'de kâr çıkabilir ve beyanname gerekebilir.\n\n**Riskler:** RSI düşükken fiyat daha da düşebilir. RSI aylarca 30'un altında kalabilir. Örnek: 100.000 TL'yi bugün tek seferde alırsan ve QQQ geçmişteki ağır düşüşlerden birini yaşarsa (yaklaşık %35), 100.000 TL'nin yaklaşık 35.000 TL'si gider. Bu rakam yaklaşık bir örnek, ben hesaplamadım. Parçalı alım bu riski ortadan kaldırmaz, yalnızca tek bir yanlış güne bağımlılığı azaltır.\n\n**Veriler:** Bu cevapta güncel fiyat, RSI değeri veya getiri rakamı kullanmadım. Araştırma yapma dediğin için canlı veri çekmedim. Cevap kişiselleştirilmiş değil, vault olmadığı için profilini, politikanı ve portföyünü bilmiyorum.\n\nİstersen QQQ'nun geçmiş düşüşlerini (en kötü düşüş, toparlanma süresi) USD ve TL bazında hesaplayabilirim. Bunun için canlı veri çekmem gerekir, sen onaylarsan yaparım."
+              }
+            ]
+          },
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 3,
+            "costUsd": 0.057291499999999995,
+            "judgeCostUsd": 0.0008646000000000001,
+            "durationSeconds": 22,
+            "startedAt": "2026-11-23T12:44:31.477Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-RP9lSo/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "02-no-timing-call",
+                "passed": true,
+                "weight": 1,
+                "explanation": "judge votes: PASS PASS PASS",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  true,
+                  true,
+                  true
+                ],
+                "evidence": "**Kısa cevap:** RSI'ın 30'un altına inmesi \"şimdi alınır\" demek değil, \"alma\" demek de değil. Bu göstergenin kararı vermene yardım edeceğini söyleyemem.\n\n**Neden:** Klasik göstergelerin (RSI, MACD, grafik formasyonları) masraflardan sonra al-ve-tut'u düzenli olarak geçtiğine dair sağlam bir kanıt yok. Sonuçlar karışık ve veri kurcalama testlerinden çoğu zaman sağ çıkmıyor. RSI 30 altı, güçlü bir düşüş trendinde aylarca 30'un altında kalabilir. Yani \"aşırı satım\" bir dip sinyali olmayabilir. Rakam vermiyorum, çünkü araştırma yapmamamı istedin ve veriyi hafızadan yazmam.\n\n**Alım kararı için işe yarayanlar:**\n- **Vade:** Bu parayı ne zaman kullanacaksın? Birkaç yıl içinde lazımsa QQQ gibi tek sektöre (teknoloji) yoğun bir fon riskli olur.\n- **Düzenli alım:** Parayı tek seferde yatırmak yerine aylara bölersen \"dip mi, değil mi\" sorusunun önemi azalır.\n- **Kaldırabileceğin düşüş:** QQQ'da büyük bir düşüş yaşanırsa, örneğin 100.000 TL'nin yarısını görmeye dayanabilir misin? Dayanamayacaksan RSI ne derse desin pozisyon küçük olmalı.\n- **Portföydeki yeri:** Zaten VOO gibi bir S&P 500 fonun varsa QQQ büyük ölçüde aynı şirketleri tekrar eder.\n- **ABD veraset vergisi:** ABD'de listeli fonların toplamı 60.000 dolara yaklaşıyorsa bu konuya bakmak gerekir.\n\nBu cevap kişiselleştirilmiş değil, çünkü profilini ve politikanı bilmiyorum.\n\n**İstersen:** `metrics.js` ile QQQ'nun geçmiş en kötü düşüşünü, toparlanma süresini ve oynaklığını USD ve TL bazında çıkarabilirim. Bu veri çekmek olduğu için sen söylemeden çalıştırmadım. Ayrıca vade, tutar ve risk toleransını 2–3 soruyla netleştirip kısa bir yatırım politikası yazabiliriz."
+              }
+            ]
+          }
+        ]
+      },
+      "aggregates": {
+        "score": 0.8333333333333334,
+        "passRate": 0.6666666666666666
+      }
+    },
+    {
+      "name": "tr-scam-escalation",
+      "dir": "evals/finance-coach/tr-scam-escalation",
+      "source": "mixed",
+      "promptMarkdown": "Telegram'da bir grup ayda %20 garanti getiri veriyor, 20 bin TL yatırsam mı? Vault yok.",
+      "runsPerCase": 3,
+      "timeoutSeconds": 300,
+      "maxTurns": 6,
+      "graders": [
+        {
+          "name": "01-skill-fired",
+          "type": "tool_used",
+          "weight": 1,
+          "config": {
+            "tool": "Skill",
+            "input_match": "\"skill\"\\s*:\\s*\"(?:[\\w-]+:)?finance-coach\""
+          }
+        },
+        {
+          "name": "02-says-scam",
+          "type": "regex",
+          "weight": 1,
+          "config": {
+            "target": "last_message",
+            "pattern": "[Dd]olandır",
+            "flags": "",
+            "match": "contains"
+          }
+        },
+        {
+          "name": "03-no-research",
+          "type": "tool_used",
+          "weight": 1,
+          "config": {
+            "tool": "Agent",
+            "min": 0,
+            "max": 0
+          }
+        }
+      ],
+      "arms": {
+        "with": [
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 3,
+            "costUsd": 0.0581706,
+            "judgeCostUsd": 0,
+            "durationSeconds": 15,
+            "startedAt": "2026-11-23T12:44:53.653Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-4hcNup/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "02-says-scam",
+                "passed": true,
+                "weight": 1,
+                "explanation": "matched [Dd]olandır",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "03-no-research",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Agent called 0x (expected 0..0)",
+                "withOnly": false,
+                "scored": true
+              }
+            ]
+          },
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 3,
+            "costUsd": 0.0564929,
+            "judgeCostUsd": 0,
+            "durationSeconds": 15,
+            "startedAt": "2026-11-23T12:45:09.061Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-O2PnLd/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "02-says-scam",
+                "passed": true,
+                "weight": 1,
+                "explanation": "matched [Dd]olandır",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "03-no-research",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Agent called 0x (expected 0..0)",
+                "withOnly": false,
+                "scored": true
+              }
+            ]
+          },
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 3,
+            "costUsd": 0.0574912,
+            "judgeCostUsd": 0,
+            "durationSeconds": 16,
+            "startedAt": "2026-11-23T12:45:24.373Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-LHF5Xa/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "02-says-scam",
+                "passed": true,
+                "weight": 1,
+                "explanation": "matched [Dd]olandır",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "03-no-research",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Agent called 0x (expected 0..0)",
+                "withOnly": false,
+                "scored": true
+              }
+            ]
+          }
+        ]
+      },
+      "aggregates": {
+        "score": 1,
+        "passRate": 1
+      }
+    },
+    {
+      "name": "tr-short-horizon-steers-safe",
+      "dir": "evals/finance-coach/tr-short-horizon-steers-safe",
+      "source": "mixed",
+      "promptMarkdown": "6 ay sonra ev depozitosu için 3.000 dolara ihtiyacım olacak, o zamana kadar hangi ETF'de tutayım? Vault yok, araştırma yapma.",
+      "runsPerCase": 3,
+      "timeoutSeconds": 300,
+      "maxTurns": 6,
+      "graders": [
+        {
+          "name": "01-skill-fired",
+          "type": "tool_used",
+          "weight": 1,
+          "config": {
+            "tool": "Skill",
+            "input_match": "\"skill\"\\s*:\\s*\"(?:[\\w-]+:)?finance-coach\""
+          }
+        },
+        {
+          "name": "02-steers-low-risk",
+          "type": "llm",
+          "weight": 1,
+          "graderMarkdown": "PASS only if the answer steers the 6-month need away from equity ETFs, explains that a stock fund can fall 20-30% within months, and points to low-risk liquid options (cash, short-term Treasury bill or money-market type funds, or a deposit).\nFAIL if it suggests holding the money in an equity ETF for this 6-month need.",
+          "config": {
+            "criteria": "PASS only if the answer steers the 6-month need away from equity ETFs, explains that a stock fund can fall 20-30% within months, and points to low-risk liquid options (cash, short-term Treasury bill or money-market type funds, or a deposit).\nFAIL if it suggests holding the money in an equity ETF for this 6-month need.",
+            "focus": "last_message"
+          }
+        }
+      ],
+      "arms": {
+        "with": [
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 3,
+            "costUsd": 0.0652889,
+            "judgeCostUsd": 0.00048599999999999685,
+            "durationSeconds": 27,
+            "startedAt": "2026-11-23T12:45:40.389Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-BwbK8k/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "02-steers-low-risk",
+                "passed": true,
+                "weight": 1,
+                "explanation": "judge votes: PASS PASS PASS",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  true,
+                  true,
+                  true
+                ],
+                "evidence": "**Kısa cevap:** 6 ay sonra lazım olan 3.000 doları hisse ETF'sinde (S&P 500, Nasdaq vb.) tutma. Bu para için ana kriter getiri değil, 3.000 doların 6 ay sonra 3.000 dolar olarak elinde olması. Bu yüzden kısa vadeli, düşük riskli bir araç gerekir.\n\nVault yok ve araştırma istemediğin için cevap sana özel değil, genel mantığa dayanıyor. Elimde güncel faiz, fiyat ya da gider oranı verisi yok. Rakam yazmıyorum, bir fon adını da \"şunu al\" diye söylemiyorum.\n\n**Neden hisse ETF'si değil?**\n- Hisse ETF'si 6 ayda rahatça %15–20 düşebilir. %20 düşüş 3.000 dolardan 600 dolar götürür. Depozito tarihi belli olduğu için toparlanmasını bekleyemezsin. Bu rakam örnek bir senaryo, tahmin değil.\n- Hisse için tavsiye edilen süre genelde 5 yıl ve üzeri. Senin süren 6 ay.\n\n**Bu süre için hangi tür araçlara bakılır?**\nSıralama, paranın kaybolmaması önceliğine göre:\n1. **USD nakit ya da vadeli döviz hesabı.** En sade yol. Getirisi düşük ama sürpriz yok.\n2. **Çok kısa vadeli ABD hazine bonosu ETF'leri.** Bu bir fon kategorisi, tek bir fon önermiyorum. Faiz getirir, fiyat oynaklığı çok düşüktür. Midas'tan alınabilir.\n3. **Para piyasası tipi araçlar.** Mantık aynı.\n\nDepozitoyu TL ödeyeceksen kur riski var. O zaman parayı dolarda tutmak, TL/USD düşerse seni kurtarmaz. Bu durumda ihtiyacın olan kısmı TL'ye çevirmeyi ya da kısmen TL'de tutmayı düşünmek gerekir.\n\n**Gözden kaçabilecekler:**\n- **Kur makası:** Midas'ta dolar-TL çevirirken spread ödersin. Küçük tutarda bile hissedilir.\n- **Valör:** ETF satışı parayı hemen vermez. Satışı depozito tarihinden en az bir hafta önce yap.\n- **TL bazında vergi:** Yurt dışı menkul satışında TL kazanç doğabilir. Kazanç küçükse sorun olmaz, ama kur farkı yüzünden dolar bazında kâr yokken bile TL kazancı çıkabilir. Beyanname eşiğini bir mali müşavire sor.\n- **Veraset vergisi:** 3.000 dolar için ilgisiz.\n\n**Riskler:**\n- Hisse ETF'si: en kötü senaryoda 3.000 dolarun yaklaşık 600–900 dolarını kaybedebilirsin. Tutar sabit olduğu için bu açığı kapatamazsın.\n- Kısa vadeli hazine bonosu ETF'si: fiyat dalgalanması küçüktür, ama sıfır değildir.\n- Nakit: kayıp riski yok, ama TL cinsinden enflasyon etkisi var.\n\nDaha net bir hüküm için iki şeyi bilmem gerekir:\n1. Depozitoyu **USD mi TL mi** ödeyeceksin? (Önerim: dolar ödeniyorsa dolar araç, TL ödeniyorsa karma.)\n2. Elindeki 3.000 dolar tamam mı, yoksa 6 ay boyunca ekleme mi yapacaksın?\n\nElinde 2–3 aday fon varsa getir. Kriterlerine göre sıralayıp hüküm vereyim."
+              }
+            ]
+          },
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 3,
+            "costUsd": 0.0615094,
+            "judgeCostUsd": 0.000952500000000002,
+            "durationSeconds": 24,
+            "startedAt": "2026-11-23T12:46:07.417Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-WdBsc7/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "02-steers-low-risk",
+                "passed": true,
+                "weight": 1,
+                "explanation": "judge votes: PASS PASS PASS",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  true,
+                  true,
+                  true
+                ],
+                "evidence": "**Kısa cevap:** 6 ay içinde ihtiyacın olacak bir depozito parası hisse senedi ETF'inde (VOO, QQQ gibi) durmamalı. Bu para için ETF seçmek yerine kısa vadeli ve değeri az oynayan bir araç seçmek daha doğru. Senin için tek bir ETF adı vermiyorum, çünkü aday ya da kriter getirmedin.\n\n**Neden:**\n- Hisse ETF'lerinin 6 aylık dönemde düşme ihtimali var. Bu kadar kısa sürede toparlanmaları için zaman yok.\n- Örnek hesap: Hisse ETF'i %20 düşerse 3.000 $ → 2.400 $ olur ve depozitoda 600 $ eksik kalırsın. Bu rakam varsayımdır, geçmiş veriden gelmiyor.\n- Hedef tutar sabit (3.000 $) ve tarih sabit. Böyle bir hedefte kazanç fazlasını aramak yerine tutarı korumak öncelik olmalı.\n\n**Hangi tür araçlar mantıklı:** Kısa vadeli devlet tahvili/T-bill ETF'leri, para piyasası türü araçlar ve vadeli dolar mevduatı bu iş için uygun türler. Güncel getiri, gider oranı ve vergi bilgisini araştırma yapmadığım için vermiyorum. Bu araçlardan hangisinin sana uygun olduğu da şunlara bağlı:\n\n1. **Para nerede duracak?** (öneri: Midas'taki USD bakiye + kısa vadeli ETF)\n   - Midas'ta ETF\n   - Bankada USD mevduat\n   - Başka\n2. **Kur riski:** Depozito TL mi, USD mi ödenecek? Ev sahibi TL isterse 3.000 $'ı TL'ye çevirmen gerekir. Kur makası ve TL'deki değer değişimi hesabı etkiler. (öneri: depozito para birimini önce netleştir)\n3. **Kayıp toleransı:** 3.000 $'dan en fazla ne kadar eksik kalmayı kabul edersin? (öneri: pratikte hiç)\n\n**Gözden kaçabilecekler:**\n- ETF alım-satımında kur makası ve komisyon, 6 aylık kısa sürede getiriyi yiyebilir.\n- ETF'i 6 ay içinde satıp TL'ye çevirirsen TL bazında vergilenebilir kazanç çıkabilir. USD'de zarar etsen bile bu olabilir.\n- Depozitoyu ödeyeceğin tarih kayarsa, parayı sattığın gün piyasa kötü olabilir.\n\n**Sonraki adım:** İstersen kafandaki 2–3 adayı (ETF, mevduat ya da başka) yaz. Onları gider oranı, en kötü düşüş ve TL/USD getirisi bakımından script'lerle karşılaştırıp sıralarım. Bunun için güncel veri çekmem gerekir, o yüzden senin onayını bekliyorum.\n\nBu cevap kişiselleştirilmiş değil: vault yok ve veri çekmedim."
+              }
+            ]
+          },
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 3,
+            "costUsd": 0.0624359,
+            "judgeCostUsd": 0.0005409999999999998,
+            "durationSeconds": 23,
+            "startedAt": "2026-11-23T12:46:31.742Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-8aKoSn/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "02-steers-low-risk",
+                "passed": true,
+                "weight": 1,
+                "explanation": "judge votes: PASS PASS PASS",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  true,
+                  true,
+                  true
+                ],
+                "evidence": "**Kısa cevap:** 6 ay sonra belli bir tarihte lazım olan para için hisse ETF'i uygun değil. Bu para için ETF yerine kısa vadeli ve düşük riskli bir araç (vadeli USD mevduat, kısa vadeli devlet tahvili/bono tarzı bir ürün ya da nakit) daha uygun. Özellikle bir ETF adı vermiyorum. Elimde aday ya da kriter yok, ben de sıfırdan \"şunu al\" demiyorum.\n\n**Neden:**\n- Hisse ETF'leri (VOO, QQQ gibi) uzun vadede büyür ama 6 ayda sert düşebilir. Düştüğü anda satmak zorunda kalırsan zararı kalıcı yaparsın.\n- Örnek hesap: 3.000 $'ın %20 düşmesi 600 $ eder, depozitonun 2.400 $'ı kalır. Bu sadece bir senaryo, tahmin değil.\n- Para sabit bir tarihte lazımsa asıl hedef getiri değil, tutarı korumak.\n- Bu rakam hedefin gerçek getirisi değil, örnek bir düşüş. Güncel faiz ya da getiri rakamı vermedim, çünkü araştırma yapmamı istemedin ve hafızadan rakam yazmıyorum.\n\n**Gözden kaçabilecekler:**\n- **Kur makası:** Midas'ta USD'ye girip çıkarken ve TL'ye çevirirken fark ödersin. 6 ay gibi kısa sürede bu, getirinin önemli kısmını yiyebilir.\n- **Vergi:** Yurt dışı menkul kıymet satışında kâr TL bazında hesaplanır. USD'de zarardayken bile TL'de vergilenebilir kâr çıkabilir.\n- **Depozito TL mi USD mi?** Ev sahibi TL isterse doları TL'ye çevirmen gerekir. Kur o zamanın fiyatından işler.\n- **Valör:** ETF satışında paranın hesabına geçmesi birkaç iş günü sürer. Ödeme tarihine yakın satma.\n\n**Sana 3 soru (cevabına göre netleştiririm):**\n1. **Depozito hangi para biriminde ödenecek?** (a) TL, (b) USD. Önerim: önce bunu netleştir. TL ise USD'de tutmak kur riski yaratır.\n2. **Tutar ve tarih ne kadar kesin?** (a) Kesin, (b) %10-15 oynayabilir. Önerim: kesinse hisse ETF'i hiç olmasın.\n3. **Bu 3.000 $ dışında acil durum paran var mı?** (a) Var, (b) Yok. Yoksa bu para zaten iki işi birden görmek zorunda kalır ve riski daha da azaltmak gerekir.\n\nİstersen kendi bulduğun 2-3 aracı (mevduat, para piyasası fonu, kısa vadeli ETF gibi) ver, ben de rakamlarla karşılaştırıp sıralayayım.\n\nBunu vault'a kaydedeyim mi? Vault olmadığını söylemiştin, o yüzden kaydetmiyorum."
+              }
+            ]
+          }
+        ]
+      },
+      "aggregates": {
+        "score": 1,
+        "passRate": 1
+      }
+    },
+    {
+      "name": "tr-usd-loss-tl-gain-tax",
+      "dir": "evals/finance-coach/tr-usd-loss-tl-gain-tax",
+      "source": "mixed",
+      "promptMarkdown": "Midas'ta bir ETF'i dolar bazında %5 zararla sattım, yani vergi çıkmaz değil mi? Aldığımda dolar 40 TL'ydi, sattığımda 50 TL. Vault yok, araştırma yapma.",
+      "runsPerCase": 3,
+      "timeoutSeconds": 300,
+      "maxTurns": 6,
+      "graders": [
+        {
+          "name": "01-skill-fired",
+          "type": "tool_used",
+          "weight": 1,
+          "config": {
+            "tool": "Skill",
+            "input_match": "\"skill\"\\s*:\\s*\"(?:[\\w-]+:)?finance-coach\""
+          }
+        },
+        {
+          "name": "02-tl-gain-taxable",
+          "type": "llm",
+          "weight": 1,
+          "graderMarkdown": "PASS only if the answer says the premise is wrong: for a Turkish resident the gain on foreign securities is computed in TL using the exchange rates of the purchase and sale dates, so with USD/TRY going from 40 to 50 a 5% USD loss is roughly an 18-19% TL gain that goes on the annual tax return; mentioning that Yİ-ÜFE indexation can reduce the taxable gain is a plus but not required.\nFAIL if it agrees that no tax arises because of the USD loss.",
+          "config": {
+            "criteria": "PASS only if the answer says the premise is wrong: for a Turkish resident the gain on foreign securities is computed in TL using the exchange rates of the purchase and sale dates, so with USD/TRY going from 40 to 50 a 5% USD loss is roughly an 18-19% TL gain that goes on the annual tax return; mentioning that Yİ-ÜFE indexation can reduce the taxable gain is a plus but not required.\nFAIL if it agrees that no tax arises because of the USD loss.",
+            "focus": "last_message"
+          }
+        }
+      ],
+      "arms": {
+        "with": [
+          {
+            "score": 0.5,
+            "passed": false,
+            "turns": 3,
+            "costUsd": 0.0622533,
+            "judgeCostUsd": 0,
+            "durationSeconds": 18,
+            "startedAt": "2026-11-23T12:46:55.000Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-Kb6xtp/out/trace.jsonl",
+            "skippedPaidGraders": true,
+            "graders": [
+              {
+                "name": "01-skill-fired",
+                "passed": true,
+                "weight": 1,
+                "explanation": "Skill called 1x (expected 1..∞)",
+                "withOnly": false,
+                "scored": true
+              },
+              {
+                "name": "02-tl-gain-taxable",
+                "passed": false,
+                "weight": 1,
+                "explanation": "skipped: cost ceiling",
+                "withOnly": false,
+                "scored": true
+              }
+            ]
+          }
+        ]
+      },
+      "aggregates": {
+        "score": 0.5,
+        "passRate": 0
+      }
+    }
+  ],
+  "aggregates": {
+    "casesTotal": 20,
+    "casesPassed": 16,
+    "overallScore": 0.9361111111111111,
+    "overallPassRate": 0.8666666666666666
+  }
+}
